@@ -84,6 +84,7 @@ public class Sight : MonoBehaviour
         _mesh.vertices = vertices;
         _mesh.uv = uv;
         _mesh.triangles = triangles;
+        _mesh.RecalculateBounds();
         
         // AI Detection Stuff.
         if (_aiController) _aiController.playerDetected = playerDetected;

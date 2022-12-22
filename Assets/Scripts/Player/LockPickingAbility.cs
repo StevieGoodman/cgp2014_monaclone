@@ -12,10 +12,10 @@ public class LockPickingAbility : Ability
     public float positivePickTime = 5f;
     public float neutralPickTime = 8f;
     public float negativePickTime = 10f;
-    [Space] public LayerMask detectionMask;
+    [Space]
 
     private bool _unlockingDoor;
-    [SerializeField]private Lock _lockImLookingAt;
+    private Lock _lockImLookingAt;
 
     public override void Awake()
     {
@@ -27,7 +27,7 @@ public class LockPickingAbility : Ability
     {
         base.Update();
         _lockImLookingAt = null;
-        RaycastHit2D hit = Physics2D.Raycast(GameManager.Instance.GetPlayerTransform().position, GameManager.Instance.GetPlayerTransform().position + GameManager.Instance.GetPlayerTransform().up, useRange, detectionMask);
+        RaycastHit2D hit = Physics2D.Raycast(GameManager.Instance.GetPlayerTransform().position, GameManager.Instance.GetPlayerTransform().position + GameManager.Instance.GetPlayerTransform().up, useRange);
         if (!hit.collider) return;
         if (!hit.collider.TryGetComponent<Lock>(out var l)) return;
         

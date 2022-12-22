@@ -11,11 +11,11 @@ TagManager:
   - Player
   - Water
   - UI
+  - ClearDarkness
+  - BehindDarkness
   - Environment
-  - Shadow
   - Darkness
-  - Entity
-  - Floor
+  - 
   - 
   - 
   - 
