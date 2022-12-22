@@ -1,0 +1,25 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class UnconciousBehaviour : MonoBehaviour
+{
+    private NavMeshAgent _agent;
+    
+    
+    private void Awake()
+    {
+        _agent = GetComponentInChildren<NavMeshAgent>();
+    }
+
+    public void LoseConciousness()
+    {
+        // Do some knock out animation.
+        
+        // Stop the AI where he is and disable his navMeshAgent
+        _agent.SetDestination(_agent.transform.position);
+        //_agent.enabled = false; 
+    }
+}

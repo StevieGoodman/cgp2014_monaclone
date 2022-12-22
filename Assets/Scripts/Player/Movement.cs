@@ -51,7 +51,7 @@ public class Movement : MonoBehaviour
         _mousePosition = Camera.main.ScreenToWorldPoint(_mousePosition);
         var direction = new Vector2(_mousePosition.x - _entityTransform.position.x, _mousePosition.y - _entityTransform.position.y);
         Debug.DrawLine(_entityTransform.position, _mousePosition);
-        _rb2d.MoveRotation(GetAngleFromVectorFloat(direction, 90f));
+        _rb2d.MoveRotation(GetAngleFromVectorFloat(direction, -90f));
     }
     private static float GetAngleFromVectorFloat(Vector3 dir, float offset)
     {

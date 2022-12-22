@@ -231,7 +231,9 @@ GameObject:
   - component: {fileID: 3685222798986465180}
   - component: {fileID: 3685222798986465181}
   - component: {fileID: 3685222798986465154}
+  - component: {fileID: 8105941156054824759}
   - component: {fileID: 3685222798986465155}
+  - component: {fileID: 8192851772097129381}
   m_Layer: 0
   m_Name: Guard (Standard)
   m_TagString: Untagged
@@ -270,9 +272,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aiState: 0
   playerDetected: 0
-  chaseStartTime: 5
   investigateStartTime: 5
-  movementSpeed: 5
+  chaseStartTime: 5
+  movementSpeed: 3
   angularSpeed: 360
   positionToInvestigate: {x: 0, y: 0, z: 0}
 --- !u!114 &3685222798986465181
@@ -305,6 +307,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookAroundTime: 0
+--- !u!114 &8105941156054824759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685222798986465158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a1b47c5645b850478030bddf3ff9227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3685222798986465155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,6 +337,19 @@ MonoBehaviour:
   sightBlockerMask:
     serializedVersion: 2
     m_Bits: 72
+  sightMaterial: {fileID: 0}
+--- !u!114 &8192851772097129381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685222798986465158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e39548a4344a5748a8ba4654ed18980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3685222799672176364
 GameObject:
   m_ObjectHideFlags: 0
