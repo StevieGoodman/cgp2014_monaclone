@@ -306,7 +306,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401035e44c0415a4ea28855d8a01df71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookAroundTime: 0
+  lookAroundTime: 2
+  onInvestigationStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onInvestigationEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8105941156054824759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,7 +343,7 @@ MonoBehaviour:
   sightBlockerMask:
     serializedVersion: 2
     m_Bits: 72
-  sightMaterial: {fileID: 0}
+  sightMaterial: {fileID: 2100000, guid: 5b6b44c6424935a4483c5e7d3eab9868, type: 2}
 --- !u!114 &8192851772097129381
 MonoBehaviour:
   m_ObjectHideFlags: 0

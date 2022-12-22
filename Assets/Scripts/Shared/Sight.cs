@@ -3,12 +3,22 @@ using UnityEngine;
 public class Sight : MonoBehaviour
 {
     [Header("FOV Properties")]
+    // How far around the entity it can see.
     [Range(5, 360)]public float fieldOfView;
+    
+    // The amount of raycasts used to build the sight mesh.
     [Range(10, 1000)]public int rayCount;
+    
+    // How far the entity can see.
     [Range(1, 20)]public float viewDistance;
+    
+    // What blocks the sight of this entity.
     public LayerMask sightBlockerMask;
+    
+    // What material the sight mesh is made of.
     public Material sightMaterial;
     
+    // Private Variables.
     private Mesh _mesh;
     private Renderer _renderer;
     private float _startingAngle;
@@ -18,7 +28,10 @@ public class Sight : MonoBehaviour
     
     private void Awake()
     {
+        // Get the entity body. used as an origin location for raycasts.
         _entityBody = GetComponentInChildren<Rigidbody2D>().transform;
+        
+        // find out of this entity has an AI controller.
         _aiController = GetComponent<AIController>();
         
 
@@ -31,6 +44,7 @@ public class Sight : MonoBehaviour
 
     private void Update()
     {
+        // Set the origin point and direction for the raycasts.
         SetOrigin(_entityBody.position);
         SetDirection(_entityBody.forward);
     }
@@ -50,6 +64,7 @@ public class Sight : MonoBehaviour
         
         int vertexIndex = 1;
         int triIndex = 0;
+        
         for (int i = 0; i <= rayCount; i++) 
         {
             Vector3 vertex;
@@ -89,34 +104,30 @@ public class Sight : MonoBehaviour
         // AI Detection Stuff.
         if (_aiController) _aiController.playerDetected = playerDetected;
     }
-    
-    private void SetOrigin(Vector3 ori) // Set the origin point for when we perform raycasts for the FOV mesh
+    // Set the origin point for when we perform raycasts for the FOV mesh
+    private void SetOrigin(Vector3 ori)
     {
         _origin = ori;
     }
-    
-    private void SetDirection(Vector3 aimDirection) // Set the direction of the raycasts for the FOV mesh
+    // Set the direction of the raycasts for the FOV mesh
+    private void SetDirection(Vector3 aimDirection)
     {
         _startingAngle = GetAngleFromVectorFloat(aimDirection, fieldOfView) - fieldOfView / 2f;
     }
-
-    private static Vector3 GetVectorFromAngle(float angle)
+    private Vector3 GetVectorFromAngle(float angle)
     {
         var angleRad = angle * (Mathf.PI / 180f);
         return new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad));
     }
-
-    private static float GetAngleFromVectorFloat(Vector3 dir, float fov)
+    private float GetAngleFromVectorFloat(Vector3 dir, float fov)
     {
         dir = dir.normalized;
         var n = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         if (n < 0) n += 360;
         return (n + fov);
     }
-
     public void SetFieldOfViewColour(Color colour)
     {
-        var col = new Color(colour.r, colour.g, colour.b, .3f);
-        _renderer.material.SetColor("_BaseColor", col);
+        _renderer.material.SetColor("_BaseColor", new Color(colour.r, colour.g, colour.b, .3f));
     }
 }

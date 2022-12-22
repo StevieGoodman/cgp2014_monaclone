@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
+    // How fast can the player move?
     public float movementSpeed;
-
     
     // PRIVATE VARIABLES
     private PlayerInput _playerInput;

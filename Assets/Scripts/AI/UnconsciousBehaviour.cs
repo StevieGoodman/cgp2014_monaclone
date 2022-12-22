@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class UnconciousBehaviour : MonoBehaviour
+public class UnconsciousBehaviour : MonoBehaviour
 {
     private NavMeshAgent _agent;
     

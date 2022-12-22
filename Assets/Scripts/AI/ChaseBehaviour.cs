@@ -7,7 +7,6 @@ using UnityEngine.PlayerLoop;
 
 public class ChaseBehaviour : MonoBehaviour
 {
-
     private NavMeshAgent _agent;
 
     private void Awake()
