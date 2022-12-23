@@ -20,6 +20,11 @@ public class UnconsciousBehaviour : MonoBehaviour
         
         // Stop the AI where he is and disable his navMeshAgent
         _agent.SetDestination(_agent.transform.position);
-        //_agent.enabled = false; 
+        
+        // Disable all colliders for this Guard.
+        foreach (var col in GetComponentsInChildren<Collider2D>())
+        {
+            col.isTrigger = true;
+        }
     }
 }
