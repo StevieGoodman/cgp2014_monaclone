@@ -66,8 +66,8 @@ public class PatrolBehaviour : MonoBehaviour
         _lookingAround = true;
         yield return new WaitForSeconds(waitTime);
         _lookingAround = false;
-        if (_aiController.aiState == AIController.AIState.Patrolling)
-            StartPatrolling();
+        
+        StartPatrolling();
     }
     // Sets a new destination for the AI to go to.
     private void UpdatePatrolPath()
