@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Sight : MonoBehaviour
 {
@@ -18,22 +21,20 @@ public class Sight : MonoBehaviour
     // What material the sight mesh is made of.
     public Material sightMaterial;
     
+    // Event that tells other components if this sight component saw something thats tagged.
+    public UnityEvent<string> seenTag;
+
     // Private Variables.
     private Mesh _mesh;
     private Renderer _renderer;
     private float _startingAngle;
     private Transform _entityBody;
     private Vector3 _origin;
-    private AIController _aiController;
-    
+
     private void Awake()
     {
         // Get the entity body. used as an origin location for raycasts.
         _entityBody = GetComponentInChildren<Rigidbody2D>().transform;
-        
-        // find out of this entity has an AI controller.
-        _aiController = GetComponent<AIController>();
-        
 
         // Add Mesh Components and configure them.
         _renderer = gameObject.AddComponent<MeshRenderer>();
@@ -50,8 +51,8 @@ public class Sight : MonoBehaviour
     }
 
     private void LateUpdate()
-    {   
-        bool playerDetected = false; // AI detection stuff
+    {
+        List<string> tags = new List<string>();
         
         float angle = _startingAngle;
         float angleIncrement = fieldOfView / rayCount;
@@ -78,6 +79,17 @@ public class Sight : MonoBehaviour
             else
             {   // We hit something! Set it as the point for this vertex.
                 vertex = rcHit2D.point;
+                
+                if (!rcHit2D.collider.CompareTag("Untagged"))
+                {
+                    if(tags.Count == 0)
+                        tags.Add(rcHit2D.collider.tag);
+                    // If we saw an object with a tag of interest. 
+                    foreach (var item in tags.Where(item => !tags.Contains(rcHit2D.collider.tag)))
+                    {
+                        tags.Add(item);
+                    }
+                }
             }
             vertices[vertexIndex] = vertex;
             if (i > 0)
@@ -87,11 +99,6 @@ public class Sight : MonoBehaviour
                 triangles[triIndex + 2] = vertexIndex;
                 triIndex += 3;
             }
-            // AI PLAYER DETECTION STUFF //
-            if (_aiController && rcHit2D.collider)
-                if (rcHit2D.collider.CompareTag("Player"))
-                    playerDetected = true;
-            // AI PLAYER DETECTION STUFF //
             
             vertexIndex++;
             angle -= angleIncrement;
@@ -100,9 +107,11 @@ public class Sight : MonoBehaviour
         _mesh.uv = uv;
         _mesh.triangles = triangles;
         _mesh.RecalculateBounds();
-        
-        // AI Detection Stuff.
-        if (_aiController) _aiController.playerDetected = playerDetected;
+
+        foreach (var item in tags)
+        {
+            seenTag?.Invoke(item);
+        }
     }
     // Set the origin point for when we perform raycasts for the FOV mesh
     private void SetOrigin(Vector3 ori)

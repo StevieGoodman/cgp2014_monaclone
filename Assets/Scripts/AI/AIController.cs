@@ -95,12 +95,19 @@ public class AIController : MonoBehaviour
         _chaseBehaviour = GetComponent<ChaseBehaviour>();
         _unconsciousBehaviour = GetComponent<UnconsciousBehaviour>();
         _sight = GetComponent<Sight>();
+        _sight.seenTag.AddListener(PlayerDetected);
         _detectionMeter = chaseStartTime; //Set our internal timer to the max, which is the chase start time. Once this ticks down. the AI will chase the player.
     }
     private void Start()
     {
         UpdateAIState(AIState.Patrolling);
     }
+
+    private void Update()
+    {
+        playerDetected = false;
+    }
+
     private void FixedUpdate()
     {
         UpdateFieldOfViewColour();
@@ -153,6 +160,15 @@ public class AIController : MonoBehaviour
             _sight.SetFieldOfViewColour(Color.red);
         if(aiState == AIState.Unconscious)
             _sight.SetFieldOfViewColour(Color.gray);
+    }
+
+    private void PlayerDetected(string tag)
+    {
+        Debug.Log("Tag seen: " + tag);
+        if (tag == "Player")
+        {
+            playerDetected = true;
+        }
     }
     // Check for player presence and if so. Tick our countdown down.
     private void DetectionLogic()
