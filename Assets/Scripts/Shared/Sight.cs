@@ -52,7 +52,7 @@ public class Sight : MonoBehaviour
     private void LateUpdate()
     {   
         bool playerDetected = false; // AI detection stuff
-        
+        Vector3 playerPos = transform.position;
         float angle = _startingAngle;
         float angleIncrement = fieldOfView / rayCount;
         
@@ -60,7 +60,7 @@ public class Sight : MonoBehaviour
         Vector2[] uv = new Vector2[vertices.Length];
         int[] triangles = new int[rayCount * 3];
 
-        vertices[0] = _origin;
+        vertices[0] = _origin - playerPos;
         
         int vertexIndex = 1;
         int triIndex = 0;
@@ -73,11 +73,11 @@ public class Sight : MonoBehaviour
             if (!rcHit2D.collider) // If the raycast didnt hit anything:
             {
                 // set this vertex to be as far as our view distance is.
-                vertex = _origin + GetVectorFromAngle(angle) * viewDistance;
+                vertex = _origin - playerPos + GetVectorFromAngle(angle) * viewDistance;
             }
             else
             {   // We hit something! Set it as the point for this vertex.
-                vertex = rcHit2D.point;
+                vertex = rcHit2D.point - (Vector2)playerPos;
             }
             vertices[vertexIndex] = vertex;
             if (i > 0)
