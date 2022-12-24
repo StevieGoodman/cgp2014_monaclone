@@ -88,8 +88,7 @@ public class AIController : MonoBehaviour
 
     private void Awake()
     {
-        // Assign our required systems.
-        AssignAgentValues();
+        _agent = GetComponentInChildren<NavMeshAgent>();
         _patrolBehaviour = GetComponent<PatrolBehaviour>();
         _investigateBehaviour = GetComponent<InvestigateBehaviour>();
         _chaseBehaviour = GetComponent<ChaseBehaviour>();
@@ -114,11 +113,14 @@ public class AIController : MonoBehaviour
         
         DetectionLogic();
     }
-    private void AssignAgentValues()
+
+    private void AssignAgentValues(float move, float angular)
     {
-        _agent = GetComponentInChildren<NavMeshAgent>();
-        _agent.speed = movementSpeed;
-        _agent.angularSpeed = angularSpeed;
+        if (!_agent) return;
+        
+        _agent.speed = move;
+        _agent.angularSpeed = angular;
+
     }
     public void UpdateAIState(AIState stateToUpdateTo)
     {
@@ -129,14 +131,17 @@ public class AIController : MonoBehaviour
         {
             case AIState.Patrolling:
                 StopAICoroutines();
+                AssignAgentValues(movementSpeed, angularSpeed);
                 _patrolBehaviour.StartPatrolling();
                 break;
             case AIState.Investigating:
                 StopAICoroutines();
+                AssignAgentValues(movementSpeed, angularSpeed);
                 _investigateBehaviour.GoInvestigatePosition(positionToInvestigate);
                 break;
             case AIState.Chasing:
                 StopAICoroutines();
+                AssignAgentValues(movementSpeed, angularSpeed * 3);
                 _chaseBehaviour.StartChasing();
                 break;
             case AIState.Unconscious:
@@ -201,8 +206,8 @@ public class AIController : MonoBehaviour
     }
     private void StopAICoroutines()
     {
-        _patrolBehaviour.StopAllCoroutines();
-        _investigateBehaviour.StopAllCoroutines();
-        _chaseBehaviour.StopAllCoroutines();
+        _patrolBehaviour.StopBehaviour();
+        _investigateBehaviour.StopBehaviour();
+        _chaseBehaviour.StopBehaviour();
     }
 }

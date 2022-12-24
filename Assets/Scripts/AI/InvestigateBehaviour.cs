@@ -53,7 +53,11 @@ public class InvestigateBehaviour : MonoBehaviour
         yield return new WaitForSeconds(.2f);
         UpdateAgentPosition(posToInvestigate);
         
-        yield return new WaitForSeconds(0.1f); // Fixes an issue where the wait until condition was immediately satisfied.
+        // Fixes an issue where the wait until condition was immediately satisfied.
+        yield return new WaitForSeconds(0.1f);
+        
+        // Forcefully ends the investigation if the condition isn't met in 10 seconds.
+        StartCoroutine(ForcefullyFailInvestigation());
         
         yield return new WaitUntil(() => _agent.remainingDistance < 0.1f);
         
@@ -66,18 +70,26 @@ public class InvestigateBehaviour : MonoBehaviour
         _lookAround = false;
         
         if(_aiController)
-            ReturnToPatrolState();
+            _aiController.UpdateAIState(AIController.AIState.Patrolling);
         
         onInvestigationEnd?.Invoke();
         StopAllCoroutines(); 
-    }
-    private void ReturnToPatrolState()
-    {
-        _aiController.UpdateAIState(AIController.AIState.Patrolling);
     }
     private void UpdateAgentPosition(Vector3 pos) // Just checks for the NavMeshAgent component before setting a position to prevent errors.
     {
         if (_agent)
             _agent.SetDestination(pos);
+    }
+
+    private IEnumerator ForcefullyFailInvestigation()
+    {
+        yield return new WaitForSeconds(10);
+        if(_aiController)
+            _aiController.UpdateAIState(AIController.AIState.Patrolling);
+    }
+    public void StopBehaviour()
+    {
+        _lookAround = false;
+        StopAllCoroutines();
     }
 }

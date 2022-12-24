@@ -18,9 +18,6 @@ public class PatrolBehaviour : MonoBehaviour
     [Header("Editor")]
     // The colour of the path the AI will take. Just visualisation stuff
     public Color pathColour;
-
-    // The controller that switches between each AI state.
-    private AIController _aiController;
     
     // The agent component moves our entity through their patrol path.
     private NavMeshAgent _agent;
@@ -37,7 +34,6 @@ public class PatrolBehaviour : MonoBehaviour
     private void Awake()
     {
         // Get required Components.
-        _aiController = GetComponent<AIController>();
         _agent = GetComponentInChildren<NavMeshAgent>();
 
     }
@@ -73,6 +69,12 @@ public class PatrolBehaviour : MonoBehaviour
     private void UpdatePatrolPath()
     {
         _agent.SetDestination(pathToFollow[_currentNode].position);
+    }
+
+    public void StopBehaviour()
+    {
+        _lookingAround = false;
+        StopAllCoroutines();
     }
     private void OnDrawGizmos()
     {

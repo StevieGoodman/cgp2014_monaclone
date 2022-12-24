@@ -384,7 +384,7 @@ MonoBehaviour:
   viewDistance: 8
   sightBlockerMask:
     serializedVersion: 2
-    m_Bits: 264
+    m_Bits: 392
   sightMaterial: {fileID: 2100000, guid: 5b6b44c6424935a4483c5e7d3eab9868, type: 2}
   seenTag:
     m_PersistentCalls:

@@ -44364,6 +44364,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 3685222798358429578, guid: f3604153e230b194f900f0df7bf62248, type: 3}
+      propertyPath: m_Speed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3685222798358429578, guid: f3604153e230b194f900f0df7bf62248, type: 3}
+      propertyPath: m_Acceleration
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3685222798358429578, guid: f3604153e230b194f900f0df7bf62248, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3685222798358429582, guid: f3604153e230b194f900f0df7bf62248, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.84
@@ -44399,6 +44411,10 @@ PrefabInstance:
     - target: {fileID: 3685222798986465180, guid: f3604153e230b194f900f0df7bf62248, type: 3}
       propertyPath: alertRadius
       value: 999
+      objectReference: {fileID: 0}
+    - target: {fileID: 3685222798986465180, guid: f3604153e230b194f900f0df7bf62248, type: 3}
+      propertyPath: angularSpeed
+      value: 720
       objectReference: {fileID: 0}
     - target: {fileID: 3685222798986465180, guid: f3604153e230b194f900f0df7bf62248, type: 3}
       propertyPath: chaseStartTime
@@ -44536,6 +44552,14 @@ PrefabInstance:
     - target: {fileID: 8365460306442790167, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8365460307373077860, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8365460307373077862, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
