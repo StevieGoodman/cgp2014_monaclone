@@ -103,6 +103,10 @@ MonoBehaviour:
   positivePickTime: 5
   neutralPickTime: 8
   negativePickTime: 10
+  _lockImLookingAt: {fileID: 0}
+  environmentMask:
+    serializedVersion: 2
+    m_Bits: 3
 --- !u!114 &8365460306442790161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +114,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8365460306442790167}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d714514e258940246a127df95828bccb, type: 3}
   m_Name: 

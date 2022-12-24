@@ -101,4 +101,12 @@ public class Ability : MonoBehaviour
     {
         // Ability code goes here.
     }
+
+    public void AlterReputationValue(int value)
+    {
+        reputation += value;
+        
+        //TODO: Game over man, GAME OVER!
+        //if(reputation <= 0)
+    }
 }

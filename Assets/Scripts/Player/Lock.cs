@@ -5,9 +5,14 @@ using UnityEngine.Events;
 
 public class Lock : MonoBehaviour
 { 
-    public bool locked; // Used to prevent any code from the unlock being called twice if already unlocked.
+    // Used to prevent any code from the unlock being called twice if already unlocked.
+    public bool locked = true;
+
+    // How long does it take to unlock this safe?
+    public float unlockTime;
     
-    public UnityEvent whenUnlocked; // Event that people can use in the inspector to attach extra functions and code.
+    // Event that people can use in the inspector to attach extra functions and code.
+    public UnityEvent whenUnlocked;
     
     public void Unlock() // This function calls anything attached to the unlock event.
     {
