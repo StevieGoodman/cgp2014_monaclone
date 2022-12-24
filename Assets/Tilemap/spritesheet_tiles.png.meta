@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -11250,16 +11250,16 @@ TextureImporter:
       spritesheet_tiles_104: 1382981136
       spritesheet_tiles_51: 1707746590
       spritesheet_tiles_453: -534203033
+      spritesheet_tiles_317: 440131297
       spritesheet_tiles_5: -1313718077
       spritesheet_tiles_263: 1031061165
       spritesheet_tiles_167: -1104328615
-      spritesheet_tiles_317: 440131297
       spritesheet_tiles_355: 173906673
       spritesheet_tiles_271: -2761714
       spritesheet_tiles_31: -637952058
-      spritesheet_tiles_388: 1448767753
-      spritesheet_tiles_451: -1632753185
       spritesheet_tiles_465: -944565487
+      spritesheet_tiles_451: -1632753185
+      spritesheet_tiles_388: 1448767753
       spritesheet_tiles_223: 712229582
       spritesheet_tiles_236: -1738282044
       spritesheet_tiles_440: -1986320637
@@ -11268,15 +11268,15 @@ TextureImporter:
       spritesheet_tiles_201: 1445309504
       spritesheet_tiles_107: -1507811717
       spritesheet_tiles_120: -1172262290
-      spritesheet_tiles_138: -1956511911
       spritesheet_tiles_242: 1240682417
+      spritesheet_tiles_138: -1956511911
       spritesheet_tiles_299: -647522164
       spritesheet_tiles_319: 1034752937
       spritesheet_tiles_386: -1037850010
       spritesheet_tiles_393: -647891748
       spritesheet_tiles_38: -984462134
-      spritesheet_tiles_353: -1902201228
       spritesheet_tiles_378: -39451091
+      spritesheet_tiles_353: -1902201228
       spritesheet_tiles_252: 1439814056
       spritesheet_tiles_405: -711760162
       spritesheet_tiles_403: -1127494087
@@ -11392,18 +11392,18 @@ TextureImporter:
       spritesheet_tiles_198: 484875724
       spritesheet_tiles_506: 1715556360
       spritesheet_tiles_308: 1036065908
-      spritesheet_tiles_437: 690162393
-      spritesheet_tiles_518: -1832328953
       spritesheet_tiles_454: -935064063
+      spritesheet_tiles_518: -1832328953
+      spritesheet_tiles_437: 690162393
       spritesheet_tiles_169: -1108756799
       spritesheet_tiles_61: 867860892
       spritesheet_tiles_103: 1873130371
       spritesheet_tiles_22: 1083289205
       spritesheet_tiles_113: -1113252053
-      spritesheet_tiles_430: 684051365
+      spritesheet_tiles_474: 1547129522
       spritesheet_tiles_25: -65060216
       spritesheet_tiles_50: -417345484
-      spritesheet_tiles_474: 1547129522
+      spritesheet_tiles_430: 684051365
       spritesheet_tiles_175: -1917983896
       spritesheet_tiles_118: 1696501389
       spritesheet_tiles_394: 361815376
@@ -11411,9 +11411,9 @@ TextureImporter:
       spritesheet_tiles_47: 1012504366
       spritesheet_tiles_247: 1777884635
       spritesheet_tiles_359: -199749918
-      spritesheet_tiles_157: -79969367
       spritesheet_tiles_519: -2107075737
       spritesheet_tiles_514: -1095250177
+      spritesheet_tiles_157: -79969367
       spritesheet_tiles_93: 494242238
       spritesheet_tiles_108: -113139729
       spritesheet_tiles_178: 919618608
@@ -11432,8 +11432,8 @@ TextureImporter:
       spritesheet_tiles_466: -1530177902
       spritesheet_tiles_231: 2086492428
       spritesheet_tiles_42: -162040491
-      spritesheet_tiles_112: -121648123
       spritesheet_tiles_285: 1322331803
+      spritesheet_tiles_112: -121648123
       spritesheet_tiles_105: -2121807452
       spritesheet_tiles_134: 137994693
       spritesheet_tiles_158: 87540119
@@ -11465,13 +11465,13 @@ TextureImporter:
       spritesheet_tiles_133: 258004407
       spritesheet_tiles_59: -886347534
       spritesheet_tiles_232: -1394141133
-      spritesheet_tiles_225: 73445748
-      spritesheet_tiles_288: 1756873558
       spritesheet_tiles_408: 2064331338
-      spritesheet_tiles_475: 1667869020
+      spritesheet_tiles_288: 1756873558
+      spritesheet_tiles_225: 73445748
       spritesheet_tiles_130: -694164265
       spritesheet_tiles_166: 701801110
       spritesheet_tiles_476: 1856032912
+      spritesheet_tiles_475: 1667869020
       spritesheet_tiles_99: -1776690430
       spritesheet_tiles_447: 1431459171
       spritesheet_tiles_435: -958880622
