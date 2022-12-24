@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 501617701859972195}
   - component: {fileID: 2269928493114615290}
   - component: {fileID: 1433129885925434319}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3685222798220446137}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Node_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,14 +134,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3685222798220446142}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3685222799744363995}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3685222798358429583
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 3685222798358429582}
   - component: {fileID: 3685222798358429579}
   - component: {fileID: 3685222798358429578}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: EntityBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,8 +231,10 @@ GameObject:
   - component: {fileID: 3685222798986465180}
   - component: {fileID: 3685222798986465181}
   - component: {fileID: 3685222798986465154}
+  - component: {fileID: 8105941156054824759}
   - component: {fileID: 3685222798986465155}
-  m_Layer: 0
+  - component: {fileID: 8192851772097129381}
+  m_Layer: 7
   m_Name: Guard (Standard)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,9 +272,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aiState: 0
   playerDetected: 0
-  chaseStartTime: 5
   investigateStartTime: 5
-  movementSpeed: 5
+  chaseStartTime: 5
+  movementSpeed: 3
   angularSpeed: 360
   positionToInvestigate: {x: 0, y: 0, z: 0}
 --- !u!114 &3685222798986465181
@@ -304,7 +306,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401035e44c0415a4ea28855d8a01df71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookAroundTime: 0
+  lookAroundTime: 2
+  onInvestigationStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onInvestigationEnd:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &8105941156054824759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685222798986465158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a1b47c5645b850478030bddf3ff9227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3685222798986465155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +342,20 @@ MonoBehaviour:
   viewDistance: 8
   sightBlockerMask:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 264
+  sightMaterial: {fileID: 2100000, guid: 5b6b44c6424935a4483c5e7d3eab9868, type: 2}
+--- !u!114 &8192851772097129381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685222798986465158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e39548a4344a5748a8ba4654ed18980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3685222799672176364
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,7 +365,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3685222799672176367}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Node_00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,14 +379,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3685222799672176364}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3685222799744363995}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!1 &3685222799744363992
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,7 +396,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3685222799744363995}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GuardPath
   m_TagString: Untagged
   m_Icon: {fileID: 0}

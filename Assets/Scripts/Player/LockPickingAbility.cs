@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class LockPickingAbility : Ability
@@ -13,7 +14,6 @@ public class LockPickingAbility : Ability
     public float neutralPickTime = 8f;
     public float negativePickTime = 10f;
     [Space]
-
     private bool _unlockingDoor;
     private Lock _lockImLookingAt;
 
