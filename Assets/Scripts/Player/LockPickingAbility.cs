@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class LockPickingAbility : Ability
 {
@@ -15,7 +16,8 @@ public class LockPickingAbility : Ability
     public float negativePickTime = 10f;
     [Space]
     private bool _unlockingDoor;
-    private Lock _lockImLookingAt;
+    [SerializeField]private Lock _lockImLookingAt;
+    [SerializeField]private LayerMask environmentMask;
 
     public override void Awake()
     {
@@ -27,8 +29,10 @@ public class LockPickingAbility : Ability
     {
         base.Update();
         _lockImLookingAt = null;
-        RaycastHit2D hit = Physics2D.Raycast(GameManager.Instance.GetPlayerTransform().position, GameManager.Instance.GetPlayerTransform().position + GameManager.Instance.GetPlayerTransform().up, useRange);
+        RaycastHit2D hit = Physics2D.Raycast(GameManager.Instance.GetPlayerTransform().position, -GameManager.Instance.GetPlayerTransform().up, useRange, environmentMask);
+        Debug.DrawRay(GameManager.Instance.GetPlayerTransform().position, -GameManager.Instance.GetPlayerTransform().up);
         if (!hit.collider) return;
+        Debug.Log("Hit something.");
         if (!hit.collider.TryGetComponent<Lock>(out var l)) return;
         
         if (l.locked)
