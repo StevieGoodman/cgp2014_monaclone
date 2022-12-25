@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
@@ -14,7 +15,6 @@ public class LockPickingAbility : Ability
     public float neutralPickTime = 8f;
     public float negativePickTime = 10f;
     [Space]
-
     private bool _unlockingDoor;
     [SerializeField]private Lock _lockImLookingAt;
     [SerializeField]private LayerMask environmentMask;
