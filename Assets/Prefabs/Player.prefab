@@ -103,6 +103,10 @@ MonoBehaviour:
   positivePickTime: 5
   neutralPickTime: 8
   negativePickTime: 10
+  _lockImLookingAt: {fileID: 0}
+  environmentMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &8365460306442790161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,7 +377,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5c048ebf2724049e6a21ade7cf3dec87, type: 3}
   m_Color: {r: 1, g: 0.8187932, b: 0, a: 1}
   m_FlipX: 0
