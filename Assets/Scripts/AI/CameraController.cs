@@ -127,8 +127,9 @@ public class CameraController : MonoBehaviour
             var aiController = guard.collider.GetComponentInParent<AIController>();
             if (!aiController) continue;
             
-            aiController.positionToInvestigate = GameManager.Instance.GetPlayerPosition();
-            aiController.UpdateAIState(AIController.AIState.Investigating);
+            //aiController.positionToInvestigate = GameManager.Instance.GetPlayerPosition();
+            //aiController.UpdateAIState(AIController.AIState.Investigating);
+            aiController.UpdateAIState(AIController.AIState.Chasing);
             Debug.Log("Guard Alerted.");
         }
     }

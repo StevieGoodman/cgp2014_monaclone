@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(PatrolBehaviour))] [RequireComponent(typeof(InvestigateBehaviour))] [RequireComponent(typeof(ChaseBehaviour))] [RequireComponent(typeof(UnconsciousBehaviour))]
 [RequireComponent(typeof(Sight))] 
@@ -53,11 +54,11 @@ public class AIController : MonoBehaviour
     public float investigateStartTime;
     
     //How long does the player have to be within this AI's view to make them chase.
-    public float chaseStartTime; 
-    
+    public float chaseStartTime;
+
     // This time ticks up and down depending on player detection.
-    private float _detectionMeter;
-    
+    public float detectionMeter;
+
 
     [Header("AI Settings")] 
     // How fast can the AI move?
@@ -95,7 +96,7 @@ public class AIController : MonoBehaviour
         _unconsciousBehaviour = GetComponent<UnconsciousBehaviour>();
         _sight = GetComponent<Sight>();
         _sight.seenTag.AddListener(PlayerDetected);
-        _detectionMeter = chaseStartTime; //Set our internal timer to the max, which is the chase start time. Once this ticks down. the AI will chase the player.
+        detectionMeter = chaseStartTime; //Set our internal timer to the max, which is the chase start time. Once this ticks down. the AI will chase the player.
     }
     private void Start()
     {
@@ -142,6 +143,7 @@ public class AIController : MonoBehaviour
             case AIState.Chasing:
                 StopAICoroutines();
                 AssignAgentValues(movementSpeed, angularSpeed * 3);
+                detectionMeter = -5; // Sets the timer to a negative value to make it harder for the AI to chase for longer.
                 _chaseBehaviour.StartChasing();
                 break;
             case AIState.Unconscious:
@@ -182,24 +184,24 @@ public class AIController : MonoBehaviour
         // If we detect the player, tick down the detection timer.
         if (playerDetected) 
         {
-            _detectionMeter -= Time.fixedDeltaTime;
+            detectionMeter -= Time.fixedDeltaTime;
         }
         // If we dont find them. bring it back up.
         else
         {
-            _detectionMeter += Time.fixedDeltaTime;
+            detectionMeter += Time.fixedDeltaTime;
             
-            if (_detectionMeter > chaseStartTime)
-                _detectionMeter = chaseStartTime;
+            if (detectionMeter > chaseStartTime)
+                detectionMeter = chaseStartTime;
         }
         // If the player was in the AI's Field of view for long enough. The AI will decide to investigate whatever is going on.
-        if (chaseStartTime - investigateStartTime > _detectionMeter && _detectionMeter > 0 && aiState != AIState.Investigating)
+        if (chaseStartTime - investigateStartTime > detectionMeter && detectionMeter > 0.1 && aiState != AIState.Investigating)
         {
             positionToInvestigate = GameManager.Instance.GetPlayerPosition();
             UpdateAIState(AIState.Investigating);
         }
         // The player has been found! Chase State Should alert people around them and have them chase too!
-        if (_detectionMeter <= 0 && aiState != AIState.Chasing)
+        if (detectionMeter <= 0 && aiState != AIState.Chasing)
         {
             UpdateAIState(AIState.Chasing);
         }
