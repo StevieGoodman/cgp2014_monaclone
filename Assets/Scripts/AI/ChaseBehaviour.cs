@@ -26,4 +26,9 @@ public class ChaseBehaviour : MonoBehaviour
         yield return new WaitForSeconds(Time.fixedDeltaTime);
         StartChasing();
     }
+
+    public void StopBehaviour()
+    {
+        StopAllCoroutines();
+    }
 }

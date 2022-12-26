@@ -1,6 +1,11 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(PatrolBehaviour))] [RequireComponent(typeof(InvestigateBehaviour))] [RequireComponent(typeof(ChaseBehaviour))] [RequireComponent(typeof(UnconsciousBehaviour))]
 [RequireComponent(typeof(Sight))] 
@@ -50,11 +55,17 @@ public class AIController : MonoBehaviour
     public float investigateStartTime;
     
     //How long does the player have to be within this AI's view to make them chase.
-    public float chaseStartTime; 
-    
+    public float chaseStartTime;
+
+    // The radius at which guards can alert eachother.
+    public float alertRadius;
+
     // This time ticks up and down depending on player detection.
-    private float _detectionMeter;
-    
+    public float detectionMeter;
+
+    // The layer that guards are on. Should be BehindDarkness.
+    public LayerMask guardLayer;
+
 
     [Header("AI Settings")] 
     // How fast can the AI move?
@@ -74,6 +85,8 @@ public class AIController : MonoBehaviour
     private UnconsciousBehaviour _unconsciousBehaviour;
     private Sight _sight;
     private NavMeshAgent _agent;
+    private Transform _entityBody;
+    private bool _canSendAlerts;
     
     public enum AIState
     {
@@ -85,30 +98,40 @@ public class AIController : MonoBehaviour
 
     private void Awake()
     {
-        // Assign our required systems.
-        AssignAgentValues();
+        _agent = GetComponentInChildren<NavMeshAgent>();
+        _entityBody = _agent.transform;
         _patrolBehaviour = GetComponent<PatrolBehaviour>();
         _investigateBehaviour = GetComponent<InvestigateBehaviour>();
         _chaseBehaviour = GetComponent<ChaseBehaviour>();
         _unconsciousBehaviour = GetComponent<UnconsciousBehaviour>();
         _sight = GetComponent<Sight>();
-        _detectionMeter = chaseStartTime; //Set our internal timer to the max, which is the chase start time. Once this ticks down. the AI will chase the player.
+        _sight.seenTag.AddListener(PlayerDetected);
+        detectionMeter = chaseStartTime; //Set our internal timer to the max, which is the chase start time. Once this ticks down. the AI will chase the player.
     }
     private void Start()
     {
         UpdateAIState(AIState.Patrolling);
     }
+
+    private void Update()
+    {
+        playerDetected = false;
+    }
+
     private void FixedUpdate()
     {
         UpdateFieldOfViewColour();
         
         DetectionLogic();
     }
-    private void AssignAgentValues()
+
+    private void AssignAgentValues(float move, float angular)
     {
-        _agent = GetComponentInChildren<NavMeshAgent>();
-        _agent.speed = movementSpeed;
-        _agent.angularSpeed = angularSpeed;
+        if (!_agent) return;
+        
+        _agent.speed = move;
+        _agent.angularSpeed = angular;
+
     }
     public void UpdateAIState(AIState stateToUpdateTo)
     {
@@ -119,14 +142,18 @@ public class AIController : MonoBehaviour
         {
             case AIState.Patrolling:
                 StopAICoroutines();
+                AssignAgentValues(movementSpeed, angularSpeed);
                 _patrolBehaviour.StartPatrolling();
                 break;
             case AIState.Investigating:
                 StopAICoroutines();
+                AssignAgentValues(movementSpeed, angularSpeed);
                 _investigateBehaviour.GoInvestigatePosition(positionToInvestigate);
                 break;
             case AIState.Chasing:
                 StopAICoroutines();
+                AssignAgentValues(movementSpeed, angularSpeed * 3);
+                detectionMeter = -5; // Sets the timer to a negative value to make it harder for the AI to chase for longer.
                 _chaseBehaviour.StartChasing();
                 break;
             case AIState.Unconscious:
@@ -151,6 +178,15 @@ public class AIController : MonoBehaviour
         if(aiState == AIState.Unconscious)
             _sight.SetFieldOfViewColour(Color.gray);
     }
+
+    private void PlayerDetected(string tag)
+    {
+        Debug.Log("Tag seen: " + tag);
+        if (tag == "Player")
+        {
+            playerDetected = true;
+        }
+    }
     // Check for player presence and if so. Tick our countdown down.
     private void DetectionLogic()
     {
@@ -158,32 +194,67 @@ public class AIController : MonoBehaviour
         // If we detect the player, tick down the detection timer.
         if (playerDetected) 
         {
-            _detectionMeter -= Time.fixedDeltaTime;
+            detectionMeter -= Time.fixedDeltaTime;
         }
         // If we dont find them. bring it back up.
         else
         {
-            _detectionMeter += Time.fixedDeltaTime;
-            
-            if (_detectionMeter > chaseStartTime)
-                _detectionMeter = chaseStartTime;
+            detectionMeter += Time.fixedDeltaTime;
+
+            if (detectionMeter > chaseStartTime)
+            {
+                detectionMeter = chaseStartTime;
+            }
         }
         // If the player was in the AI's Field of view for long enough. The AI will decide to investigate whatever is going on.
-        if (chaseStartTime - investigateStartTime > _detectionMeter && _detectionMeter > 0 && aiState != AIState.Investigating)
+        if (chaseStartTime - investigateStartTime > detectionMeter && detectionMeter > 0.1 && aiState != AIState.Investigating)
         {
+            _canSendAlerts = true;
             positionToInvestigate = GameManager.Instance.GetPlayerPosition();
             UpdateAIState(AIState.Investigating);
         }
         // The player has been found! Chase State Should alert people around them and have them chase too!
-        if (_detectionMeter <= 0 && aiState != AIState.Chasing)
+        if (detectionMeter <= 0 && aiState != AIState.Chasing)
         {
+            if(_canSendAlerts)
+                AlertNearbyGuards();
+            
             UpdateAIState(AIState.Chasing);
+            _canSendAlerts = false;
+        }
+    }
+    
+    private void AlertNearbyGuards()
+    {
+        _canSendAlerts = false;
+        Debug.Log("Attempting to alert guards.");
+        RaycastHit2D[] guards = Physics2D.CircleCastAll(_entityBody.position, alertRadius, Vector2.up, alertRadius, guardLayer);
+        foreach (var guard in guards)
+        {
+
+            // Have each guard investigate where the player was upon this function being called.
+            var aiController = guard.collider.GetComponentInParent<AIController>();
+            if (!aiController) continue;
+            
+            //aiController.positionToInvestigate = GameManager.Instance.GetPlayerPosition();
+            //aiController.UpdateAIState(AIController.AIState.Investigating);
+            aiController.UpdateAIState(AIController.AIState.Chasing);
+            Debug.Log("Guard Alerted.");
         }
     }
     private void StopAICoroutines()
     {
-        _patrolBehaviour.StopAllCoroutines();
-        _investigateBehaviour.StopAllCoroutines();
-        _chaseBehaviour.StopAllCoroutines();
+        _patrolBehaviour.StopBehaviour();
+        _investigateBehaviour.StopBehaviour();
+        _chaseBehaviour.StopBehaviour();
     }
+
+    #if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        // Shows guards alert radius.
+        Handles.color = Color.red;
+        Handles.DrawWireDisc(transform.position, Vector3.forward, alertRadius);
+    }
+    #endif
 }
