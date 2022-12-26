@@ -89,9 +89,9 @@ MonoBehaviour:
   useRange: 1
   negativeAbility: {fileID: 0}
   charges: 0
-  positiveCharges: -3
-  neutralCharges: 0
-  negativeCharges: 2
+  positiveCharges: 3
+  neutralCharges: 2
+  negativeCharges: 1
   onAbilityUsed:
     m_PersistentCalls:
       m_Calls: []
@@ -101,9 +101,9 @@ MonoBehaviour:
   chargeCountUpdated:
     m_PersistentCalls:
       m_Calls: []
-  positivePickTime: 5
-  neutralPickTime: 8
-  negativePickTime: 10
+  positivePickTime: -2
+  neutralPickTime: 0
+  negativePickTime: 2
   _lockImLookingAt: {fileID: 0}
   environmentMask:
     serializedVersion: 2

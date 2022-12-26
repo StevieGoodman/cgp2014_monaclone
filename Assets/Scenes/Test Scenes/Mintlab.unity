@@ -44546,30 +44546,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8365460306442790160, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
-      propertyPath: reputation
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8365460306442790160, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
-      propertyPath: abilityLevel
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8365460306442790160, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
-      propertyPath: neutralCharges
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8365460306442790160, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
-      propertyPath: positiveCharges
-      value: -3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8365460306442790160, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
-      propertyPath: _environmentMask.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 8365460306442790161, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8365460306442790163, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
       propertyPath: m_RootOrder
       value: 5
