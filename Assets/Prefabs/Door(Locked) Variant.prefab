@@ -9,15 +9,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1143018541868238456, guid: 7f717be7d68b94c4b97e822e70fb6aaf, type: 3}
       propertyPath: m_Color.b
-      value: 0.06387138
-      objectReference: {fileID: 0}
-    - target: {fileID: 1143018541868238456, guid: 7f717be7d68b94c4b97e822e70fb6aaf, type: 3}
-      propertyPath: m_Color.g
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1143018541868238456, guid: 7f717be7d68b94c4b97e822e70fb6aaf, type: 3}
+      propertyPath: m_Color.g
+      value: 0.055987906
+      objectReference: {fileID: 0}
+    - target: {fileID: 1143018541868238456, guid: 7f717be7d68b94c4b97e822e70fb6aaf, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.5566038
       objectReference: {fileID: 0}
     - target: {fileID: 1143018541868238459, guid: 7f717be7d68b94c4b97e822e70fb6aaf, type: 3}
       propertyPath: m_RootOrder
@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locked: 1
+  unlockTime: 0
   whenUnlocked:
     m_PersistentCalls:
       m_Calls:
