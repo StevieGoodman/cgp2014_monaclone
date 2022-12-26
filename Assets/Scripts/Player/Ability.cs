@@ -28,6 +28,7 @@ public class Ability : MonoBehaviour
     }
 
     public InputActionReference useAction;
+    public bool holdToPerformAction = false;
     public AbilityLevel abilityLevel;
     [Range(1, 10)]public float reputation;
     public float useRange;
@@ -100,5 +101,13 @@ public class Ability : MonoBehaviour
     public virtual void UseAbility()
     {
         // Ability code goes here.
+    }
+
+    public void AlterReputationValue(int value)
+    {
+        reputation += value;
+        
+        //TODO: Game over man, GAME OVER!
+        //if(reputation <= 0)
     }
 }

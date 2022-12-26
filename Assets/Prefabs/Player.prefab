@@ -83,14 +83,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useAction: {fileID: 4946430042358184368, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
-  abilityLevel: 0
-  reputation: 10
+  holdToPerformAction: 1
+  abilityLevel: 2
+  reputation: 1
   useRange: 1
   negativeAbility: {fileID: 0}
   charges: 0
   positiveCharges: 3
   neutralCharges: 2
-  negativeCharges: 2
+  negativeCharges: 1
   onAbilityUsed:
     m_PersistentCalls:
       m_Calls: []
@@ -100,13 +101,13 @@ MonoBehaviour:
   chargeCountUpdated:
     m_PersistentCalls:
       m_Calls: []
-  positivePickTime: 5
-  neutralPickTime: 8
-  negativePickTime: 10
+  positivePickTime: -2
+  neutralPickTime: 0
+  negativePickTime: 2
   _lockImLookingAt: {fileID: 0}
   environmentMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
 --- !u!114 &8365460306442790161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useAction: {fileID: 9102018959165596633, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
+  holdToPerformAction: 0
   abilityLevel: 0
   reputation: 10
   useRange: 0
@@ -216,8 +218,8 @@ Camera:
   m_GameObject: {fileID: 8365460306981574625}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -314,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8365460306999492518}
   - component: {fileID: 8365460306999492516}
-  - component: {fileID: 6116845393780154831}
+  - component: {fileID: 8365460306999492519}
   m_Layer: 3
   m_Name: Visuals & Collision
   m_TagString: Player
@@ -331,7 +333,7 @@ Transform:
   m_GameObject: {fileID: 8365460306999492537}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8365460307738626054}
@@ -377,8 +379,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 5c048ebf2724049e6a21ade7cf3dec87, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0.8187932, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -389,8 +391,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &6116845393780154831
-CapsuleCollider2D:
+--- !u!61 &8365460306999492519
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -402,9 +404,19 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.02}
-  m_Size: {x: 0.45000005, y: 0.2}
-  m_Direction: 1
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &8365460307373077862
 GameObject:
   m_ObjectHideFlags: 0
