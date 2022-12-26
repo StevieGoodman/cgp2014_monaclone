@@ -15,7 +15,8 @@ public class LockPickingAbility : Ability
     public float negativePickTime = 2f;
     [Space]
     private bool _unlockingDoor;
-    private Lock _lockImLookingAt;
+    [SerializeField]private Lock _lockImLookingAt;
+    [SerializeField]private LayerMask _environmentMask;
 
     public override void Awake()
     {
@@ -25,41 +26,38 @@ public class LockPickingAbility : Ability
 
     public override void Update()
     {
-        base.Update();
-        
         // Set lock to null. If we are looking at one, it will update this value.
         _lockImLookingAt = null;
-        RaycastHit2D hit = Physics2D.Raycast(GameManager.Instance.GetPlayerTransform().position, GameManager.Instance.GetPlayerTransform().position + GameManager.Instance.GetPlayerTransform().up, useRange);
+        RaycastHit2D hit = Physics2D.Raycast(GameManager.Instance.GetPlayerTransform().position, GameManager.Instance.GetPlayerTransform().up, useRange, _environmentMask);
+        Debug.DrawRay(GameManager.Instance.GetPlayerTransform().position, GameManager.Instance.GetPlayerTransform().up);
         if (!hit.collider) return;
         if (!hit.collider.TryGetComponent<Lock>(out var l)) return;
         
         if (l.locked)
             _lockImLookingAt = l;
+        
+        base.Update();
     }
 
     public override void UseAbility()
     {
         if (charges < 1) return;
         if (_unlockingDoor) return;
-        
-        Lock toUnlock = null;
-        
-        if (_lockImLookingAt)
-            toUnlock = _lockImLookingAt;
-        
+        Lock toUnlock = (_lockImLookingAt);
+
         // Once we have checked for locked doors. if we found a valid door. We start unlocking it.
         if (!toUnlock) return;
         
         switch (abilityLevel)
         {
             case AbilityLevel.Positive:
-                StartCoroutine(UnlockDoor(toUnlock, toUnlock.unlockTime + positivePickTime));
+                StartCoroutine(Unlock(toUnlock, toUnlock.unlockTime + positivePickTime));
                 break;
             case AbilityLevel.Neutral:
-                StartCoroutine(UnlockDoor(toUnlock, toUnlock.unlockTime + neutralPickTime));
+                StartCoroutine(Unlock(toUnlock, toUnlock.unlockTime + neutralPickTime));
                 break;
             case AbilityLevel.Negative:
-                StartCoroutine(UnlockDoor(toUnlock, toUnlock.unlockTime + negativePickTime));
+                StartCoroutine(Unlock(toUnlock, toUnlock.unlockTime + negativePickTime));
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -67,13 +65,13 @@ public class LockPickingAbility : Ability
     }
     // This coroutine checks if the player is still in range of the door while picking it.
     // If they still are when the time is up, they successfully unlock the door.
-    private IEnumerator UnlockDoor(Lock door, float unlockTime)
+    private IEnumerator Unlock(Lock @lock, float unlockTime)
     {
         //Debug.Log("Unlocking Door...");
         StartCoroutine(Wait(unlockTime));
         while (_unlockingDoor)
         {
-            if (Vector2.Distance(GameManager.Instance.GetPlayerPosition(), door.transform.position) > useRange)
+            if (Vector2.Distance(GameManager.Instance.GetPlayerPosition(), @lock.transform.position) > useRange)
             {
                 //Debug.Log("Player got too far from the door. Canceling this action.");
                 _unlockingDoor = false;
@@ -85,7 +83,7 @@ public class LockPickingAbility : Ability
         _unlockingDoor = false;
         // We successfully unlocked the door. Lose a pick, and tell the door its open.
         //Debug.Log("Door Successfully opened!");
-        door.Unlock();
+        @lock.Unlock();
         charges--;
     }
     // Wait while the door is being unlocked.

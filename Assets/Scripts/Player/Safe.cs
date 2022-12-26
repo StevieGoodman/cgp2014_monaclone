@@ -32,7 +32,7 @@ public class Safe : MonoBehaviour
 
     private void GivePlayerRep()
     {
-        var player = GameManager.Instance.GetPlayerTransform().gameObject;
+        var player = GameManager.Instance.GetPlayerTransform().root.gameObject;
         switch (abilityBonus)
         {
             case Ability.LockPicking:
