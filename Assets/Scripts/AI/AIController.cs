@@ -1,11 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(PatrolBehaviour))] [RequireComponent(typeof(InvestigateBehaviour))] [RequireComponent(typeof(ChaseBehaviour))] [RequireComponent(typeof(UnconsciousBehaviour))]
 [RequireComponent(typeof(Sight))] 
@@ -65,8 +61,8 @@ public class AIController : MonoBehaviour
 
     // The layer that guards are on. Should be BehindDarkness.
     public LayerMask guardLayer;
-
-
+    
+    
     [Header("AI Settings")] 
     // How fast can the AI move?
     public float movementSpeed;
@@ -76,7 +72,6 @@ public class AIController : MonoBehaviour
     
     // This keeps track of the latest investigation position the AI has been assigned.
     [HideInInspector]public Vector3 positionToInvestigate;
-    
     
     // COMPONENTS
     private PatrolBehaviour _patrolBehaviour;
@@ -153,7 +148,7 @@ public class AIController : MonoBehaviour
             case AIState.Chasing:
                 StopAICoroutines();
                 AssignAgentValues(movementSpeed, angularSpeed * 3);
-                detectionMeter = -5; // Sets the timer to a negative value to make it harder for the AI to chase for longer.
+                detectionMeter = -3; // Sets the timer to a negative value to make it harder for the AI to chase for longer.
                 _chaseBehaviour.StartChasing();
                 break;
             case AIState.Unconscious:
@@ -183,28 +178,21 @@ public class AIController : MonoBehaviour
     {
         Debug.Log("Tag seen: " + tag);
         if (tag == "Player")
-        {
             playerDetected = true;
-        }
     }
     // Check for player presence and if so. Tick our countdown down.
     private void DetectionLogic()
     {
         if (aiState == AIState.Unconscious) return;
         // If we detect the player, tick down the detection timer.
-        if (playerDetected) 
-        {
+        if (playerDetected)
             detectionMeter -= Time.fixedDeltaTime;
-        }
         // If we dont find them. bring it back up.
         else
         {
             detectionMeter += Time.fixedDeltaTime;
-
             if (detectionMeter > chaseStartTime)
-            {
                 detectionMeter = chaseStartTime;
-            }
         }
         // If the player was in the AI's Field of view for long enough. The AI will decide to investigate whatever is going on.
         if (chaseStartTime - investigateStartTime > detectionMeter && detectionMeter > 0.1 && aiState != AIState.Investigating)
@@ -227,7 +215,7 @@ public class AIController : MonoBehaviour
     private void AlertNearbyGuards()
     {
         _canSendAlerts = false;
-        Debug.Log("Attempting to alert guards.");
+        Debug.Log("Attempting to alert nearby guards.");
         RaycastHit2D[] guards = Physics2D.CircleCastAll(_entityBody.position, alertRadius, Vector2.up, alertRadius, guardLayer);
         foreach (var guard in guards)
         {
@@ -236,9 +224,7 @@ public class AIController : MonoBehaviour
             var aiController = guard.collider.GetComponentInParent<AIController>();
             if (!aiController) continue;
             
-            //aiController.positionToInvestigate = GameManager.Instance.GetPlayerPosition();
-            //aiController.UpdateAIState(AIController.AIState.Investigating);
-            aiController.UpdateAIState(AIController.AIState.Chasing);
+            aiController.UpdateAIState(AIState.Chasing);
             Debug.Log("Guard Alerted.");
         }
     }

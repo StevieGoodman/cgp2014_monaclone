@@ -53,7 +53,7 @@ public class Sight : MonoBehaviour
     private void LateUpdate()
     {
         List<string> tags = new List<string>();
-        
+        Vector3 playerPos = transform.position;
         float angle = _startingAngle;
         float angleIncrement = fieldOfView / rayCount;
         
@@ -61,7 +61,7 @@ public class Sight : MonoBehaviour
         Vector2[] uv = new Vector2[vertices.Length];
         int[] triangles = new int[rayCount * 3];
 
-        vertices[0] = _origin;
+        vertices[0] = _origin - playerPos;
         
         int vertexIndex = 1;
         int triIndex = 0;
@@ -69,16 +69,17 @@ public class Sight : MonoBehaviour
         for (int i = 0; i <= rayCount; i++) 
         {
             Vector3 vertex;
+
             // Cast a ray from the origin point of the entity. In the direction they are facing.
             RaycastHit2D rcHit2D = Physics2D.Raycast(_origin, GetVectorFromAngle(angle), viewDistance, sightBlockerMask);
             if (!rcHit2D.collider) // If the raycast didnt hit anything:
             {
                 // set this vertex to be as far as our view distance is.
-                vertex = _origin + GetVectorFromAngle(angle) * viewDistance;
+                vertex = _origin - playerPos + GetVectorFromAngle(angle) * viewDistance;
             }
             else
             {   // We hit something! Set it as the point for this vertex.
-                vertex = rcHit2D.point;
+                vertex = rcHit2D.point - (Vector2)playerPos;
                 
                 if (!rcHit2D.collider.CompareTag("Untagged"))
                 {
@@ -86,9 +87,7 @@ public class Sight : MonoBehaviour
                         tags.Add(rcHit2D.collider.tag);
                     // If we saw an object with a tag of interest. 
                     foreach (var item in tags.Where(item => !tags.Contains(rcHit2D.collider.tag)))
-                    {
                         tags.Add(item);
-                    }
                 }
             }
             vertices[vertexIndex] = vertex;

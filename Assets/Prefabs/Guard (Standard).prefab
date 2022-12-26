@@ -274,6 +274,11 @@ MonoBehaviour:
   playerDetected: 0
   investigateStartTime: 0.5
   chaseStartTime: 1
+  alertRadius: 8
+  detectionMeter: 0
+  guardLayer:
+    serializedVersion: 2
+    m_Bits: 128
   movementSpeed: 3
   angularSpeed: 720
   positionToInvestigate: {x: 0, y: 0, z: 0}
@@ -344,6 +349,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 264
   sightMaterial: {fileID: 2100000, guid: 5b6b44c6424935a4483c5e7d3eab9868, type: 2}
+  seenTag:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8192851772097129381
 MonoBehaviour:
   m_ObjectHideFlags: 0

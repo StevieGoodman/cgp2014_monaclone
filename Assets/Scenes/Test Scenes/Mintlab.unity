@@ -8204,6 +8204,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1192829822
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1975687310}
+    m_Modifications:
+    - target: {fileID: 7006997557732077547, guid: ff168ba7c7602ae44bff61922495a4c6, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7006997557732077547, guid: ff168ba7c7602ae44bff61922495a4c6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.5781763
+      objectReference: {fileID: 0}
+    - target: {fileID: 7006997557732077547, guid: ff168ba7c7602ae44bff61922495a4c6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.386
+      objectReference: {fileID: 0}
+    - target: {fileID: 7006997557732077547, guid: ff168ba7c7602ae44bff61922495a4c6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.1290404
+      objectReference: {fileID: 0}
+    - target: {fileID: 7006997557732077547, guid: ff168ba7c7602ae44bff61922495a4c6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7006997557732077547, guid: ff168ba7c7602ae44bff61922495a4c6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7006997557732077547, guid: ff168ba7c7602ae44bff61922495a4c6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7006997557732077547, guid: ff168ba7c7602ae44bff61922495a4c6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7006997557732077547, guid: ff168ba7c7602ae44bff61922495a4c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7006997557732077547, guid: ff168ba7c7602ae44bff61922495a4c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7006997557732077547, guid: ff168ba7c7602ae44bff61922495a4c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7006997557732077554, guid: ff168ba7c7602ae44bff61922495a4c6, type: 3}
+      propertyPath: m_Name
+      value: Camera (Standard)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ff168ba7c7602ae44bff61922495a4c6, type: 3}
+--- !u!4 &1192829823 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7006997557732077547, guid: ff168ba7c7602ae44bff61922495a4c6, type: 3}
+  m_PrefabInstance: {fileID: 1192829822}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1246452564
 GameObject:
   m_ObjectHideFlags: 0
@@ -8326,6 +8388,14 @@ PrefabInstance:
     - target: {fileID: 3685222798986465158, guid: f3604153e230b194f900f0df7bf62248, type: 3}
       propertyPath: m_Name
       value: Guard (Standard)_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 3685222798986465180, guid: f3604153e230b194f900f0df7bf62248, type: 3}
+      propertyPath: alertRadius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3685222798986465180, guid: f3604153e230b194f900f0df7bf62248, type: 3}
+      propertyPath: guardLayer.m_Bits
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 3685222798986465181, guid: f3604153e230b194f900f0df7bf62248, type: 3}
       propertyPath: waitTime
@@ -12253,6 +12323,7 @@ Transform:
   - {fileID: 1083182922}
   - {fileID: 1989089493}
   - {fileID: 1271080440}
+  - {fileID: 1192829823}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12286,6 +12357,14 @@ PrefabInstance:
     - target: {fileID: 3685222798986465158, guid: f3604153e230b194f900f0df7bf62248, type: 3}
       propertyPath: m_Name
       value: Guard (Standard)_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3685222798986465180, guid: f3604153e230b194f900f0df7bf62248, type: 3}
+      propertyPath: alertRadius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3685222798986465180, guid: f3604153e230b194f900f0df7bf62248, type: 3}
+      propertyPath: guardLayer.m_Bits
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 3685222798986465181, guid: f3604153e230b194f900f0df7bf62248, type: 3}
       propertyPath: pathToFollow.Array.size
