@@ -337,9 +337,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b89b53e33e6a544f985e122f0787ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldOfView: 90
-  rayCount: 250
-  viewDistance: 8
+  fieldOfView: 110
+  rayCount: 50
+  viewDistance: 5
   sightBlockerMask:
     serializedVersion: 2
     m_Bits: 264
