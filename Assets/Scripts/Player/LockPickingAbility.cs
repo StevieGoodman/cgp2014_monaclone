@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class LockPickingAbility : Ability
 {
@@ -16,7 +17,7 @@ public class LockPickingAbility : Ability
     [Space]
     private bool _unlockingDoor;
     [SerializeField]private Lock _lockImLookingAt;
-    [SerializeField]private LayerMask _environmentMask;
+    [SerializeField]private LayerMask environmentMask;
 
     public override void Awake()
     {
@@ -28,7 +29,7 @@ public class LockPickingAbility : Ability
     {
         // Set lock to null. If we are looking at one, it will update this value.
         _lockImLookingAt = null;
-        RaycastHit2D hit = Physics2D.Raycast(GameManager.Instance.GetPlayerTransform().position, GameManager.Instance.GetPlayerTransform().up, useRange, _environmentMask);
+        RaycastHit2D hit = Physics2D.Raycast(GameManager.Instance.GetPlayerTransform().position, GameManager.Instance.GetPlayerTransform().up, useRange, environmentMask);
         Debug.DrawRay(GameManager.Instance.GetPlayerTransform().position, GameManager.Instance.GetPlayerTransform().up);
         if (!hit.collider) return;
         if (!hit.collider.TryGetComponent<Lock>(out var l)) return;
