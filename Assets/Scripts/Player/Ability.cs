@@ -28,6 +28,7 @@ public class Ability : MonoBehaviour
     }
 
     public InputActionReference useAction;
+    public bool holdToPerformAction = false;
     public AbilityLevel abilityLevel;
     [Range(1, 10)]public float reputation;
     public float useRange;

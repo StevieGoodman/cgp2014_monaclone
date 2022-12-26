@@ -68,13 +68,13 @@ public class LockPickingAbility : Ability
     // If they still are when the time is up, they successfully unlock the door.
     private IEnumerator Unlock(Lock @lock, float unlockTime)
     {
-        //Debug.Log("Unlocking Door...");
+        Debug.Log("Unlocking" + @lock );
         StartCoroutine(Wait(unlockTime));
         while (_unlockingDoor)
         {
-            if (Vector2.Distance(GameManager.Instance.GetPlayerPosition(), @lock.transform.position) > useRange)
+            if (Vector2.Distance(GameManager.Instance.GetPlayerPosition(), @lock.transform.position) > useRange || holdToPerformAction && !useAction.action.IsPressed())
             {
-                //Debug.Log("Player got too far from the door. Canceling this action.");
+                Debug.Log("Unlock Action cancelled for " + @lock);
                 _unlockingDoor = false;
                 StopAllCoroutines();
             }
@@ -83,7 +83,7 @@ public class LockPickingAbility : Ability
 
         _unlockingDoor = false;
         // We successfully unlocked the door. Lose a pick, and tell the door its open.
-        //Debug.Log("Door Successfully opened!");
+        Debug.Log("Unlocked: " + @lock);
         @lock.Unlock();
         charges--;
     }

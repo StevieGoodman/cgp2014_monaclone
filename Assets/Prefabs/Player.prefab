@@ -83,13 +83,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useAction: {fileID: 4946430042358184368, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
-  abilityLevel: 0
-  reputation: 10
+  holdToPerformAction: 1
+  abilityLevel: 2
+  reputation: 1
   useRange: 1
   negativeAbility: {fileID: 0}
   charges: 0
-  positiveCharges: 3
-  neutralCharges: 2
+  positiveCharges: -3
+  neutralCharges: 0
   negativeCharges: 2
   onAbilityUsed:
     m_PersistentCalls:
@@ -106,7 +107,7 @@ MonoBehaviour:
   _lockImLookingAt: {fileID: 0}
   environmentMask:
     serializedVersion: 2
-    m_Bits: 3
+    m_Bits: 256
 --- !u!114 &8365460306442790161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,12 +115,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8365460306442790167}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d714514e258940246a127df95828bccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   useAction: {fileID: 9102018959165596633, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
+  holdToPerformAction: 0
   abilityLevel: 0
   reputation: 10
   useRange: 0
