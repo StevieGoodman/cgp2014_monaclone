@@ -1,6 +1,6 @@
 using System;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(PatrolBehaviour))] [RequireComponent(typeof(Sight))]
 
@@ -143,4 +143,13 @@ public class CameraController : MonoBehaviour
     {
         _patrolBehaviour.StopAllCoroutines();
     }
+    
+    #if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        // Shows alert radius.
+        Handles.color = Color.red;
+        Handles.DrawWireDisc(transform.position, Vector3.forward, alertRadius);
+    }
+    #endif
 }

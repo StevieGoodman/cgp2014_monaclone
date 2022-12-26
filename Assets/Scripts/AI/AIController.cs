@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
@@ -56,8 +57,14 @@ public class AIController : MonoBehaviour
     //How long does the player have to be within this AI's view to make them chase.
     public float chaseStartTime;
 
+    // The radius at which guards can alert eachother.
+    public float alertRadius;
+
     // This time ticks up and down depending on player detection.
     public float detectionMeter;
+
+    // The layer that guards are on. Should be BehindDarkness.
+    public LayerMask guardLayer;
 
 
     [Header("AI Settings")] 
@@ -78,6 +85,8 @@ public class AIController : MonoBehaviour
     private UnconsciousBehaviour _unconsciousBehaviour;
     private Sight _sight;
     private NavMeshAgent _agent;
+    private Transform _entityBody;
+    private bool _canSendAlerts;
     
     public enum AIState
     {
@@ -90,6 +99,7 @@ public class AIController : MonoBehaviour
     private void Awake()
     {
         _agent = GetComponentInChildren<NavMeshAgent>();
+        _entityBody = _agent.transform;
         _patrolBehaviour = GetComponent<PatrolBehaviour>();
         _investigateBehaviour = GetComponent<InvestigateBehaviour>();
         _chaseBehaviour = GetComponent<ChaseBehaviour>();
@@ -190,20 +200,46 @@ public class AIController : MonoBehaviour
         else
         {
             detectionMeter += Time.fixedDeltaTime;
-            
+
             if (detectionMeter > chaseStartTime)
+            {
                 detectionMeter = chaseStartTime;
+            }
         }
         // If the player was in the AI's Field of view for long enough. The AI will decide to investigate whatever is going on.
         if (chaseStartTime - investigateStartTime > detectionMeter && detectionMeter > 0.1 && aiState != AIState.Investigating)
         {
+            _canSendAlerts = true;
             positionToInvestigate = GameManager.Instance.GetPlayerPosition();
             UpdateAIState(AIState.Investigating);
         }
         // The player has been found! Chase State Should alert people around them and have them chase too!
         if (detectionMeter <= 0 && aiState != AIState.Chasing)
         {
+            if(_canSendAlerts)
+                AlertNearbyGuards();
+            
             UpdateAIState(AIState.Chasing);
+            _canSendAlerts = false;
+        }
+    }
+    
+    private void AlertNearbyGuards()
+    {
+        _canSendAlerts = false;
+        Debug.Log("Attempting to alert guards.");
+        RaycastHit2D[] guards = Physics2D.CircleCastAll(_entityBody.position, alertRadius, Vector2.up, alertRadius, guardLayer);
+        foreach (var guard in guards)
+        {
+
+            // Have each guard investigate where the player was upon this function being called.
+            var aiController = guard.collider.GetComponentInParent<AIController>();
+            if (!aiController) continue;
+            
+            //aiController.positionToInvestigate = GameManager.Instance.GetPlayerPosition();
+            //aiController.UpdateAIState(AIController.AIState.Investigating);
+            aiController.UpdateAIState(AIController.AIState.Chasing);
+            Debug.Log("Guard Alerted.");
         }
     }
     private void StopAICoroutines()
@@ -212,4 +248,13 @@ public class AIController : MonoBehaviour
         _investigateBehaviour.StopBehaviour();
         _chaseBehaviour.StopBehaviour();
     }
+
+    #if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        // Shows guards alert radius.
+        Handles.color = Color.red;
+        Handles.DrawWireDisc(transform.position, Vector3.forward, alertRadius);
+    }
+    #endif
 }
