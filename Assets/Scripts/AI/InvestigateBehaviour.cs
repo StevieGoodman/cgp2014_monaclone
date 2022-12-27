@@ -34,7 +34,7 @@ public class InvestigateBehaviour : MonoBehaviour
     private void Update()
     {
         if(_lookAround) 
-            _agent.transform.rotation = Quaternion.RotateTowards(_agent.transform.rotation, _randomRot, Time.deltaTime * _aiController.angularSpeed);
+            _agent.transform.rotation = Quaternion.RotateTowards(_agent.transform.rotation, _randomRot, Time.deltaTime * _agent.angularSpeed);
     }
 
     public void GoInvestigatePosition(Vector3 posToInvestigate) // This just allows you to call the coroutine from other scripts

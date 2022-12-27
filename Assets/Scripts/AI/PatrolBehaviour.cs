@@ -14,7 +14,6 @@ public class PatrolBehaviour : MonoBehaviour
     // How long the entity waits once it reaches a node in its path.
     public float waitTime;
     
-    
     [Header("Editor")]
     // The colour of the path the AI will take. Just visualisation stuff
     public Color pathColour;

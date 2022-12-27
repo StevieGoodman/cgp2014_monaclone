@@ -986,6 +986,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guard (Standard)
       objectReference: {fileID: 0}
+    - target: {fileID: 3685222798986465180, guid: f3604153e230b194f900f0df7bf62248, type: 3}
+      propertyPath: alertRadius
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 3685222798986465183, guid: f3604153e230b194f900f0df7bf62248, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -8391,7 +8395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3685222798986465180, guid: f3604153e230b194f900f0df7bf62248, type: 3}
       propertyPath: alertRadius
-      value: 5
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3685222798986465180, guid: f3604153e230b194f900f0df7bf62248, type: 3}
       propertyPath: guardLayer.m_Bits
@@ -12175,6 +12179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1785373293}
   - component: {fileID: 1785373292}
+  - component: {fileID: 1785373294}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -12194,8 +12199,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0cf695c3111bb546a3cecaa568bb4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   timeRemaining: 0
+  player: {fileID: 0}
+  aiControllers: []
   darknessClearer: {fileID: 1180041879}
 --- !u!4 &1785373293
 Transform:
@@ -12214,6 +12220,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1785373294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785373291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c0f3f68199d40e4fba2078a0f35cd30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alertLevel: 0
+  tokens: 0
+  mediumTokenRequirement: 3
+  highTokenRequirement: 5
 --- !u!1001 &1827440882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12360,7 +12382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3685222798986465180, guid: f3604153e230b194f900f0df7bf62248, type: 3}
       propertyPath: alertRadius
-      value: 5
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3685222798986465180, guid: f3604153e230b194f900f0df7bf62248, type: 3}
       propertyPath: guardLayer.m_Bits

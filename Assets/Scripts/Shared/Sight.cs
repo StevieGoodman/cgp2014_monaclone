@@ -5,16 +5,21 @@ using UnityEngine.Events;
 
 public class Sight : MonoBehaviour
 {
+    
+    [Header("Performance Settings")]
+    // The amount of raycasts used to build the sight mesh.
+    [Range(10, 1000)]public int rayCount;
+    
+    
     [Header("FOV Properties")]
     // How far around the entity it can see.
     [Range(5, 360)]public float fieldOfView;
     
-    // The amount of raycasts used to build the sight mesh.
-    [Range(10, 1000)]public int rayCount;
-    
     // How far the entity can see.
     [Range(1, 20)]public float viewDistance;
     
+    
+    [Header("Sight Extras")]
     // What blocks the sight of this entity.
     public LayerMask sightBlockerMask;
     
@@ -24,6 +29,7 @@ public class Sight : MonoBehaviour
     // Event that tells other components if this sight component saw something thats tagged.
     public UnityEvent<string> seenTag;
 
+    
     // Private Variables.
     private Mesh _mesh;
     private Renderer _renderer;

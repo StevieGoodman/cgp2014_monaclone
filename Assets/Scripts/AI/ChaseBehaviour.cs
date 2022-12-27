@@ -22,7 +22,7 @@ public class ChaseBehaviour : MonoBehaviour
     public IEnumerator Chase()
     {
         // Update our destination to the player
-        _agent.SetDestination(GameManager.Instance.GetPlayerPosition());
+        _agent.SetDestination(GameManager.Instance.GetPlayerTransform().position);
         yield return new WaitForSeconds(Time.fixedDeltaTime);
         StartChasing();
     }
