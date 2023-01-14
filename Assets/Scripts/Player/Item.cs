@@ -2,14 +2,16 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum ItemType
+{
+    LockPick,
+    Disguise,
+    Throwable
+}
+
 public class Item : MonoBehaviour
 {
-    public enum ItemType
-    {
-        LockPick,
-        Disguise,
-        Throwable
-    }
+    
     public ItemType itemType;
 
     public UnityEvent onCollect;
