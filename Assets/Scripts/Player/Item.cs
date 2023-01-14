@@ -32,8 +32,5 @@ public class Item : MonoBehaviour
         abilityComponent.Charges++;
         onCollect?.Invoke();
         Destroy(gameObject);
-        
-        
-        
     }
 }
