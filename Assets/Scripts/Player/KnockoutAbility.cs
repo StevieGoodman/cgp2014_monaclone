@@ -8,13 +8,13 @@ public class KnockoutAbility : Ability
 
     public GameObject throwablePrefab;
 
-    public override void UseAbility()
+    protected override void UseAbility()
     {
-        if (charges < 1) return;
+        if (Charges < 1) return;
         Transform playerPos = GameManager.Instance.GetPlayerTransform();
         Throwable throwable = Instantiate(throwablePrefab, playerPos.position, Quaternion.identity).GetComponent<Throwable>();
         var throwForce = 0f;
-        switch (abilityLevel)
+        switch (AbilityLevel)
         {
             case AbilityLevel.Positive:
                 throwForce = throwRangePositive;
@@ -27,6 +27,6 @@ public class KnockoutAbility : Ability
                 break;
         }
         throwable.ThrowMe(playerPos.up, throwForce);
-        charges--;
+        Charges--;
     }
 }

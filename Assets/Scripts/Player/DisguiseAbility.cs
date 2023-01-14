@@ -1,16 +1,9 @@
 using UnityEngine;
 
-public class DisguiseAbility : MonoBehaviour
+public class DisguiseAbility : Ability
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void UseAbility()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        throw new System.NotImplementedException();
     }
 }

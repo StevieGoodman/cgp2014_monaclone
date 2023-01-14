@@ -15,10 +15,9 @@ public class LockPickingAbility : Ability
     [SerializeField]private Lock _lockImLookingAt;
     [SerializeField]private LayerMask environmentMask;
 
-    public override void Awake()
+    public void Start()
     {
-        base.Awake();
-        reputation = PlayerPrefs.GetInt("PickReputation");
+        Reputation = PlayerPrefs.GetInt("PickReputation");
     }
 
     public override void Update()
@@ -36,16 +35,16 @@ public class LockPickingAbility : Ability
         base.Update();
     }
 
-    public override void UseAbility()
+    protected override void UseAbility()
     {
-        if (charges < 1) return;
+        if (Charges < 1) return;
         if (_unlockingDoor) return;
         Lock toUnlock = (_lockImLookingAt);
 
         // Once we have checked for locked doors. if we found a valid door. We start unlocking it.
         if (!toUnlock) return;
         
-        switch (abilityLevel)
+        switch (AbilityLevel)
         {
             case AbilityLevel.Positive:
                 StartCoroutine(Unlock(toUnlock, toUnlock.unlockTime + positivePickTime));
@@ -81,7 +80,7 @@ public class LockPickingAbility : Ability
         // We successfully unlocked the door. Lose a pick, and tell the door its open.
         Debug.Log("Unlocked: " + @lock);
         @lock.Unlock();
-        charges--;
+        Charges--;
     }
     // Wait while the door is being unlocked.
     private IEnumerator Wait(float unlockTime)
