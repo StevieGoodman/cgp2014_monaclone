@@ -1,9 +1,7 @@
 using System;
-using System.Diagnostics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
-using Debug = UnityEngine.Debug;
 
 [RequireComponent(typeof(PatrolBehaviour))] [RequireComponent(typeof(InvestigateBehaviour))] [RequireComponent(typeof(ChaseBehaviour))] [RequireComponent(typeof(UnconsciousBehaviour))]
 [RequireComponent(typeof(Sight))] 
@@ -195,12 +193,10 @@ public class AIController : MonoBehaviour
         if(aiState == AIState.Unconscious)
             _sight.SetFieldOfViewColour(Color.gray);
     }
+    
     // Checks if the tag they received is the player.
-    private void PlayerDetected(string tag)
-    {
-        if (tag == "Player")
-            playerDetected = true;
-    }
+    private void PlayerDetected(string tag){ playerDetected = tag == "Player";}
+
     // Check for player presence and if so. Tick our countdown down.
     private void DetectionLogic()
     {
