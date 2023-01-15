@@ -40,7 +40,38 @@ public class UIManager : MonoBehaviour
     }
     public void OnEscape()
     {
-        Debug.Log(" Pause Menu ");
+        if (_pauseMenuUI.activeSelf == true)
+        {
+            _pauseMenuUI.SetActive(false);
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
+            _pauseMenuUI.SetActive(true);
+            
+        }
+    }
+    private static void PauseGame ()
+    {
+        Time.timeScale = 0;
+    }
+    private static void ResumeGame ()
+    {
+        Time.timeScale = 1;
+    }
+
+    public void ResumeButton()
+    {
+        Debug.Log("Resuming Game!");
+        _pauseMenuUI.SetActive(false);
+        ResumeGame();
+    }
+
+    public void ExitButton()
+    {
+        Debug.Log("Exiting Game!");
+        Application.Quit();
     }
 
 }
