@@ -107,7 +107,5 @@ public class Ability : MonoBehaviour
     {
         reputation += value;
         
-        //TODO: Game over man, GAME OVER!
-        //if(reputation <= 0)
     }
 }
