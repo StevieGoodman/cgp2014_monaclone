@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour
         _patrolBehaviour = GetComponent<PatrolBehaviour>();
         _entityBody = GetComponentInChildren<Rigidbody2D>();
         _sight = GetComponent<Sight>();
-        _sight.seenTag.AddListener(CheckForPlayer);
+        _sight.seenTag.AddListener(PlayerDetected);
     }
     private void Start()
     {
@@ -134,10 +134,8 @@ public class CameraController : MonoBehaviour
             aiController.UpdateAIState(AIController.AIState.Chasing);
         }
     }
-    private void CheckForPlayer(string tag)
-    {
-        if (tag == "Player") _playerDetected = true;
-    }
+    // Checks if the tag they received is the player.
+    private void PlayerDetected(string tag){ _playerDetected = tag == "Player";}
     
     private void StopAICoroutines()
     {
