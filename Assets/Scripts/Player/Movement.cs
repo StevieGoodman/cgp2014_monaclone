@@ -47,9 +47,9 @@ public class Movement : MonoBehaviour
     private void FaceMouse()
     {
         if (!_entityTransform) return;
-        _mousePosition = Camera.main.ScreenToWorldPoint(_mousePosition);
-        var direction = new Vector2(_mousePosition.x - _entityTransform.position.x, _mousePosition.y - _entityTransform.position.y);
-        //Debug.DrawLine(_entityTransform.position, _mousePosition);
+        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(_mousePosition);
+        Vector2 direction = new Vector2(worldPoint.x - _entityTransform.position.x, worldPoint.y - _entityTransform.position.y);
+        //Debug.DrawLine(_entityTransform.position, worldPoint);
         _rb2d.MoveRotation(GetAngleFromVectorFloat(direction, -90f));
     }
     private static float GetAngleFromVectorFloat(Vector3 dir, float offset)
