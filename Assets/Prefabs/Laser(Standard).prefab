@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85386a50fec065440970722f48f4d202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alertRadius: 5
+  alertRadius: 10
   _targetTag: Player
   _guardLayer:
     serializedVersion: 2

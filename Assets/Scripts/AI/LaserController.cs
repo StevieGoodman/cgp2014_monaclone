@@ -1,10 +1,11 @@
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
 public class LaserController : MonoBehaviour
 {
     public float alertRadius;
-    private bool _laserActive;
+    private bool _laserActive = true;
     
     [SerializeField] private string _targetTag = "Player";
     [SerializeField] private LayerMask _guardLayer = 7;
@@ -14,11 +15,14 @@ public class LaserController : MonoBehaviour
     {
         _laserVisuals = gameObject.GetComponent<LineRenderer>();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void FixedUpdate()
     {
-        DrawLaser(_targetTag);
+        if(_laserActive)
+            DrawLaser(_targetTag);
+
+        // Enable or disable the laser visuals depending on if the laser is active or not.
+        _laserVisuals.enabled = _laserActive;
     }
 
     /// <summary>
@@ -60,6 +64,22 @@ public class LaserController : MonoBehaviour
             
             aiController.UpdateAIState(AIController.AIState.Chasing);
         }
+    }
+
+    /// <summary>
+    /// Disables the Entity for a specified amount of time.
+    /// </summary>
+    /// <param name="disableTimeSeconds"> How long in seconds the entity will be disabled.</param>
+    public void Hack(float disableTimeSeconds)
+    {
+        StartCoroutine(nameof(HackDisableCoroutine));
+    }
+
+    private IEnumerator HackDisableCoroutine(float disableTimeSeconds)
+    {
+        _laserActive = false;
+        yield return new WaitForSeconds(disableTimeSeconds);
+        _laserActive = true;
     }
     
     #if UNITY_EDITOR
