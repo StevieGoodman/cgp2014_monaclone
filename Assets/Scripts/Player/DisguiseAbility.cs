@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DisguiseAbility : Ability
 {
-    protected override void UseAbility()
+    public override void UseAbility(InputAction.CallbackContext context)
     {
         throw new System.NotImplementedException();
     }

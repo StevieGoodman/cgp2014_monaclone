@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LockPickingAbility : Ability
 {
@@ -20,7 +21,7 @@ public class LockPickingAbility : Ability
         Reputation = PlayerPrefs.GetInt("PickReputation");
     }
 
-    public override void Update()
+    public void Update()
     {
         // Set lock to null. If we are looking at one, it will update this value.
         _lockImLookingAt = null;
@@ -31,14 +32,13 @@ public class LockPickingAbility : Ability
         
         if (l.locked)
             _lockImLookingAt = l;
-        
-        base.Update();
     }
 
-    protected override void UseAbility()
+    public override void UseAbility(InputAction.CallbackContext context)
     {
-        if (Charges < 1) return;
-        if (_unlockingDoor) return;
+        if (!context.started) return; // Acts as input debounce.
+        if (Charges < 1) return;      // Checks player has enough ability charges.
+        if (_unlockingDoor) return;   // Checks the door isn't already being unlocked.
         Lock toUnlock = (_lockImLookingAt);
 
         // Once we have checked for locked doors. if we found a valid door. We start unlocking it.

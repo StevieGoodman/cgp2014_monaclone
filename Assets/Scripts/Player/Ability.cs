@@ -70,7 +70,7 @@ public abstract class Ability : MonoBehaviour
         };
     }
 
-    protected abstract void UseAbility();
+    public abstract void UseAbility(InputAction.CallbackContext context);
 
     public void AlterReputationValue(int value)
     {
