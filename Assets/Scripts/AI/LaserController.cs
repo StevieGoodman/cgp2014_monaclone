@@ -9,12 +9,7 @@ public class LaserController : MonoBehaviour
     
     [SerializeField] private string _targetTag = "Player";
     [SerializeField] private LayerMask _guardLayer = 7;
-    private LineRenderer _laserVisuals;
-
-    private void Awake()
-    {
-        _laserVisuals = gameObject.GetComponent<LineRenderer>();
-    }
+    [SerializeField] private LineRenderer _lineRenderer;
     
     private void FixedUpdate()
     {
@@ -22,7 +17,7 @@ public class LaserController : MonoBehaviour
             DrawLaser(_targetTag);
 
         // Enable or disable the laser visuals depending on if the laser is active or not.
-        _laserVisuals.enabled = _laserActive;
+        _lineRenderer.enabled = _laserActive;
     }
 
     /// <summary>
@@ -34,17 +29,14 @@ public class LaserController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up);
         if (hit)
         {
-            _laserVisuals.SetPosition(1, new Vector3(0,hit.distance, 0));
+            _lineRenderer.SetPosition(1, new Vector3(0,hit.distance, 0));
+            
             if (hit.collider.CompareTag(targetTag))
-            {
                 AlertNearbyGuards(transform.position, alertRadius);
-            }
         }
         // If we didnt hit anything, just set the laser line to go 5000 units.
         else
-        {
-            _laserVisuals.SetPosition(1, transform.up * 5000);
-        }
+            _lineRenderer.SetPosition(1, transform.up * 5000);
     }
     
     /// <summary>

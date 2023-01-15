@@ -51,6 +51,7 @@ MonoBehaviour:
   _guardLayer:
     serializedVersion: 2
     m_Bits: 128
+  _lineRenderer: {fileID: 2781903838963449824}
 --- !u!120 &2781903838963449824
 LineRenderer:
   m_ObjectHideFlags: 0
