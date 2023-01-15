@@ -71,6 +71,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   sightMaterial: {fileID: 2100000, guid: 419cf7c63a10264408d2d8145a926417, type: 2}
+  seenTag:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8365460306442790160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,16 +86,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6be46a793d3694c8592f4718aee528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAction: {fileID: 4946430042358184368, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
-  holdToPerformAction: 1
-  abilityLevel: 2
-  reputation: 1
-  useRange: 1
-  negativeAbility: {fileID: 0}
-  charges: 0
-  positiveCharges: 3
-  neutralCharges: 2
-  negativeCharges: 1
+  _charges: 3
+  _reputation: 0
   onAbilityUsed:
     m_PersistentCalls:
       m_Calls: []
@@ -102,6 +97,10 @@ MonoBehaviour:
   chargeCountUpdated:
     m_PersistentCalls:
       m_Calls: []
+  useAction: {fileID: 4946430042358184368, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
+  holdToPerformAction: 1
+  useRange: 1
+  negativeAbility: {fileID: 0}
   positivePickTime: -2
   neutralPickTime: 0
   negativePickTime: 2
@@ -121,16 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d714514e258940246a127df95828bccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAction: {fileID: 9102018959165596633, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
-  holdToPerformAction: 0
-  abilityLevel: 0
-  reputation: 10
-  useRange: 0
-  negativeAbility: {fileID: 0}
-  charges: 0
-  positiveCharges: 999999
-  neutralCharges: 2
-  negativeCharges: 1
+  _charges: 3
+  _reputation: 0
   onAbilityUsed:
     m_PersistentCalls:
       m_Calls: []
@@ -140,6 +131,10 @@ MonoBehaviour:
   chargeCountUpdated:
     m_PersistentCalls:
       m_Calls: []
+  useAction: {fileID: 9102018959165596633, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
+  holdToPerformAction: 0
+  useRange: 0
+  negativeAbility: {fileID: 0}
   throwRangePositive: 15
   throwRangeNeutral: 10
   throwRangeNegative: 5
