@@ -18,8 +18,6 @@ public class RepBarUpdate : MonoBehaviour
     // ADD HACK
     // ADD DISGUISE
 
-    public UnityEvent event_test;
-
     private void Awake()
     {
         
