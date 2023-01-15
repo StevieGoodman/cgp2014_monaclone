@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using Debug = UnityEngine.Debug;
 
 [RequireComponent(typeof(PatrolBehaviour))] [RequireComponent(typeof(InvestigateBehaviour))] [RequireComponent(typeof(ChaseBehaviour))] [RequireComponent(typeof(UnconsciousBehaviour))]
 [RequireComponent(typeof(Sight))] 
@@ -47,8 +49,7 @@ public class AIController : MonoBehaviour
     
     // The layer that guards are on. Should be BehindDarkness.
     public LayerMask guardLayer;
-
-
+    
     [Header("AI Settings")]
     public AlertLevelStats lowAlertStats;
     public AlertLevelStats medAlertStats;
@@ -81,38 +82,6 @@ public class AIController : MonoBehaviour
 
     // This time ticks up and down depending on player detection.
     private float _detectionMeter;
-    
-
-    /*[System.Serializable]
-    public struct AlertLevelStats
-    {
-        [Header("AIController Stats")]
-        public float investigationTime;
-        public float chaseTime;
-        public float alertRadius;
-        
-        // Agent Stats
-        public float movementSpeed;
-        public float rotationSpeed;
-        
-        // Patrol Stats
-        [Header("Sight Stats")]
-        // How far around the entity it can see.
-        [Range(5, 360)]public float fieldOfView;
-    
-        // The amount of raycasts used to build the sight mesh.
-        [Range(10, 1000)]public int rayCount;
-    
-        // How far the entity can see.
-        [Range(1, 20)]public float viewDistance;
-
-        [Header("Patrol Stats")] 
-        public float waitTime;
-        
-        // Investigation Stats
-        [Header("Investigation Stats")]
-        public float lookAroundTime;
-    }*/
     public enum AIState
     {
         Patrolling,
@@ -133,7 +102,7 @@ public class AIController : MonoBehaviour
         _sight.seenTag.AddListener(PlayerDetected);
         
         // Forces AI into low alert state.
-        UpdateAIAlertness(AlertSystem.AlertLevel.low);
+        UpdateAIAlertness(AlertSystem.AlertnessLevel.low);
         _detectionMeter = lowAlertStats.chaseTime;
     }
     private void Start()
@@ -150,7 +119,6 @@ public class AIController : MonoBehaviour
     private void FixedUpdate()
     {
         UpdateFieldOfViewColour();
-        
         DetectionLogic();
     }
     // Updates the behaviour the AI is using.
@@ -159,23 +127,20 @@ public class AIController : MonoBehaviour
         Debug.Log("AIState: " + stateToUpdateTo);
         if (aiState == AIState.Unconscious) return;
         aiState = stateToUpdateTo;
+        StopAICoroutines();
         switch (aiState)
         {
             case AIState.Patrolling:
-                StopAICoroutines();
                 _patrolBehaviour.StartPatrolling();
                 break;
             case AIState.Investigating:
-                StopAICoroutines();
                 _investigateBehaviour.GoInvestigatePosition(positionToInvestigate);
                 break;
             case AIState.Chasing:
-                StopAICoroutines();
                 _detectionMeter = -_minimumChasePeriod;
                 _chaseBehaviour.StartChasing();
                 break;
             case AIState.Unconscious:
-                StopAICoroutines();
                 _unconsciousBehaviour.LoseConciousness();
                 break;
             default:
@@ -183,22 +148,16 @@ public class AIController : MonoBehaviour
         }
     }
     // Updates the alertness of the AI.
-    public void UpdateAIAlertness(AlertSystem.AlertLevel alertLevel)
+    public void UpdateAIAlertness(AlertSystem.AlertnessLevel alertnessLevel)
     {
-        switch (alertLevel)
+        var stats = alertnessLevel switch
         {
-            case AlertSystem.AlertLevel.low:
-                ApplyAlertStats(lowAlertStats);
-                break;
-            case AlertSystem.AlertLevel.medium:
-                ApplyAlertStats(medAlertStats);
-                break;
-            case AlertSystem.AlertLevel.high:
-                ApplyAlertStats(highAlertStats);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(alertLevel), alertLevel, null);
-        }
+            AlertSystem.AlertnessLevel.low => lowAlertStats,
+            AlertSystem.AlertnessLevel.medium => medAlertStats,
+            AlertSystem.AlertnessLevel.high => highAlertStats,
+            _ => throw new ArgumentOutOfRangeException(nameof(alertnessLevel), alertnessLevel, null)
+        };
+        ApplyAlertStats(stats);
     }
     // Applies the stats of the AI.
     private void ApplyAlertStats(AlertLevelStats stats)
@@ -239,7 +198,6 @@ public class AIController : MonoBehaviour
     // Checks if the tag they received is the player.
     private void PlayerDetected(string tag)
     {
-        Debug.Log("Tag seen: " + tag);
         if (tag == "Player")
             playerDetected = true;
     }
@@ -267,30 +225,25 @@ public class AIController : MonoBehaviour
         // The player has been found! Chase State Should alert people around them and have them chase too!
         if (_detectionMeter <= 0 && aiState != AIState.Chasing)
         {
-            if(_canSendAlerts)
-                AlertNearbyGuards();
-            
+            if(_canSendAlerts) AlertNearbyGuards();
             UpdateAIState(AIState.Chasing);
             _canSendAlerts = false;
-            
-            AlertSystem.Instance.IncreaseAlertTokens();
+
+            AlertSystem.Instance.Tokens++;
         }
     }
     // Alerts nearby guards to the players presence.
     private void AlertNearbyGuards()
     {
         _canSendAlerts = false;
-        Debug.Log("Attempting to alert nearby guards.");
         RaycastHit2D[] guards = Physics2D.CircleCastAll(_entityBody.position, _alertRadius, Vector2.up, _alertRadius, guardLayer);
         foreach (var guard in guards)
         {
-
             // Have each guard investigate where the player was upon this function being called.
             var aiController = guard.collider.GetComponentInParent<AIController>();
             if (!aiController) continue;
             
             aiController.UpdateAIState(AIState.Chasing);
-            Debug.Log("Guard Alerted.");
         }
     }
     // Stops all AI behaviour.

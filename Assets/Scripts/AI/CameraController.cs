@@ -9,9 +9,12 @@ public class CameraController : MonoBehaviour
 {
     public AIState aiState;
 
+    // How long it takes until the Camera fully detects the player.
     public float alertStartTime;
 
+    // How far this entity can alert Guards?
     public float alertRadius;
+    
     // Is the player within the Cameras view?
     private bool _playerDetected;
 
@@ -69,14 +72,13 @@ public class CameraController : MonoBehaviour
         Debug.Log("AIState: " + stateToUpdateTo);
         if (aiState == AIState.Unconscious) return;
         aiState = stateToUpdateTo;
+        StopAICoroutines();
         switch (aiState)
         {
             case AIState.Patrolling:
-                StopAICoroutines();
                 _patrolBehaviour.StartPatrolling();
                 break;
             case AIState.Unconscious:
-                StopAICoroutines();
                 _unconsciousBehaviour.LoseConciousness();
                 break;
             default:
@@ -110,33 +112,31 @@ public class CameraController : MonoBehaviour
         if (_detectionMeter <= 0)
         {
             _sight.SetFieldOfViewColour(Color.red);
-            if(_canSendAlerts)
-                AlertNearbyGuards();
+            
+            if (!_canSendAlerts) return;
+            
+            AlertNearbyGuards();
+            AlertSystem.Instance.Tokens++;
         }
     }
 
     private void AlertNearbyGuards()
     {
         _canSendAlerts = false;
-        Debug.Log("Attempting to alert guards.");
+
         RaycastHit2D[] guards = Physics2D.CircleCastAll(_entityBody.position, alertRadius, Vector2.up, alertRadius, guardLayer);
         foreach (var guard in guards)
         {
-
             // Have each guard investigate where the player was upon this function being called.
             var aiController = guard.collider.GetComponentInParent<AIController>();
             if (!aiController) continue;
-            
-            //aiController.positionToInvestigate = GameManager.Instance.GetPlayerPosition();
-            //aiController.UpdateAIState(AIController.AIState.Investigating);
+
             aiController.UpdateAIState(AIController.AIState.Chasing);
-            Debug.Log("Guard Alerted.");
         }
     }
     private void CheckForPlayer(string tag)
     {
-        if (tag == "Player")
-            _playerDetected = true;
+        if (tag == "Player") _playerDetected = true;
     }
     
     private void StopAICoroutines()
