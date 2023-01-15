@@ -15,9 +15,6 @@ public class LaserController : MonoBehaviour
     {
         if(_laserActive)
             DrawLaser(_targetTag);
-
-        // Enable or disable the laser visuals depending on if the laser is active or not.
-        _lineRenderer.enabled = _laserActive;
     }
 
     /// <summary>
@@ -70,7 +67,9 @@ public class LaserController : MonoBehaviour
     private IEnumerator HackDisableCoroutine(float disableTimeSeconds)
     {
         _laserActive = false;
+        _lineRenderer.enabled = false;
         yield return new WaitForSeconds(disableTimeSeconds);
+        _lineRenderer.enabled = true;
         _laserActive = true;
     }
     
