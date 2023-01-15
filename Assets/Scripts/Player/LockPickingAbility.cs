@@ -59,6 +59,7 @@ public class LockPickingAbility : Ability
                 throw new ArgumentOutOfRangeException();
         }
     }
+    
     // This coroutine checks if the player is still in range of the door while picking it.
     // If they still are when the time is up, they successfully unlock the door.
     private IEnumerator Unlock(Lock @lock, float unlockTime)
@@ -67,7 +68,9 @@ public class LockPickingAbility : Ability
         StartCoroutine(Wait(unlockTime));
         while (_unlockingDoor)
         {
-            if (Vector2.Distance(GameManager.Instance.GetPlayerPosition(), @lock.transform.position) > useRange || holdToPerformAction && !useAction.action.IsPressed())
+            if (Vector2.Distance(GameManager.Instance.GetPlayerPosition(), @lock.transform.position) > useRange 
+                || holdToPerformAction 
+                && !useAction.action.IsPressed())
             {
                 Debug.Log("Unlock Action cancelled for " + @lock);
                 _unlockingDoor = false;
@@ -75,20 +78,20 @@ public class LockPickingAbility : Ability
             }
             yield return new WaitForEndOfFrame();
         }
-
+        
         _unlockingDoor = false;
         // We successfully unlocked the door. Lose a pick, and tell the door its open.
         Debug.Log("Unlocked: " + @lock);
         @lock.Unlock();
         Charges--;
     }
+    
     // Wait while the door is being unlocked.
     private IEnumerator Wait(float unlockTime)
     {
         // Prevents unlock time going into the negatives. Probably would break stuff.
         if (unlockTime < 0)
             unlockTime = 0;
-        
         _unlockingDoor = true;
         yield return new WaitForSeconds(unlockTime);
         _unlockingDoor = false;
