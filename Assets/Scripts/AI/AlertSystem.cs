@@ -12,7 +12,7 @@ public class AlertSystem : MonoBehaviour
     }
     
     // The alert level of this scene.
-    private AlertnessLevel _alertnessLevel = AlertnessLevel.low; // Always starts at low.
+    [SerializeField] private AlertnessLevel _alertnessLevel = AlertnessLevel.low; // Always starts at low.
 
     public AlertnessLevel AlertLevel
     {
@@ -24,7 +24,7 @@ public class AlertSystem : MonoBehaviour
     }
 
     // Tokens are like strikes. Once you reach a certain amount, the alert level jumps up.
-    private int _tokens;
+    [SerializeField]private int _tokens;
 
     /// <summary>
     /// The amount of times the Player has been detected, when the player accumulates

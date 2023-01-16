@@ -11,6 +11,8 @@ public class LaserController : MonoBehaviour, Hackable
     [SerializeField] private LayerMask _guardLayer = 7;
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private LineRenderer _lineRenderer;
+    private bool _playerDetected = false;
+    private readonly float _detectionCooldown = 5f;
     
     private void FixedUpdate()
     {
@@ -29,12 +31,17 @@ public class LaserController : MonoBehaviour, Hackable
         {
             _lineRenderer.SetPosition(1, new Vector3(0,hit.distance, 0));
             
-            if (hit.collider.CompareTag(targetTag))
+            if (hit.collider.CompareTag(targetTag) && !_playerDetected)
+            {
                 AlertNearbyGuards(transform.position, alertRadius);
+                AlertSystem.Instance.Tokens++;
+            }
         }
         // If we didnt hit anything, just set the laser line to go 5000 units.
         else
+        {
             _lineRenderer.SetPosition(1, transform.up * 5000);
+        }
     }
     
     /// <summary>
@@ -44,6 +51,7 @@ public class LaserController : MonoBehaviour, Hackable
     /// <param name="alertRangeMeters"> How far the alert can go out in meters.</param>
     private void AlertNearbyGuards(Vector2 alertOrigin, float alertRangeMeters)
     {
+        _playerDetected = true;
         Debug.Log("Attempting to alert guards.");
         RaycastHit2D[] guards = Physics2D.CircleCastAll(alertOrigin, alertRadius, Vector2.up, alertRangeMeters, _guardLayer);
         foreach (var guard in guards)
@@ -51,9 +59,10 @@ public class LaserController : MonoBehaviour, Hackable
             // Have each guard investigate where the player was upon this function being called.
             var aiController = guard.collider.GetComponentInParent<AIController>();
             if (!aiController) continue;
-            
             aiController.UpdateAIState(AIController.AIState.Chasing);
         }
+        if(_playerDetected)
+            StartCoroutine(nameof(AlertCooldownCoroutine), _detectionCooldown);
     }
 
     /// <summary>
@@ -72,6 +81,12 @@ public class LaserController : MonoBehaviour, Hackable
         yield return new WaitForSeconds(disableTimeSeconds);
         _lineRenderer.enabled = true;
         _laserActive = true;
+    }
+
+    private IEnumerator AlertCooldownCoroutine(float cooldownTime)
+    {
+        yield return new WaitForSeconds(cooldownTime);
+        _playerDetected = false;
     }
     
     #if UNITY_EDITOR
