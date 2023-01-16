@@ -14,7 +14,7 @@ public class UnconsciousBehaviour : MonoBehaviour
         _agent = GetComponentInChildren<NavMeshAgent>();
     }
 
-    public void LoseConciousness()
+    public void LoseConsciousness()
     {
         // Do some knock out animation.
         

@@ -77,7 +77,7 @@ public class CameraController : MonoBehaviour
                 break;
             case AIState.Unconscious:
                 StopAICoroutines();
-                _unconsciousBehaviour.LoseConciousness();
+                _unconsciousBehaviour.LoseConsciousness();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
