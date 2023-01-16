@@ -46,6 +46,7 @@ public abstract class Ability : MonoBehaviour
     public UnityEvent onAbilityUsed;
     public UnityEvent outOfCharges;
     public UnityEvent chargeCountUpdated;
+    public UnityEvent reputationValueAltered;
     
     [Header("Configuration")]
     [SerializeField] protected InputActionReference useAction;
