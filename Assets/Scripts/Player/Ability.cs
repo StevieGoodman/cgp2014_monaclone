@@ -59,11 +59,8 @@ public abstract class Ability : MonoBehaviour
     private void UpdateAbilityLevel() // TODO: Add functions for UI events.
     {
         // Reputation = Mathf.Clamp(Reputation, 1, 10); // Clamp the rep value to make sure its within its correct bounds.
-        
-        if(reputation == 0)
+        if(Reputation == 0)
             GameManager.Instance.GameOver(); // If our reputation goes to 0. Thats classed as a game over.
-        
-        switch (reputation)
         AbilityLevel = Reputation switch
         {
             > 6 => AbilityLevel.Positive,
