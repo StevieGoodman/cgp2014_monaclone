@@ -22,4 +22,11 @@ public class UnconsciousBehaviour : MonoBehaviour
         foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
             col.isTrigger = true;
     }
+
+    public void GainConsciousness()
+    {
+        // Enables guards' colliders again to restore collision behaviour.
+        foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
+            col.isTrigger = false;
+    }
 }
