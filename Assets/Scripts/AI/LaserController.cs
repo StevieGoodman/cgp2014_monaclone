@@ -31,7 +31,7 @@ public class LaserController : MonoBehaviour, Hackable
         {
             _lineRenderer.SetPosition(1, new Vector3(0,hit.distance, 0));
             
-            if (hit.collider.CompareTag(targetTag) && !_playerDetected)
+            if (hit.collider.CompareTag(targetTag) && !_playerDetected  && !GameManager.Instance.player.transform.root.GetComponent<DisguiseAbility>().IsDisguised)
             {
                 AlertNearbyGuards(transform.position, alertRadius);
                 AlertSystem.Instance.Tokens++;

@@ -96,7 +96,7 @@ public class CameraController : MonoBehaviour, Hackable
             return;
         }
         // If we detect the player, tick down the detection timer.
-        if (_playerDetected)
+        if (_playerDetected && !GameManager.Instance.player.transform.root.GetComponent<DisguiseAbility>().IsDisguised)
         {
             _sight.SetFieldOfViewColour(Color.yellow);
             _detectionMeter -= Time.fixedDeltaTime;
