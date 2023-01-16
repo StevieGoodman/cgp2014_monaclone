@@ -75,4 +75,22 @@ public abstract class Ability : MonoBehaviour
         reputationValueAltered?.Invoke();
         // TODO: Add failure condition when reputation drops below 1.
     }
+
+    /// <summary>
+    /// Used to check that the player is looking at a GameObject with a specific component.
+    /// </summary>
+    /// <param name="raycastHit">Stores the value of the raycast hit object.</param>
+    /// <param name="layerMask">The layer mask the raycast will be applied to.</param>
+    /// <typeparam name="T">Type of component to search for.</typeparam>
+    /// <returns>Whether or not the hit collider's parent <seealso cref="GameObject"/> has <c>T</c> as a component.</returns>
+    protected bool HitComponent<T>(out RaycastHit2D raycastHit, LayerMask layerMask)
+    {
+        raycastHit = Physics2D.Raycast(
+            GameManager.Instance.GetPlayerTransform().position,
+            GameManager.Instance.GetPlayerTransform().up,
+            useRange,
+            layerMask);
+        if (raycastHit.rigidbody == null) return true;
+        return raycastHit.rigidbody.gameObject.GetComponentInParent<T>() != null;
+    }
 }
