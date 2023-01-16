@@ -5,6 +5,12 @@ public class HackAbility : Ability
 {
     [SerializeField] private LayerMask _layerMask;
     
+    public void Awake()
+    {
+        PlayerPrefs.SetInt("HackReputation", 5);
+        Reputation = PlayerPrefs.GetInt("HackReputation");
+    }
+    
     public override void UseAbility(InputAction.CallbackContext context)
     {
         if (!context.started) return;

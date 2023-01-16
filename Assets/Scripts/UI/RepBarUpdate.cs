@@ -16,6 +16,7 @@ public class RepBarUpdate : MonoBehaviour
 
     private LockPickingAbility _lockpick;
     private KnockoutAbility _knock;
+    private HackAbility _hack;
     // ADD HACK
     // ADD DISGUISE
 
@@ -24,13 +25,13 @@ public class RepBarUpdate : MonoBehaviour
         _player = transform.root.gameObject;
         _lockpick = _player.GetComponent<LockPickingAbility>();
         _knock =  _player.GetComponent<KnockoutAbility>();
-        //_hack = _player.GetComponent<HackAbility>();
+        _hack = _player.GetComponent<HackAbility>();
         //_disguise = _player.GetComponent<DisguiseAbility>();
         
         // Add listeners for each bar.
         _lockpick.reputationValueAltered.AddListener(() => UpdateAbilityValues(_lockpick, _pickSlider));
         _knock.reputationValueAltered.AddListener(() => UpdateAbilityValues(_knock, _knockSlider));
-        //_hack.reputationValueAltered.AddListener(() => UpdateAbilityValues(_hack, _hackSlider));
+        _hack.reputationValueAltered.AddListener(() => UpdateAbilityValues(_hack, _hackSlider));
         //_disguise.reputationValueAltered.AddListener(() => UpdateAbilityValues(_disguise, _disgSlider));
     }
 
@@ -38,7 +39,7 @@ public class RepBarUpdate : MonoBehaviour
     {
         UpdateAbilityValues(_lockpick, _pickSlider);
         UpdateAbilityValues(_knock, _knockSlider);
-        //UpdateAbilityValues(_hack, _hackSlider);
+        UpdateAbilityValues(_hack, _hackSlider);
         //UpdateAbilityValues(_disguise, _disgSlider);
     }
     /*
