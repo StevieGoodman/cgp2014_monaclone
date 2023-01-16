@@ -176,7 +176,7 @@ MonoBehaviour:
   holdToPerformAction: 1
   useRange: 2
   negativeAbility: {fileID: 0}
-  _layerMask:
+  layerMask:
     serializedVersion: 2
     m_Bits: 128
 --- !u!114 &8365460306442790164
