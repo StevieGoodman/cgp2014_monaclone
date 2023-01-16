@@ -1,11 +1,12 @@
 using System;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(PatrolBehaviour))] [RequireComponent(typeof(Sight))]
 
 // The cameras are a unique type of entity. So they have their own controller.
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviour, Hackable
 {
     public AIState aiState;
 
@@ -44,6 +45,7 @@ public class CameraController : MonoBehaviour
     {
         _patrolBehaviour = GetComponent<PatrolBehaviour>();
         _entityBody = GetComponentInChildren<Rigidbody2D>();
+        _unconsciousBehaviour = GetComponent<UnconsciousBehaviour>();
         _sight = GetComponent<Sight>();
         _sight.seenTag.AddListener(PlayerDetected);
     }
@@ -70,7 +72,7 @@ public class CameraController : MonoBehaviour
     public void UpdateAIState(AIState stateToUpdateTo)
     {
         Debug.Log("AIState: " + stateToUpdateTo);
-        if (aiState == AIState.Unconscious) return;
+        if (aiState == AIState.Unconscious) _unconsciousBehaviour.GainConsciousness();
         aiState = stateToUpdateTo;
         StopAICoroutines();
         switch (aiState)
@@ -141,8 +143,19 @@ public class CameraController : MonoBehaviour
     {
         _patrolBehaviour.StopAllCoroutines();
     }
-    
-    #if UNITY_EDITOR
+
+    public void Hack(float timeInSeconds)
+    {
+        UpdateAIState(AIState.Unconscious);
+        StartCoroutine(Wait(timeInSeconds));
+        IEnumerator Wait(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+            UpdateAIState(AIState.Patrolling);
+        }
+    }
+
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         // Shows alert radius.

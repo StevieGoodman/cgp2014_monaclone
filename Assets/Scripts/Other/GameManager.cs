@@ -1,5 +1,8 @@
 using UnityEngine;
+
 using UnityEngine.Serialization;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -34,6 +37,12 @@ public class GameManager : MonoBehaviour
         aiControllers = FindObjectsOfType<AIController>();
     }
     public Transform GetPlayerTransform() {return player.transform;}
+
+    public void GameOver()
+    {
+        //TODO: Add a proper game over, this is temporary for the playtest
+        SceneManager.LoadScene("Mintlab");
+    }
 
     private void OnDrawGizmos()
     {
