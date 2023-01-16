@@ -42,10 +42,10 @@ public class Safe : MonoBehaviour
                 player.GetComponent<KnockoutAbility>().AlterReputationValue(bonusAmount);
                 break;
             case Ability.Hacking:
-                //player.GetComponent<HackAbility>().AlterReputationValue(bonusAmount);
+                player.GetComponent<HackAbility>().AlterReputationValue(bonusAmount);
                 break;
             case Ability.Disguise:
-                //player.GetComponent<DisguiseAbility>().AlterReputationValue(bonusAmount);
+                player.GetComponent<DisguiseAbility>().AlterReputationValue(bonusAmount);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
