@@ -1,11 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
-using UnityEngine.Serialization;
 
 /*
  *  This script is the base for all abilities.
@@ -18,95 +14,64 @@ using UnityEngine.Serialization;
  *  You gain rep by using the ability. But lose rep another chosen ability by doing so.
  * 
  */
-public class Ability : MonoBehaviour
+public enum AbilityLevel
 {
-    public enum AbilityLevel
+    Positive = 3,
+    Neutral  = 2,
+    Negative = 1
+}
+
+public abstract class Ability : MonoBehaviour
+{
+
+    [Header("Property fields")]
+    [SerializeField] private float _charges;
+    public float Charges
     {
-        Positive,
-        Neutral,
-        Negative
+        get => _charges;
+        set => _charges = Math.Clamp(value, 0, (int) AbilityLevel.Positive);
     }
+    [SerializeField] private float _reputation;
+    public float Reputation
+    {
+        get => _reputation;
+        set {
+            _reputation = value;
+            UpdateAbilityLevel();
+        }
+    }
+    protected AbilityLevel AbilityLevel { get; private set; }
 
-    public InputActionReference useAction;
-    public bool holdToPerformAction = false;
-    public AbilityLevel abilityLevel;
-    [Range(1, 10)]public float reputation;
-    public float useRange;
-    [Space]
-    public Ability negativeAbility; // This ability will lose reputation when using this one.
-
-    [Space]
-    // Abilities have use limits. These are the current amount of uses and the uses for each ability level.
-    public int charges;
-    public int positiveCharges;
-    public int neutralCharges;
-    public int negativeCharges;
-
-    [Header("Ability Events")]
+    [Header("Events")]
     public UnityEvent onAbilityUsed;
     public UnityEvent outOfCharges;
     public UnityEvent chargeCountUpdated;
-    public UnityEvent reputationValueAltered;
+    
+    [Header("Configuration")]
+    [SerializeField] protected InputActionReference useAction;
+    [SerializeField] protected bool holdToPerformAction = false;
+    [SerializeField] protected float useRange;
+    [SerializeField] protected Ability negativeAbility; // This ability will lose reputation when using this one.
 
-    // This is called when the script instance is loading.
-    public virtual void Awake()
-    {
-    }
-
-    public void Start()
-    {
-        UpdateAbilityLevel();
-        UpdateChargeLimits();
-    }
-
-    public virtual void Update()
-    {
-        if (useAction.action.triggered) UseAbility();
-    }
+    private void Awake() => UpdateAbilityLevel();
 
     // This updates the ability level depending on the players reputation towards this ability.
-    public virtual void UpdateAbilityLevel() // TODO: Add functions for UI events.
+    private void UpdateAbilityLevel() // TODO: Add functions for UI events.
     {
-        reputation = Mathf.Clamp(reputation, 1, 10); // Clamp the rep value to make sure its within its correct bounds,
-        switch (reputation)
+        // Reputation = Mathf.Clamp(Reputation, 1, 10); // Clamp the rep value to make sure its within its correct bounds,
+        AbilityLevel = Reputation switch
         {
-            case > 6:
-                abilityLevel = AbilityLevel.Positive;
-                break;
-            case < 4:
-                abilityLevel = AbilityLevel.Negative;
-                break;
-            default:
-                abilityLevel = AbilityLevel.Neutral;
-                break;
-        }
-        UpdateChargeLimits(); // Set new charge limits after updating the level of this ability.
+            > 6 => AbilityLevel.Positive,
+            < 4 => AbilityLevel.Negative,
+            _ => AbilityLevel.Neutral
+        };
     }
 
-    public virtual void UpdateChargeLimits()
-    {
-        // Apply the correct amount of charges to the ability depending on level.
-        switch (abilityLevel)
-        {
-            case AbilityLevel.Positive:
-                charges = positiveCharges;
-                break;
-            case AbilityLevel.Neutral:
-                charges = neutralCharges;
-                break;
-            case AbilityLevel.Negative:
-                charges = negativeCharges;
-                break;
-        }
-    }
-    public virtual void UseAbility()
-    {
-        // Ability code goes here.
-    }
+    public abstract void UseAbility(InputAction.CallbackContext context);
 
     public void AlterReputationValue(int value)
     {
-        reputation += value;
-        reputationValueAltered?.Invoke();
+        Reputation += value;
+        // TODO: Add failure condition when reputation drops below 1.
     }
 }

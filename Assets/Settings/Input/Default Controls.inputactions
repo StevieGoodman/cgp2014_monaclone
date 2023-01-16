@@ -42,18 +42,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Tab",
+                    "name": "Hack",
                     "type": "Button",
-                    "id": "93459905-a836-4a4c-8c04-47ceda1ecd6c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Escape",
-                    "type": "Button",
-                    "id": "bfdc3821-b8e9-4b20-8f03-dfa57dd55ffb",
+                    "id": "c0949107-572a-4458-99e3-7c2b1310751f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -151,23 +142,12 @@
                 },
                 {
                     "name": "",
-                    "id": "36ea6024-63f9-4236-b308-65d2cdbdaaca",
-                    "path": "<Keyboard>/tab",
+                    "id": "5c53659a-b766-4a46-995b-cad4f2f73b6b",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tab",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0a758fb5-6b9d-4828-b235-4a195b9e3a8c",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Escape",
+                    "action": "Hack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -176,30 +156,8 @@
         {
             "name": "UI",
             "id": "33fb3273-da30-476d-b273-a51f923378d7",
-            "actions": [
-                {
-                    "name": "Tab",
-                    "type": "Button",
-                    "id": "4b5d3d81-a664-44e1-935b-eab52790012a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "897325f2-7cdb-4f77-80d4-36c0dcf08179",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Tab",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": []

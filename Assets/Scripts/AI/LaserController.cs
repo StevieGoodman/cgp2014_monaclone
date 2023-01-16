@@ -2,13 +2,14 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
-public class LaserController : MonoBehaviour
+public class LaserController : MonoBehaviour, Hackable
 {
     public float alertRadius;
     private bool _laserActive = true;
     
     [SerializeField] private string _targetTag = "Player";
     [SerializeField] private LayerMask _guardLayer = 7;
+    [SerializeField] private LayerMask _layerMask;
     [SerializeField] private LineRenderer _lineRenderer;
     
     private void FixedUpdate()
@@ -23,7 +24,7 @@ public class LaserController : MonoBehaviour
     /// <param name="targetTag"> The tag the laser will react to if crossed.</param>
     private void DrawLaser(string targetTag)
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 100, _layerMask);
         if (hit)
         {
             _lineRenderer.SetPosition(1, new Vector3(0,hit.distance, 0));
@@ -61,7 +62,7 @@ public class LaserController : MonoBehaviour
     /// <param name="disableTimeSeconds"> How long in seconds the entity will be disabled.</param>
     public void Hack(float disableTimeSeconds)
     {
-        StartCoroutine(nameof(HackDisableCoroutine));
+        StartCoroutine(nameof(HackDisableCoroutine), disableTimeSeconds);
     }
 
     private IEnumerator HackDisableCoroutine(float disableTimeSeconds)

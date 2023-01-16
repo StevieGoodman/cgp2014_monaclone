@@ -21,17 +21,16 @@ public class Movement : MonoBehaviour
         _entityTransform = _rb2d.transform;
     }
 
-    private void Update()
+    public void UpdateMousePosition(InputAction.CallbackContext context)
     {
-        ReadInput();
+        _mousePosition = context.ReadValue<Vector2>();
     }
-
-    // Read inputs given by the player to be used in other functions
-    private void ReadInput()
+    
+    public void UpdateMovementInput(InputAction.CallbackContext context)
     {
-        _movementInput = _playerInput.actions["Move"].ReadValue<Vector2>();
-        _mousePosition = _playerInput.actions["Look"].ReadValue<Vector2>();
+        _movementInput = context.ReadValue<Vector2>();
     }
+    
     // Since we are using a rigidbody to move the player. We want to make sure that movements are done consistently via FixedUpdate
     private void FixedUpdate()
     {
@@ -48,9 +47,9 @@ public class Movement : MonoBehaviour
     private void FaceMouse()
     {
         if (!_entityTransform) return;
-        _mousePosition = Camera.main.ScreenToWorldPoint(_mousePosition);
-        var direction = new Vector2(_mousePosition.x - _entityTransform.position.x, _mousePosition.y - _entityTransform.position.y);
-        //Debug.DrawLine(_entityTransform.position, _mousePosition);
+        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(_mousePosition);
+        Vector2 direction = new Vector2(worldPoint.x - _entityTransform.position.x, worldPoint.y - _entityTransform.position.y);
+        //Debug.DrawLine(_entityTransform.position, worldPoint);
         _rb2d.MoveRotation(GetAngleFromVectorFloat(direction, -90f));
     }
     private static float GetAngleFromVectorFloat(Vector3 dir, float offset)
