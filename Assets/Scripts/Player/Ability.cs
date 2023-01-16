@@ -46,15 +46,16 @@ public class Ability : MonoBehaviour
     public UnityEvent onAbilityUsed;
     public UnityEvent outOfCharges;
     public UnityEvent chargeCountUpdated;
+    public UnityEvent reputationValueAltered;
 
     // This is called when the script instance is loading.
     public virtual void Awake()
     {
-
     }
 
     public void Start()
     {
+        UpdateAbilityLevel();
         UpdateChargeLimits();
     }
 
@@ -106,6 +107,6 @@ public class Ability : MonoBehaviour
     public void AlterReputationValue(int value)
     {
         reputation += value;
-        
+        reputationValueAltered?.Invoke();
     }
 }

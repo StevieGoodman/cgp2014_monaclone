@@ -18,6 +18,7 @@ public class LockPickingAbility : Ability
     public override void Awake()
     {
         base.Awake();
+        PlayerPrefs.SetInt("PickReputation", 5);
         reputation = PlayerPrefs.GetInt("PickReputation");
     }
 

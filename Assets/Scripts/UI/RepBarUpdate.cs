@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,49 +7,49 @@ using UnityEngine.Events;
 
 public class RepBarUpdate : MonoBehaviour
 {
-    [SerializeField] private GameObject _player;
+    private GameObject _player;
 
     [SerializeField] private Slider _pickSlider;
     [SerializeField] private Slider _hackSlider;
     [SerializeField] private Slider _disgSlider;
     [SerializeField] private Slider _knockSlider;
 
-    [SerializeField] private LockPickingAbility _lockpick;
-    [SerializeField] private KnockoutAbility _knock;
+    private LockPickingAbility _lockpick;
+    private KnockoutAbility _knock;
     // ADD HACK
     // ADD DISGUISE
 
     private void Awake()
     {
+        _player = transform.root.gameObject;
+        _lockpick = _player.GetComponent<LockPickingAbility>();
+        _knock =  _player.GetComponent<KnockoutAbility>();
+        //_hack = _player.GetComponent<HackAbility>();
+        //_disguise = _player.GetComponent<DisguiseAbility>();
         
+        // Add listeners for each bar.
+        _lockpick.reputationValueAltered.AddListener(() => UpdateAbilityValues(_lockpick, _pickSlider));
+        _knock.reputationValueAltered.AddListener(() => UpdateAbilityValues(_knock, _knockSlider));
+        //_hack.reputationValueAltered.AddListener(() => UpdateAbilityValues(_hack, _hackSlider));
+        //_disguise.reputationValueAltered.AddListener(() => UpdateAbilityValues(_disguise, _disgSlider));
     }
-    // Start is called before the first frame update
-    private void OnEnable()
+
+    private void Start()
     {
-        UpdateAbilityValues();
+        UpdateAbilityValues(_lockpick, _pickSlider);
+        UpdateAbilityValues(_knock, _knockSlider);
+        //UpdateAbilityValues(_hack, _hackSlider);
+        //UpdateAbilityValues(_disguise, _disgSlider);
     }
     /*
      * When the object is enabled the UpdateAbilityValues method fetches all the values for the reputation function
      * There could be ways to improve this method of getting the values but its an easy way to do it for the time being
      */
-    private void UpdateAbilityValues()
-    {
-        float pick_lvl = _player.GetComponent<LockPickingAbility>().reputation;
-        _pickSlider.value = pick_lvl / 10;
-        Debug.Log(pick_lvl);
-        Debug.Log(pick_lvl / 10);
-
-        /* Uncomment when appropriate skill classes have been created
-        float hack_lvl = _player.GetComponent<HackAbility>().reputation;
-        _pickSlider = hack_lvl / 10;
-        */
-
-        float knock_lvl = _player.GetComponent<KnockoutAbility>().reputation;
-        _knockSlider.value = knock_lvl / 10;
-
-        /*Uncomment when appropriate skill classes have been created
-        float disg_lvl = _player.GetComponent<DisguiseAbility>().reputation;
-        _disgSlider.value = disg_lvl / 10; 
-         */
-    }
+    
+    /// <summary>
+    /// Updates a Ability bar, using the specified ability and slider.
+    /// </summary>
+    /// <param name="ability">The ability the reputation value will be taken from</param>
+    /// <param name="sliderToUpdate">The bar to update</param>
+    private void UpdateAbilityValues(Ability ability, Slider sliderToUpdate) => sliderToUpdate.value = ability.reputation / 10;
 }

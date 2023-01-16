@@ -8,6 +8,11 @@ public class KnockoutAbility : Ability
 
     public GameObject throwablePrefab;
 
+    public override void Awake()
+    {
+        PlayerPrefs.SetInt("KnockReputation", 5);
+        reputation = PlayerPrefs.GetInt("KnockReputation");
+    }
     public override void UseAbility()
     {
         if (charges < 1) return;
