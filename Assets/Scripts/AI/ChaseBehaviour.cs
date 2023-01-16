@@ -8,6 +8,9 @@ using UnityEngine.PlayerLoop;
 public class ChaseBehaviour : MonoBehaviour
 {
     private NavMeshAgent _agent;
+    
+    // The distance required between the player and this agent to consider the player caught.
+    [SerializeField]private float _playerCatchDistance;
 
     private void Awake()
     {
@@ -24,6 +27,10 @@ public class ChaseBehaviour : MonoBehaviour
         // Update our destination to the player
         _agent.SetDestination(GameManager.Instance.GetPlayerPosition());
         yield return new WaitForSeconds(Time.fixedDeltaTime);
+        
+        if(Vector2.Distance(_agent.transform.position, GameManager.Instance.GetPlayerTransform().position) <= _playerCatchDistance)
+            GameManager.Instance.GameOver();
+        
         StartChasing();
     }
 
