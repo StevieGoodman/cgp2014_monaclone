@@ -272,15 +272,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aiState: 0
   playerDetected: 0
-  investigateStartTime: 0.5
-  chaseStartTime: 1
-  alertRadius: 8
-  detectionMeter: 0
   guardLayer:
     serializedVersion: 2
     m_Bits: 128
-  movementSpeed: 3
-  angularSpeed: 720
+  lowAlertStats: {fileID: 11400000, guid: c2189a75f805a4942a96db2499331946, type: 2}
+  medAlertStats: {fileID: 11400000, guid: 7e4e157eac406094997bd8221cdbd23a, type: 2}
+  highAlertStats: {fileID: 11400000, guid: c45e34466a5a8c4499e65f6b4c04086e, type: 2}
   positionToInvestigate: {x: 0, y: 0, z: 0}
 --- !u!114 &3685222798986465181
 MonoBehaviour:
@@ -343,8 +340,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b89b53e33e6a544f985e122f0787ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldOfView: 110
   rayCount: 50
+  fieldOfView: 110
   viewDistance: 5
   sightBlockerMask:
     serializedVersion: 2
