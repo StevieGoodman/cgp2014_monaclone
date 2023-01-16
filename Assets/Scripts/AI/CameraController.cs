@@ -81,7 +81,7 @@ public class CameraController : MonoBehaviour, Hackable
                 _patrolBehaviour.StartPatrolling();
                 break;
             case AIState.Unconscious:
-                _unconsciousBehaviour.LoseConciousness();
+                _unconsciousBehaviour.LoseConsciousness();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

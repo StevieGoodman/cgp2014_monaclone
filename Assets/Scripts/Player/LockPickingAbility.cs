@@ -68,7 +68,7 @@ public class LockPickingAbility : Ability
         StartCoroutine(Wait(unlockTime));
         while (_unlockingDoor)
         {
-            if (Vector2.Distance(GameManager.Instance.GetPlayerPosition(), @lock.transform.position) > useRange 
+            if (Vector2.Distance(GameManager.Instance.GetPlayerTransform().position, @lock.transform.position) > useRange 
                 || holdToPerformAction 
                 && !useAction.action.IsPressed())
             {

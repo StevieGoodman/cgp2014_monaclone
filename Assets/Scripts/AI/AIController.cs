@@ -139,7 +139,7 @@ public class AIController : MonoBehaviour
                 _chaseBehaviour.StartChasing();
                 break;
             case AIState.Unconscious:
-                _unconsciousBehaviour.LoseConciousness();
+                _unconsciousBehaviour.LoseConsciousness();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
