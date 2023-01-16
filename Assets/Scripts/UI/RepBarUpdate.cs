@@ -51,5 +51,5 @@ public class RepBarUpdate : MonoBehaviour
     /// </summary>
     /// <param name="ability">The ability the reputation value will be taken from</param>
     /// <param name="sliderToUpdate">The bar to update</param>
-    private void UpdateAbilityValues(Ability ability, Slider sliderToUpdate) => sliderToUpdate.value = ability.reputation / 10;
+    private void UpdateAbilityValues(Ability ability, Slider sliderToUpdate) => sliderToUpdate.value = ability.Reputation / 10;
 }
