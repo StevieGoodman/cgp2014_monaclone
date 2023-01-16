@@ -18,6 +18,7 @@ public class LockPickingAbility : Ability
 
     public void Start()
     {
+
         Reputation = PlayerPrefs.GetInt("PickReputation");
     }
 
