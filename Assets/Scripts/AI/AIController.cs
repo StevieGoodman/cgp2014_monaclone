@@ -202,8 +202,10 @@ public class AIController : MonoBehaviour
     {
         if (aiState == AIState.Unconscious) return;
         // If we detect the player, tick down the detection timer.
-        if (playerDetected)
+        if (playerDetected && !GameManager.Instance.player.transform.root.GetComponent<DisguiseAbility>().IsDisguised)
+        {
             _detectionMeter -= Time.fixedDeltaTime;
+        }
         // If we dont find them. bring it back up.
         else
         {

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8365460306442790160}
   - component: {fileID: 8365460306442790161}
   - component: {fileID: 4686197936869884582}
+  - component: {fileID: 4318323667000722963}
   - component: {fileID: 8365460306442790164}
   m_Layer: 6
   m_Name: Player
@@ -65,8 +66,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b89b53e33e6a544f985e122f0787ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldOfView: 360
   rayCount: 1000
+  fieldOfView: 360
   viewDistance: 20
   sightBlockerMask:
     serializedVersion: 2
@@ -179,6 +180,40 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 128
+--- !u!114 &4318323667000722963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8365460306442790167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec4d3c85547407743929a62887e6532c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _charges: 3
+  _reputation: 0
+  onAbilityUsed:
+    m_PersistentCalls:
+      m_Calls: []
+  outOfCharges:
+    m_PersistentCalls:
+      m_Calls: []
+  chargeCountUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  reputationValueAltered:
+    m_PersistentCalls:
+      m_Calls: []
+  useAction: {fileID: 0}
+  holdToPerformAction: 0
+  useRange: 0
+  negativeAbility: {fileID: 0}
+  disguiseCountdown: 0
+  playerSpriteRenderer: {fileID: 8365460306999492516}
+  disguisedSprite: {fileID: 21300000, guid: c7e66d33481a5414c9c149dd31c1f696, type: 3}
+  undisguisedSprite: {fileID: 21300000, guid: 5c048ebf2724049e6a21ade7cf3dec87, type: 3}
 --- !u!114 &8365460306442790164
 MonoBehaviour:
   m_ObjectHideFlags: 0
