@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class KnockoutAbility : Ability
 {
@@ -8,25 +9,20 @@ public class KnockoutAbility : Ability
 
     public GameObject throwablePrefab;
 
-    public override void UseAbility()
+    public override void UseAbility(InputAction.CallbackContext context)
     {
-        if (charges < 1) return;
+        if (!context.started) return;
+        if (Charges < 1) return;
         Transform playerPos = GameManager.Instance.GetPlayerTransform();
         Throwable throwable = Instantiate(throwablePrefab, playerPos.position, Quaternion.identity).GetComponent<Throwable>();
-        var throwForce = 0f;
-        switch (abilityLevel)
+        float throwForce = AbilityLevel switch
         {
-            case AbilityLevel.Positive:
-                throwForce = throwRangePositive;
-                break;
-            case AbilityLevel.Neutral:
-                throwForce = throwRangeNeutral;
-                break;
-            case AbilityLevel.Negative:
-                throwForce = throwRangeNegative;
-                break;
-        }
+            AbilityLevel.Positive => throwRangePositive,
+            AbilityLevel.Neutral => throwRangeNeutral,
+            AbilityLevel.Negative => throwRangeNegative,
+            _ => 0f
+        };
         throwable.ThrowMe(playerPos.up, throwForce);
-        charges--;
+        Charges--;
     }
 }

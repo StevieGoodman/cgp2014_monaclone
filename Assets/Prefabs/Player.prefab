@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8365460306442790165}
   - component: {fileID: 8365460306442790160}
   - component: {fileID: 8365460306442790161}
+  - component: {fileID: 4686197936869884582}
   - component: {fileID: 8365460306442790164}
   m_Layer: 6
   m_Name: Player
@@ -70,6 +71,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   sightMaterial: {fileID: 2100000, guid: 419cf7c63a10264408d2d8145a926417, type: 2}
+  seenTag:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8365460306442790160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,16 +86,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc6be46a793d3694c8592f4718aee528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAction: {fileID: 4946430042358184368, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
-  holdToPerformAction: 1
-  abilityLevel: 2
-  reputation: 1
-  useRange: 1
-  negativeAbility: {fileID: 0}
-  charges: 0
-  positiveCharges: 3
-  neutralCharges: 2
-  negativeCharges: 1
+  _charges: 3
+  _reputation: 0
   onAbilityUsed:
     m_PersistentCalls:
       m_Calls: []
@@ -101,6 +97,10 @@ MonoBehaviour:
   chargeCountUpdated:
     m_PersistentCalls:
       m_Calls: []
+  useAction: {fileID: 4946430042358184368, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
+  holdToPerformAction: 1
+  useRange: 1
+  negativeAbility: {fileID: 0}
   positivePickTime: -2
   neutralPickTime: 0
   negativePickTime: 2
@@ -120,16 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d714514e258940246a127df95828bccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAction: {fileID: 9102018959165596633, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
-  holdToPerformAction: 0
-  abilityLevel: 0
-  reputation: 10
-  useRange: 0
-  negativeAbility: {fileID: 0}
-  charges: 0
-  positiveCharges: 999999
-  neutralCharges: 2
-  negativeCharges: 1
+  _charges: 3
+  _reputation: 0
   onAbilityUsed:
     m_PersistentCalls:
       m_Calls: []
@@ -139,10 +131,44 @@ MonoBehaviour:
   chargeCountUpdated:
     m_PersistentCalls:
       m_Calls: []
+  useAction: {fileID: 9102018959165596633, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
+  holdToPerformAction: 0
+  useRange: 0
+  negativeAbility: {fileID: 0}
   throwRangePositive: 15
   throwRangeNeutral: 10
   throwRangeNegative: 5
   throwablePrefab: {fileID: 3961262497441929582, guid: 82d7e0a04b138524ab618cbda34b4f11, type: 3}
+--- !u!114 &4686197936869884582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8365460306442790167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a36823afb403f1247a9540093ce2192d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _charges: 3
+  _reputation: 0
+  onAbilityUsed:
+    m_PersistentCalls:
+      m_Calls: []
+  outOfCharges:
+    m_PersistentCalls:
+      m_Calls: []
+  chargeCountUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  useAction: {fileID: -206326444680174942, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
+  holdToPerformAction: 1
+  useRange: 2
+  negativeAbility: {fileID: 0}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &8365460306442790164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,7 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -167,7 +193,87 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8365460306442790162}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: UpdateMovementInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b5301b17-b758-45c4-b522-299d110fad71
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8365460306442790162}
+        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
+        m_MethodName: UpdateMousePosition
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7fd50a96-d2b7-4824-889f-ab322cfc957f
+    m_ActionName: Player/Look[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8365460306442790160}
+        m_TargetAssemblyTypeName: LockPickingAbility, Assembly-CSharp
+        m_MethodName: UseAbility
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 00b04ded-6105-4561-85df-448015f0a05d
+    m_ActionName: Player/Pick Lock[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8365460306442790161}
+        m_TargetAssemblyTypeName: KnockoutAbility, Assembly-CSharp
+        m_MethodName: UseAbility
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f568e57d-5e79-4c72-8027-c8d90e595e8a
+    m_ActionName: Player/Throw Item[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4686197936869884582}
+        m_TargetAssemblyTypeName: HackAbility, Assembly-CSharp
+        m_MethodName: UseAbility
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c0949107-572a-4458-99e3-7c2b1310751f
+    m_ActionName: Player/Hack[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

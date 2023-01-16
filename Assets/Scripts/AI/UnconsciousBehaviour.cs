@@ -1,30 +1,32 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class UnconsciousBehaviour : MonoBehaviour
 {
+    
+    // Component caches
     private NavMeshAgent _agent;
-    
-    
+
+    // Methods
     private void Awake()
     {
         _agent = GetComponentInChildren<NavMeshAgent>();
     }
 
-    public void LoseConciousness()
+    public void LoseConsciousness()
     {
-        // Do some knock out animation.
-        
-        // Stop the AI where he is and disable his navMeshAgent
+        // Stop the agent from moving to prevent sleepwalking.
         _agent.SetDestination(_agent.transform.position);
         
-        // Disable all colliders for this Guard.
-        foreach (var col in GetComponentsInChildren<Collider2D>())
-        {
+        // Prevents guards from blocking hallways when unconscious by disabling their colliders.
+        foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
             col.isTrigger = true;
-        }
+    }
+
+    public void GainConsciousness()
+    {
+        // Enables guards' colliders again to restore collision behaviour.
+        foreach (Collider2D col in GetComponentsInChildren<Collider2D>())
+            col.isTrigger = false;
     }
 }

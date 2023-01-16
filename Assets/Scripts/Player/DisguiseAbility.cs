@@ -1,16 +1,10 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class DisguiseAbility : MonoBehaviour
+public class DisguiseAbility : Ability
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void UseAbility(InputAction.CallbackContext context)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        throw new System.NotImplementedException();
     }
 }
