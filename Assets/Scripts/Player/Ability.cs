@@ -72,6 +72,7 @@ public abstract class Ability : MonoBehaviour
     public void AlterReputationValue(int value)
     {
         Reputation += value;
+        reputationValueAltered?.Invoke();
         // TODO: Add failure condition when reputation drops below 1.
     }
 }

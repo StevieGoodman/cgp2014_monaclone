@@ -38,6 +38,7 @@ public class AlertSystem : MonoBehaviour
             _tokens = value;
             if (value == mediumTokenRequirement) AlertLevel = AlertnessLevel.medium;
             if (value == highTokenRequirement) AlertLevel = AlertnessLevel.high;
+            
         }
     }
     
