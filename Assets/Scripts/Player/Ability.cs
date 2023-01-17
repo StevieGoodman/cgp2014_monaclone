@@ -90,7 +90,7 @@ public abstract class Ability : MonoBehaviour
             GameManager.Instance.GetPlayerTransform().up,
             useRange,
             layerMask);
-        if (raycastHit.rigidbody == null) return true;
+        if (raycastHit.rigidbody == null) return false;
         return raycastHit.rigidbody.gameObject.GetComponentInParent<T>() != null;
     }
 }

@@ -210,6 +210,7 @@ MonoBehaviour:
   holdToPerformAction: 0
   useRange: 0
   negativeAbility: {fileID: 0}
+  inputAction: {fileID: 5634167687702835267, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
   disguiseCountdown: 0
   playerSpriteRenderer: {fileID: 8365460306999492516}
   disguisedSprite: {fileID: 21300000, guid: c7e66d33481a5414c9c149dd31c1f696, type: 3}
