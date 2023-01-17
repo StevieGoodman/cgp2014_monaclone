@@ -11,7 +11,6 @@ public class HackAbility : Ability
     
     public void Awake()
     {
-        PlayerPrefs.SetInt("HackReputation", 5);
         Reputation = PlayerPrefs.GetInt("HackReputation");
     }
     

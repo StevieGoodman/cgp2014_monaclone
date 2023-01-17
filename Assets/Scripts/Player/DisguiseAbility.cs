@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
-using UnityEngine.Serialization;
 
 public class DisguiseAbility : Ability
 {
@@ -16,6 +15,11 @@ public class DisguiseAbility : Ability
     [SerializeField] private Sprite disguisedSprite;
     [SerializeField] private Sprite undisguisedSprite;
 
+    public void Awake()
+    {
+        Reputation = PlayerPrefs.GetInt("DisguiseReputation");
+    }
+    
     private void Start()
     {
         _actionAsset = GetComponent<PlayerInput>().actions["Player/Disguise"];
