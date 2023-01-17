@@ -12676,6 +12676,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4318323667000722963, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
+      propertyPath: inputAction.m_Id
+      value: cd792bd0-26aa-494c-9c76-2ed722799b8d
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318323667000722963, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
+      propertyPath: inputAction.m_Name
+      value: Input Action
+      objectReference: {fileID: 0}
     - target: {fileID: 4686197936869884582, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
       propertyPath: _environmentMask.m_Bits
       value: 384
