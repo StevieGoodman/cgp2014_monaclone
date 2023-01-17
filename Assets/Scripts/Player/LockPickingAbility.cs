@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class LockPickingAbility : Ability
 {
@@ -37,8 +38,12 @@ public class LockPickingAbility : Ability
 
     public override void UseAbility(InputAction.CallbackContext context)
     {
-        if (!context.started) return; // Acts as input debounce.
         if (Charges < 1) return;      // Checks player has enough ability charges.
+        if (context.started && _lockImLookingAt) GetComponent<Interaction>().Begin(
+            _lockImLookingAt.gameObject, 
+            GetComponent<PlayerInput>().actions["Player/Hack"].GetParameterValue((HoldInteraction i) => i.duration).Value);
+        if (context.canceled && GetComponent<Interaction>().interactionPrompt) GetComponent<Interaction>().interactionPrompt.OnInteractionInterrupt();
+        if (!context.performed) return; // Acts as input debounce.
         if (_unlockingDoor) return;   // Checks the door isn't already being unlocked.
         Lock toUnlock = (_lockImLookingAt);
 
