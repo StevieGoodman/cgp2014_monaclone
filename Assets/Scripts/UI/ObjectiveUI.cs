@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Objectives : MonoBehaviour
+public class ObjectiveUI : MonoBehaviour
 {
     private GameObject _main_objective;
     private GameObject[] _side_objectives;

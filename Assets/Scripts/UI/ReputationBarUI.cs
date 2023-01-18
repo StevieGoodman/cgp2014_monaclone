@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class RepBarUpdate : MonoBehaviour
+public class ReputationBarUI : MonoBehaviour
 {
     private GameObject _player;
 
