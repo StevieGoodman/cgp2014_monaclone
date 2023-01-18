@@ -12144,6 +12144,17 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!114 &1605846638 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8699480528871548778, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
+  m_PrefabInstance: {fileID: 2086906155}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d762bfc321af64390b9627f61be0f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1636444956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12256,6 +12267,7 @@ MonoBehaviour:
   player: {fileID: 0}
   aiControllers: []
   darknessClearer: {fileID: 1180041879}
+  _mainObjectiveCollected: 0
 --- !u!4 &1785373293
 Transform:
   m_ObjectHideFlags: 0
@@ -12749,7 +12761,15 @@ PrefabInstance:
       value: Player/Disguise[/Keyboard/space]
       objectReference: {fileID: 0}
     - target: {fileID: 8365460306442790164, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8365460306442790164, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8365460306442790164, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8365460306442790164, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
@@ -12757,20 +12777,40 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8365460306442790164, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1605846638}
+    - target: {fileID: 8365460306442790164, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 648284837}
     - target: {fileID: 8365460306442790164, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8365460306442790164, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8365460306442790164, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnEscape
       objectReference: {fileID: 0}
     - target: {fileID: 8365460306442790164, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: UseAbility
       objectReference: {fileID: 0}
     - target: {fileID: 8365460306442790164, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8365460306442790164, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: DisguiseAbility, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8365460306442790164, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8365460306442790164, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -12852,6 +12892,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8699480528251136901, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResumeGame
+      objectReference: {fileID: 0}
     - target: {fileID: 8699480528413062419, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -12932,7 +12976,8 @@ PrefabInstance:
       propertyPath: interactionPromptAsset
       value: 
       objectReference: {fileID: 388973463887562365, guid: 63a151d8310c74a8cb62d22d2db2dade, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8699480528871548777, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1d599d23b26c4874aaa7c63e5efa6909, type: 3}
 --- !u!1 &2091114168
 GameObject:
