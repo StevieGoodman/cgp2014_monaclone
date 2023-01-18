@@ -21,8 +21,9 @@ public class GameManager : MonoBehaviour
     // Singleton instance of the GameManager.
     public static GameManager Instance;
 
-    // LEVEL FLAGS
-    public bool _mainObjectiveCollected;
+    //Main Objective
+    private MainObjective mainObjective;
+
 
     private void Awake()
     {
@@ -41,11 +42,17 @@ public class GameManager : MonoBehaviour
         timeRemaining -= Time.deltaTime;
         if (timeRemaining <= 0) GameOver("Ran out of time");
     }
-    
+
+    public void ExitToBar()
+    {
+        // Level complete screen here.
+        
+        SceneManager.LoadScene("Bar Scene");
+    }
     public void GameOver(string gameOverReason = "Mission Failed")
     {
         //TODO: Add a proper game over, this is temporary for the playtest
-        SceneManager.LoadScene("Mintlab");
+
     }
     private void OnDrawGizmos()
     {

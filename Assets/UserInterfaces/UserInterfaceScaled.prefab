@@ -3312,8 +3312,6 @@ GameObject:
   - component: {fileID: 5687688640088128894}
   - component: {fileID: 5687688640088128893}
   - component: {fileID: 5687688640088128892}
-  - component: {fileID: 5687688640088128835}
-  - component: {fileID: 3677229331408246049}
   m_Layer: 5
   m_Name: UserInterfaceScaled
   m_TagString: Untagged
@@ -3405,51 +3403,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5687688640088128835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5687688640088128891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ed81e2f59de95a42a35ff47f23fe49b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _main_obj_ui: {fileID: 5687688639451897658}
-  LockpickObjective:
-    GUI: {fileID: 5687688639994765044}
-    objectiveDescription: Test
-    objectiveCompletion: Complete
-  HackingObjective:
-    GUI: {fileID: 5687688638335453311}
-    objectiveDescription: Test
-    objectiveCompletion: Complete
-  KnockoutObjective:
-    GUI: {fileID: 4499267809988948912}
-    objectiveDescription: Test
-    objectiveCompletion: Complete
-  DisguiseObjective:
-    GUI: {fileID: 3518119470568667718}
-    objectiveDescription: Test
-    objectiveCompletion: Complete
---- !u!114 &3677229331408246049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5687688640088128891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0df79c36e694f804f8947a970a658352, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pickSlider: {fileID: 5687688638187690787}
-  _hackSlider: {fileID: 5687688640080119554}
-  _disgSlider: {fileID: 5687688639775387449}
-  _knockSlider: {fileID: 5687688639313885506}
 --- !u!1 &6611314305692067169
 GameObject:
   m_ObjectHideFlags: 0

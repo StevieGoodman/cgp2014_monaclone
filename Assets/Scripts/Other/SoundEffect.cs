@@ -22,8 +22,8 @@ public class SoundEffect : MonoBehaviour
 
     }
 
-    private const float VolumeRange = 0.1f;
-    private const float PitchRange = 0.3f;
+    public float VolumeRange = 0.1f;
+    public float PitchRange = 0.3f;
 
     public void PlaySoundEffect()
     {

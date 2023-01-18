@@ -28,12 +28,12 @@ public class UIManager : MonoBehaviour
     public void PauseGame ()
     {
         _pauseMenuUI.SetActive(true);
-        //Time.timeScale = 0;
+        Time.timeScale = 0;
     }
     public void ResumeGame()
     {
         _pauseMenuUI.SetActive(false);
-        //Time.timeScale = 1;
+        Time.timeScale = 1;
     }
     public void ExitButton()
     {

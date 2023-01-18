@@ -7,8 +7,6 @@ using UnityEngine.Serialization;
 
 public class ObjectiveUI : MonoBehaviour
 {
-    private GameObject _main_objective;
-    private Safe[] _side_objectives;
 
     [System.Serializable]
     public struct Objective
@@ -18,23 +16,21 @@ public class ObjectiveUI : MonoBehaviour
         public string objectiveCompletion;
     }
 
-    [SerializeField] private GameObject _main_obj_ui;
-
+    public Objective MainObjective;
     public Objective LockpickObjective;
     public Objective HackingObjective;
     public Objective KnockoutObjective;
     public Objective DisguiseObjective;
-
-    // Start is called before the first frame update
-    void Start()
+    
+    private void Start() => InitializeUIElements();
+    
+    private void InitializeUIElements()
     {
-        
-        // _main_objective = GameObject.FindGameObjectWithTag("Objective");
-        _side_objectives = GameObject.FindObjectsOfType<Safe>();
-        foreach (var side_objective in _side_objectives) {
-            side_objective.GetComponent<Lock>().whenUnlocked.AddListener(() => OnUnlock(side_objective));
+        var sideObjectives = FindObjectsOfType<Safe>();
+        foreach (var objective in sideObjectives) {
+            objective.GetComponent<Lock>().whenUnlocked.AddListener(() => OnUnlock(objective));
 
-            switch (side_objective.abilityBonus)
+            switch (objective.abilityBonus)
             {
                 case Safe.AbilityBonus.LockPicking:
                     LockpickObjective.GUI.text = LockpickObjective.objectiveDescription;
@@ -48,8 +44,16 @@ public class ObjectiveUI : MonoBehaviour
                 case Safe.AbilityBonus.Hacking:
                     HackingObjective.GUI.text = HackingObjective.objectiveDescription;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
+        
+        //Main Objective
+        var mainObjective = FindObjectOfType<MainObjective>();
+        mainObjective.onCollected.AddListener(() => OnMainObjectiveUnlock());
+
+        MainObjective.GUI.text = MainObjective.objectiveDescription;
     }
 
     private void OnUnlock(Safe unlockedSafe)
@@ -72,6 +76,14 @@ public class ObjectiveUI : MonoBehaviour
                 HackingObjective.GUI.text = HackingObjective.objectiveCompletion;
                 HackingObjective.GUI.color = Color.green;
                 break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
+    }
+
+    private void OnMainObjectiveUnlock()
+    {
+        MainObjective.GUI.text = MainObjective.objectiveCompletion;
+        MainObjective.GUI.color = Color.green;
     }
 }
