@@ -17,6 +17,7 @@ public class DisguiseAbility : Ability
 
     public void Awake()
     {
+        PlayerPrefs.SetInt("DisguiseReputation", 5);
         Reputation = PlayerPrefs.GetInt("DisguiseReputation");
     }
     
@@ -41,10 +42,17 @@ public class DisguiseAbility : Ability
     
     public override void UseAbility(InputAction.CallbackContext context)
     {
-        Debug.Log(context.action.GetParameterValue((HoldInteraction i) => i.duration));
-        if (!context.performed) return;
         if (IsDisguised) return;
         if (Charges <= 0) return;
+        if (context.started) 
+            GetComponent<Interaction>()?.Begin(
+                GameManager.Instance.player, 
+                context.action.GetParameterValue((HoldInteraction i) => i.duration).Value
+            );
+        if (context.canceled)
+            if (GetComponent<Interaction>().interactionPrompt != null)
+                GetComponent<Interaction>().interactionPrompt.OnInteractionInterrupt();
+        if (!context.performed) return;
         disguiseCountdown = AbilityLevel switch
         {
             AbilityLevel.Positive => 5,
