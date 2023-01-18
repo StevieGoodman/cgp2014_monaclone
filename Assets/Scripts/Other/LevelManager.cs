@@ -15,5 +15,6 @@ public class LevelManager : MonoBehaviour
 
     public void ChangeScene() => SceneManager.LoadScene(currentLevel);
     public static void ChangeScene(string newScene) => SceneManager.LoadScene(newScene);
+    
 
 }
