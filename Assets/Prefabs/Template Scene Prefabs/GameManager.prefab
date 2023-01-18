@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2357119501094998492}
   - component: {fileID: 2357119501094998466}
   - component: {fileID: 2357119501094998467}
+  - component: {fileID: 4025937778803947833}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -51,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0cf695c3111bb546a3cecaa568bb4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeRemaining: 120
+  timeRemaining: 1e+20
   player: {fileID: 0}
   aiControllers: []
   darknessClearer: {fileID: 2357119501563425060}
@@ -137,6 +138,19 @@ MonoBehaviour:
   _hackSlider: {fileID: 7951264692689307216}
   _disgSlider: {fileID: 7951264693128801899}
   _knockSlider: {fileID: 7951264693456091152}
+--- !u!114 &4025937778803947833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357119501094998488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523038cb08054434c8a62cee52a547e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLevel: 
 --- !u!1 &2357119501563425060
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,6 +532,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5687688640088128895, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8685816156440365923, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

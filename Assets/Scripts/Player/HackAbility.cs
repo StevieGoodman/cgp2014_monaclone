@@ -9,11 +9,8 @@ public class HackAbility : Ability
     private InputAction _actionAsset;
     [SerializeField] private LayerMask layerMask;
     
-    public void Awake()
-    {
-        PlayerPrefs.SetInt("HackReputation", 5);
-        Reputation = PlayerPrefs.GetInt("HackReputation");
-    }
+    public void Awake() => Reputation = PlayerPrefs.GetInt("HackRep");
+
     
     private void Start()
     {

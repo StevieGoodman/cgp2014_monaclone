@@ -17,11 +17,7 @@ public class LockPickingAbility : Ability
     [SerializeField]private Lock _lockImLookingAt;
     [SerializeField]private LayerMask environmentMask;
 
-    public void Awake()
-    {
-        PlayerPrefs.SetInt("PickReputation", 5);
-        Reputation = PlayerPrefs.GetInt("PickReputation");
-    }
+    public void Awake() => Reputation = PlayerPrefs.GetInt("LockPickRep");
 
     public void Update()
     {
