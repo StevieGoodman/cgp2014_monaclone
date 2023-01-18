@@ -11,6 +11,7 @@ public class HackAbility : Ability
     
     public void Awake()
     {
+        PlayerPrefs.SetInt("HackReputation", 5);
         Reputation = PlayerPrefs.GetInt("HackReputation");
     }
     
@@ -35,9 +36,13 @@ public class HackAbility : Ability
     
     public override void UseAbility(InputAction.CallbackContext context)
     {
-        if (!context.performed) return;
         if (!HitComponent<Hackable>(out RaycastHit2D raycastHit, layerMask)) return;
+        if (context.started) GetComponent<Interaction>().Begin(
+            raycastHit.transform.position, 
+            GetComponent<PlayerInput>().actions["Player/Hack"].GetParameterValue((HoldInteraction i) => i.duration).Value);
+        if (context.canceled && GetComponent<Interaction>().interactionPrompt) GetComponent<Interaction>().interactionPrompt.OnInteractionInterrupt();
         if (Charges <= 0) return;
+        if (!context.performed) return;
         Charges--;
         raycastHit.rigidbody.gameObject.GetComponentInParent<Hackable>().Hack(5);
     }
