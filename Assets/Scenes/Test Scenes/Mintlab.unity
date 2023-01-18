@@ -13290,6 +13290,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1975687310}
     m_Modifications:
+    - target: {fileID: 2781903838963449824, guid: 5ce094175e9ee26438e6d931daf26201, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2781903838963449826, guid: 5ce094175e9ee26438e6d931daf26201, type: 3}
       propertyPath: m_Name
       value: Laser(Standard)
@@ -13338,7 +13342,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8083358646155067427, guid: 5ce094175e9ee26438e6d931daf26201, type: 3}
+    - target: {fileID: 5004115872075005383, guid: 5ce094175e9ee26438e6d931daf26201, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9135189715518898049, guid: 5ce094175e9ee26438e6d931daf26201, type: 3}
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}

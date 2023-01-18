@@ -10,7 +10,7 @@ public class Interaction : MonoBehaviour
     [Header("GameObject References")] [SerializeField]
     public InteractionPrompt interactionPrompt;
     
-    public void Begin(Vector2 position, float duration)
+    public void Begin(Vector3 position, float duration)
     {
         GameObject prompt = Instantiate(interactionPromptAsset, position, quaternion.identity);
         prompt.GetComponent<InteractionPrompt>()?.OnInteractionStart(duration);
@@ -19,7 +19,7 @@ public class Interaction : MonoBehaviour
 
     public void Begin(GameObject parent, float duration)
     {
-        GameObject prompt = Instantiate(interactionPromptAsset, parent.transform.position + Vector3.back, quaternion.identity, parent.transform);
+        GameObject prompt = Instantiate(interactionPromptAsset, parent.transform.position, quaternion.identity, parent.transform);
         prompt.GetComponent<InteractionPrompt>()?.OnInteractionStart(duration);
         interactionPrompt = prompt.GetComponent<InteractionPrompt>();
     }
