@@ -17,11 +17,7 @@ public class LockPickingAbility : Ability
     [SerializeField]private Lock _lockImLookingAt;
     [SerializeField]private LayerMask environmentMask;
 
-    public void Awake()
-    {
-        PlayerPrefs.SetInt("PickReputation", 5);
-        Reputation = PlayerPrefs.GetInt("PickReputation");
-    }
+    public void Awake() => Reputation = PlayerPrefs.GetInt("LockPickRep");
 
     public void Update()
     {
@@ -84,6 +80,9 @@ public class LockPickingAbility : Ability
         Debug.Log("Unlocked: " + @lock);
         @lock.Unlock();
         Charges--;
+        // Gain rep for using this skill.
+        AlterReputationValue(1);
+        negativeAbility.AlterReputationValue(-1);
     }
     
     // Wait while the door is being unlocked.

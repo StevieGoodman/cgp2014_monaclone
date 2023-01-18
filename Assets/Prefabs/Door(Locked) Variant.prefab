@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locked: 1
-  unlockTime: 0
+  unlockTime: 2
   whenUnlocked:
     m_PersistentCalls:
       m_Calls:

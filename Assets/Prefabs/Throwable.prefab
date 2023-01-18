@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03df636c75df0864582fcbe061bc1b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distractionRadius: 5
+  distractionRadius: 3
   onCollision:
     m_PersistentCalls:
       m_Calls: []
