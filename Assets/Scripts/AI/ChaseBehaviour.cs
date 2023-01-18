@@ -27,9 +27,13 @@ public class ChaseBehaviour : MonoBehaviour
         // Update our destination to the player
         _agent.SetDestination(GameManager.Instance.GetPlayerTransform().position);
         yield return new WaitForSeconds(Time.fixedDeltaTime);
-        
-        if(Vector2.Distance(_agent.transform.position, GameManager.Instance.GetPlayerTransform().position) <= _playerCatchDistance)
+
+        if (Vector2.Distance(_agent.transform.position, GameManager.Instance.GetPlayerTransform().position) <=
+            _playerCatchDistance)
+        {
             GameManager.Instance.GameOver("Caught!");
+        }
+
         
         StartChasing();
     }

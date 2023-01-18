@@ -51,7 +51,8 @@ public class ObjectiveUI : MonoBehaviour
         
         //Main Objective
         var mainObjective = FindObjectOfType<MainObjective>();
-        mainObjective.onCollected.AddListener(() => OnMainObjectiveUnlock());
+        if (!mainObjective) return;
+        mainObjective.onCollected.AddListener(OnMainObjectiveUnlock);
 
         MainObjective.GUI.text = MainObjective.objectiveDescription;
     }

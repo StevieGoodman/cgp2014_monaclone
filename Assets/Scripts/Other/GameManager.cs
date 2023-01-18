@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     public void GameOver(string gameOverReason = "Mission Failed")
     {
         //TODO: Add a proper game over, this is temporary for the playtest
-
+        SceneManager.LoadScene("Mintlab");
     }
     private void OnDrawGizmos()
     {
