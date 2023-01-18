@@ -80,6 +80,9 @@ public class LockPickingAbility : Ability
         Debug.Log("Unlocked: " + @lock);
         @lock.Unlock();
         Charges--;
+        // Gain rep for using this skill.
+        AlterReputationValue(1);
+        negativeAbility.AlterReputationValue(-1);
     }
     
     // Wait while the door is being unlocked.

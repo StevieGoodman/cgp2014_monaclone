@@ -40,6 +40,9 @@ public class HackAbility : Ability
         if (context.canceled && GetComponent<Interaction>().interactionPrompt) GetComponent<Interaction>().interactionPrompt.OnInteractionInterrupt();
         if (Charges <= 0) return;
         if (!context.performed) return;
+        // Gain rep for using this skill.
+        AlterReputationValue(1);
+        negativeAbility.AlterReputationValue(-1);
         Charges--;
         raycastHit.rigidbody.gameObject.GetComponentInParent<Hackable>().Hack(5);
     }

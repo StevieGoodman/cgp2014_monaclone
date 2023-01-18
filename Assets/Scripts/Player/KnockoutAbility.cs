@@ -26,5 +26,8 @@ public class KnockoutAbility : Ability
         };
         throwable.ThrowMe(playerPos.up, throwForce);
         Charges--;
+        // Gain rep for using this skill.
+        AlterReputationValue(1);
+        negativeAbility.AlterReputationValue(-1);
     }
 }

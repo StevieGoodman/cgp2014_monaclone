@@ -57,6 +57,9 @@ public class DisguiseAbility : Ability
             _ => throw new ArgumentOutOfRangeException()
         };
         Charges--;
+        // Gain rep for using this skill.
+        AlterReputationValue(1);
+        negativeAbility.AlterReputationValue(-1);
         StartCoroutine(Disguise());
     }
 
