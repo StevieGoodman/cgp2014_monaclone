@@ -14,10 +14,10 @@ public class ReputationBarUI : MonoBehaviour
     [SerializeField] private Slider _disgSlider;
     [SerializeField] private Slider _knockSlider;
 
-    private LockPickingAbility _lockpick;
-    private KnockoutAbility _knock;
-    private HackAbility _hack;
-    private DisguiseAbility _disguise;
+    [SerializeField]private LockPickingAbility _lockpick;
+    [SerializeField]private KnockoutAbility _knock;
+    [SerializeField]private HackAbility _hack;
+    [SerializeField]private DisguiseAbility _disguise;
 
     private void Start()
     {
