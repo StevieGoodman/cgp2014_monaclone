@@ -62,7 +62,7 @@ MonoBehaviour:
   m_VoxelSize: 0.1
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: a9ca21c774460416c8ed1a145c7dae4f, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 136f75290449e23499e4d4e512fc07dd, type: 2}
 --- !u!114 &1109644875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,8 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _alertnessLevel: 0
   _tokens: 0
-  mediumTokenRequirement: 3
-  highTokenRequirement: 5
+  mediumTokenRequirement: 2
+  highTokenRequirement: 4
 --- !u!114 &2357119501094998492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -616,7 +616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8685816156440365923, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
