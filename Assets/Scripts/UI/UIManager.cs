@@ -27,14 +27,12 @@ public class UIManager : MonoBehaviour
     public void OnTab()
     {
         Debug.Log("! Tab !");
-        if (_skillUI.activeSelf == true && _objectivesUI.activeSelf == true)
+        if (_objectivesUI.activeSelf == true)
         {
-            _skillUI.SetActive(false);
             _objectivesUI.SetActive(false);
         }
         else
         {
-            _skillUI.SetActive(true);
             _objectivesUI.SetActive(true);
         }
     }
@@ -48,8 +46,7 @@ public class UIManager : MonoBehaviour
         else
         {
             PauseGame();
-            _pauseMenuUI.SetActive(true);
-            
+            _pauseMenuUI.SetActive(true);  
         }
     }
     private static void PauseGame ()
