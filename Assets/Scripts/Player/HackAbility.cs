@@ -44,6 +44,7 @@ public class HackAbility : Ability
         AlterReputationValue(1);
         negativeAbility.AlterReputationValue(-1);
         Charges--;
+        onAbilityUsed?.Invoke();
         raycastHit.rigidbody.gameObject.GetComponentInParent<Hackable>().Hack(5);
     }
 }

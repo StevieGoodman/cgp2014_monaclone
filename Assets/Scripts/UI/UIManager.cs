@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public class UIManager : MonoBehaviour
 {
-    public ReputationBarUI reputationBarUI;
+    [FormerlySerializedAs("reputationBarUI")] public AbilityUI abilityUI;
     public ObjectiveUI objectiveUI;
     
     [SerializeField] private GameObject _objectivesUI;
@@ -14,7 +15,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (!reputationBarUI) reputationBarUI = GetComponent<ReputationBarUI>();
+        if (!abilityUI) abilityUI = GetComponent<AbilityUI>();
         if (!objectiveUI) objectiveUI = GetComponent<ObjectiveUI>();
     }
 
