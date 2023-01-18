@@ -13,7 +13,7 @@ public class Safe : MonoBehaviour
 
     // The amount that the ability will get.
     public int bonusAmount;
-    
+
     // The lock on the safe.
     private Lock _lock;
 

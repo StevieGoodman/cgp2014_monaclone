@@ -1,9 +1,5 @@
-using System;
 using UnityEngine;
-
-using UnityEngine.Serialization;
 using UnityEngine.SceneManagement;
-
 
 public class GameManager : MonoBehaviour
 {
@@ -24,7 +20,7 @@ public class GameManager : MonoBehaviour
     
     // Singleton instance of the GameManager.
     public static GameManager Instance;
-        
+
     // LEVEL FLAGS
     public bool _mainObjectiveCollected;
 
@@ -37,8 +33,6 @@ public class GameManager : MonoBehaviour
 
         // Get all the AIControllers in this scene and store them for use.
         aiControllers = FindObjectsOfType<AIController>();
-        
-        
     }
     public Transform GetPlayerTransform() {return player.transform;}
 

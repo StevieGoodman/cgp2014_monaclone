@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -133.09998}
+  m_AnchoredPosition: {x: 250, y: -233.09998}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2858882062186385358
@@ -170,7 +170,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -133.09998}
+  m_AnchoredPosition: {x: 250, y: -183.09998}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8252956231517654155
@@ -2189,7 +2189,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5687688640088128833}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: ExitButton
         m_Mode: 1
@@ -2571,9 +2571,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5687688640088128833}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ResumeButton
+        m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3312,8 +3312,6 @@ GameObject:
   - component: {fileID: 5687688640088128894}
   - component: {fileID: 5687688640088128893}
   - component: {fileID: 5687688640088128892}
-  - component: {fileID: 5687688640088128833}
-  - component: {fileID: 5687688640088128834}
   - component: {fileID: 5687688640088128835}
   - component: {fileID: 3677229331408246049}
   m_Layer: 5
@@ -3407,52 +3405,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5687688640088128833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5687688640088128891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14d762bfc321af64390b9627f61be0f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _objectivesUI: {fileID: 8685816156440365923}
-  _pauseMenuUI: {fileID: 6611314305692067169}
-  _dialogueUI: {fileID: 0}
-  _skillUI: {fileID: 2565783987454092062}
---- !u!114 &5687688640088128834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5687688640088128891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &5687688640088128835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3466,10 +3418,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _main_obj_ui: {fileID: 5687688639451897658}
-  _lockpick_side_obj_ui: {fileID: 5687688639994765042}
-  _hack_side_obj_ui: {fileID: 5687688638335453309}
-  _knock_side_obj_ui: {fileID: 2131959004550340972}
-  _disg_side_obj_ui: {fileID: 1622857053522039303}
+  LockpickObjective:
+    GUI: {fileID: 5687688639994765044}
+    objectiveDescription: Test
+    objectiveCompletion: Complete
+  HackingObjective:
+    GUI: {fileID: 5687688638335453311}
+    objectiveDescription: Test
+    objectiveCompletion: Complete
+  KnockoutObjective:
+    GUI: {fileID: 4499267809988948912}
+    objectiveDescription: Test
+    objectiveCompletion: Complete
+  DisguiseObjective:
+    GUI: {fileID: 3518119470568667718}
+    objectiveDescription: Test
+    objectiveCompletion: Complete
 --- !u!114 &3677229331408246049
 MonoBehaviour:
   m_ObjectHideFlags: 0

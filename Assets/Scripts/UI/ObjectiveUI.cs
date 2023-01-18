@@ -3,47 +3,53 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ObjectiveUI : MonoBehaviour
 {
     private GameObject _main_objective;
-    private GameObject[] _side_objectives;
+    private Safe[] _side_objectives;
+
+    [System.Serializable]
+    public struct Objective
+    {
+        public TextMeshProUGUI GUI;
+        public string objectiveDescription;
+        public string objectiveCompletion;
+    }
 
     [SerializeField] private GameObject _main_obj_ui;
 
-    [SerializeField] private GameObject _lockpick_side_obj_ui;
-    [SerializeField] private GameObject _hack_side_obj_ui;
-    [SerializeField] private GameObject _knock_side_obj_ui;
-    [SerializeField] private GameObject _disg_side_obj_ui;
-    
+    public Objective LockpickObjective;
+    public Objective HackingObjective;
+    public Objective KnockoutObjective;
+    public Objective DisguiseObjective;
 
     // Start is called before the first frame update
     void Start()
     {
         
         // _main_objective = GameObject.FindGameObjectWithTag("Objective");
-        _side_objectives = GameObject.FindGameObjectsWithTag("Safe");
-        foreach (GameObject side_objective in _side_objectives) {
-            Safe safe_obj = side_objective.GetComponent<Safe>();
-            side_objective.GetComponent<Lock>().whenUnlocked.AddListener(() => OnUnlock(safe_obj));
+        _side_objectives = GameObject.FindObjectsOfType<Safe>();
+        foreach (var side_objective in _side_objectives) {
+            side_objective.GetComponent<Lock>().whenUnlocked.AddListener(() => OnUnlock(side_objective));
 
-            switch (safe_obj.abilityBonus)
+            switch (side_objective.abilityBonus)
             {
-                case Safe.AbilityBonus.LockPicking: 
-                    _lockpick_side_obj_ui.GetComponent<TextMeshPro>().text = "The Reporter's Juicy News";
+                case Safe.AbilityBonus.LockPicking:
+                    LockpickObjective.GUI.text = LockpickObjective.objectiveDescription;
                     break;
                 case Safe.AbilityBonus.KnockOut:
-                    _knock_side_obj_ui.GetComponent<TextMeshPro>().text = "The Cleaner's Dirty Laundry";
+                    KnockoutObjective.GUI.text = KnockoutObjective.objectiveDescription;
                     break;
                 case Safe.AbilityBonus.Disguise:
-                    _disg_side_obj_ui.GetComponent<TextMeshPro>().text = "The Gentleman's Blackmail";
+                    DisguiseObjective.GUI.text = DisguiseObjective.objectiveDescription;
                     break;
                 case Safe.AbilityBonus.Hacking:
-                    _hack_side_obj_ui.GetComponent<TextMeshPro>().text = "The Hacker's Incriminating Data";
+                    HackingObjective.GUI.text = HackingObjective.objectiveDescription;
                     break;
             }
         }
-        
     }
 
     private void OnUnlock(Safe unlockedSafe)
@@ -51,24 +57,21 @@ public class ObjectiveUI : MonoBehaviour
         switch (unlockedSafe.abilityBonus)
         {
             case Safe.AbilityBonus.LockPicking:
-                // TEST TEST
-                _lockpick_side_obj_ui.GetComponent<TextMeshPro>().color = Color.green;
-                _lockpick_side_obj_ui.GetComponent<TextMeshPro>().text = "The Reporter's Juicy News - Reported!";
+                LockpickObjective.GUI.text = LockpickObjective.objectiveCompletion;
+                LockpickObjective.GUI.color = Color.green;
                 break;
             case Safe.AbilityBonus.KnockOut:
-                _knock_side_obj_ui.GetComponent<TextMeshPro>().color = Color.green;
-                _knock_side_obj_ui.GetComponent<TextMeshPro>().text = "The Cleaner's Dirty Laundry - Aired Out!";
+                KnockoutObjective.GUI.text = KnockoutObjective.objectiveCompletion;
+                KnockoutObjective.GUI.color = Color.green;
                 break;
             case Safe.AbilityBonus.Disguise:
-                _disg_side_obj_ui.GetComponent<TextMeshPro>().color = Color.green;
-                _disg_side_obj_ui.GetComponent<TextMeshPro>().text = "The Gentleman's Blackmail - Mailed!";
+                DisguiseObjective.GUI.text = DisguiseObjective.objectiveCompletion;
+                DisguiseObjective.GUI.color = Color.green;
                 break;
             case Safe.AbilityBonus.Hacking:
-                _hack_side_obj_ui.GetComponent<TextMeshPro>().color = Color.green;
-                _disg_side_obj_ui.GetComponent<TextMeshPro>().text = "The Hacker's Incriminating Data - Cracked!";
+                HackingObjective.GUI.text = HackingObjective.objectiveCompletion;
+                HackingObjective.GUI.color = Color.green;
                 break;
-            default:
-                throw new ArgumentOutOfRangeException();
         }
     }
 }
