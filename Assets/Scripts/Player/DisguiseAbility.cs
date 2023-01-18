@@ -15,12 +15,8 @@ public class DisguiseAbility : Ability
     [SerializeField] private Sprite disguisedSprite;
     [SerializeField] private Sprite undisguisedSprite;
 
-    public void Awake()
-    {
-        PlayerPrefs.SetInt("DisguiseReputation", 5);
-        Reputation = PlayerPrefs.GetInt("DisguiseReputation");
-    }
-    
+    public void Awake() => Reputation = PlayerPrefs.GetInt("DisguiseRep");
+
     private void Start()
     {
         _actionAsset = GetComponent<PlayerInput>().actions["Player/Disguise"];
@@ -61,6 +57,9 @@ public class DisguiseAbility : Ability
             _ => throw new ArgumentOutOfRangeException()
         };
         Charges--;
+        // Gain rep for using this skill.
+        AlterReputationValue(1);
+        negativeAbility.AlterReputationValue(-1);
         StartCoroutine(Disguise());
     }
 

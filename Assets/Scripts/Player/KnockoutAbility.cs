@@ -9,11 +9,8 @@ public class KnockoutAbility : Ability
 
     public GameObject throwablePrefab;
 
-    public void Awake()
-    {
-        PlayerPrefs.SetInt("KnockoutReputation", 5);
-        Reputation = PlayerPrefs.GetInt("KnockoutReputation");
-    }
+    public void Awake() => Reputation = PlayerPrefs.GetInt("KnockoutReputation");
+
     public override void UseAbility(InputAction.CallbackContext context)
     {
         if (!context.started) return;
@@ -29,5 +26,8 @@ public class KnockoutAbility : Ability
         };
         throwable.ThrowMe(playerPos.up, throwForce);
         Charges--;
+        // Gain rep for using this skill.
+        AlterReputationValue(1);
+        negativeAbility.AlterReputationValue(-1);
     }
 }
