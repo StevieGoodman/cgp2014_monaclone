@@ -39,9 +39,6 @@ public class LockPickingAbility : Ability
     public override void UseAbility(InputAction.CallbackContext context)
     {
         if (Charges < 1) return;      // Checks player has enough ability charges.
-        if (context.started && _lockImLookingAt) GetComponent<Interaction>().Begin(
-            _lockImLookingAt.gameObject, 
-            GetComponent<PlayerInput>().actions["Player/Hack"].GetParameterValue((HoldInteraction i) => i.duration).Value);
         if (context.canceled && GetComponent<Interaction>().interactionPrompt) GetComponent<Interaction>().interactionPrompt.OnInteractionInterrupt();
         if (!context.performed) return; // Acts as input debounce.
         if (_unlockingDoor) return;   // Checks the door isn't already being unlocked.
@@ -49,21 +46,17 @@ public class LockPickingAbility : Ability
 
         // Once we have checked for locked doors. if we found a valid door. We start unlocking it.
         if (!toUnlock) return;
-        
-        switch (AbilityLevel)
+
+        var unlockSeconds = AbilityLevel switch
         {
-            case AbilityLevel.Positive:
-                StartCoroutine(Unlock(toUnlock, toUnlock.unlockTime + positivePickTime));
-                break;
-            case AbilityLevel.Neutral:
-                StartCoroutine(Unlock(toUnlock, toUnlock.unlockTime + neutralPickTime));
-                break;
-            case AbilityLevel.Negative:
-                StartCoroutine(Unlock(toUnlock, toUnlock.unlockTime + negativePickTime));
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+            AbilityLevel.Negative => toUnlock.unlockTime + positivePickTime,
+            AbilityLevel.Neutral => toUnlock.unlockTime + neutralPickTime,
+            AbilityLevel.Positive => toUnlock.unlockTime + positivePickTime
+        };
+        StartCoroutine(Unlock(toUnlock, unlockSeconds));
+        GetComponent<Interaction>().Begin(
+            toUnlock.transform.position, 
+            unlockSeconds);
     }
     
     // This coroutine checks if the player is still in range of the door while picking it.
@@ -71,6 +64,7 @@ public class LockPickingAbility : Ability
     private IEnumerator Unlock(Lock @lock, float unlockTime)
     {
         Debug.Log("Unlocking" + @lock );
+        
         StartCoroutine(Wait(unlockTime));
         while (_unlockingDoor)
         {
