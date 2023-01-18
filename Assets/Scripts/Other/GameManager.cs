@@ -1,14 +1,11 @@
 using UnityEngine;
-
-using UnityEngine.Serialization;
 using UnityEngine.SceneManagement;
-
 
 public class GameManager : MonoBehaviour
 {
     [Header("Level Settings")]
     // How much time is remaining in the level?
-    public float timeRemaining;
+    public float timeRemaining = 120f;
     
     [Header("Runtime Values")]
     // The players game-object, all scripts can reference it through here.
@@ -17,15 +14,17 @@ public class GameManager : MonoBehaviour
     // Holds an array of all AIControllers in the scene.
     public AIController[] aiControllers;
     
-    
     [Header("Editor Values")]
     // Used in the editor to clear darkness.
     public GameObject darknessClearer;
     
-    
     // Singleton instance of the GameManager.
     public static GameManager Instance;
-    
+
+    //Main Objective
+    private MainObjective mainObjective;
+
+
     private void Awake()
     {
         Instance = this;
@@ -38,12 +37,23 @@ public class GameManager : MonoBehaviour
     }
     public Transform GetPlayerTransform() {return player.transform;}
 
-    public void GameOver()
+    private void Update()
+    {
+        timeRemaining -= Time.deltaTime;
+        if (timeRemaining <= 0) GameOver("Ran out of time");
+    }
+
+    public void ExitToBar()
+    {
+        // Level complete screen here.
+        
+        SceneManager.LoadScene("Bar Scene");
+    }
+    public void GameOver(string gameOverReason = "Mission Failed")
     {
         //TODO: Add a proper game over, this is temporary for the playtest
         SceneManager.LoadScene("Mintlab");
     }
-
     private void OnDrawGizmos()
     {
         // If we have a darkness clearer and we are not in playmode. activate the clearer.

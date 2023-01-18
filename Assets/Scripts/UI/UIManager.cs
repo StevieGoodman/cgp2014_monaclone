@@ -1,73 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.InputSystem;
+
 
 public class UIManager : MonoBehaviour
 {
-
+    public ReputationBarUI reputationBarUI;
+    public ObjectiveUI objectiveUI;
+    
     [SerializeField] private GameObject _objectivesUI;
     [SerializeField] private GameObject _pauseMenuUI;
     [SerializeField] private GameObject _dialogueUI;
     [SerializeField] private GameObject _skillUI;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-       
+        if (!reputationBarUI) reputationBarUI = GetComponent<ReputationBarUI>();
+        if (!objectiveUI) objectiveUI = GetComponent<ObjectiveUI>();
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public void OnTab()
-    {
-        Debug.Log("! Tab !");
-        if (_objectivesUI.activeSelf == true)
-        {
-            _objectivesUI.SetActive(false);
-        }
-        else
-        {
-            _objectivesUI.SetActive(true);
-        }
-    }
     public void OnEscape()
     {
-        if (_pauseMenuUI.activeSelf == true)
-        {
-            _pauseMenuUI.SetActive(false);
+        if (_pauseMenuUI.activeSelf)
             ResumeGame();
-        }
         else
-        {
             PauseGame();
-            _pauseMenuUI.SetActive(true);  
-        }
     }
-    private static void PauseGame ()
+    public void PauseGame ()
     {
+        _pauseMenuUI.SetActive(true);
         Time.timeScale = 0;
     }
-    private static void ResumeGame ()
+    public void ResumeGame()
     {
+        _pauseMenuUI.SetActive(false);
         Time.timeScale = 1;
     }
-
-    public void ResumeButton()
-    {
-        Debug.Log("Resuming Game!");
-        _pauseMenuUI.SetActive(false);
-        ResumeGame();
-    }
-
     public void ExitButton()
     {
-        Debug.Log("Exiting Game!");
         Application.Quit();
     }
 
