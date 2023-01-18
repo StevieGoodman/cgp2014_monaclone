@@ -17,6 +17,7 @@ public class DisguiseAbility : Ability
 
     public void Awake()
     {
+        PlayerPrefs.SetInt("DisguiseReputation", 5);
         Reputation = PlayerPrefs.GetInt("DisguiseReputation");
     }
     

@@ -13367,6 +13367,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Safe
       objectReference: {fileID: 0}
+    - target: {fileID: 8345269881322288753, guid: faee42053cd8737449d4cf35b8b7ba7f, type: 3}
+      propertyPath: abilityBonus
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8345269881322288764, guid: faee42053cd8737449d4cf35b8b7ba7f, type: 3}
       propertyPath: m_SortingOrder
       value: 0

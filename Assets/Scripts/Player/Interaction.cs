@@ -19,7 +19,7 @@ public class Interaction : MonoBehaviour
 
     public void Begin(GameObject parent, float duration)
     {
-        GameObject prompt = Instantiate(interactionPromptAsset, parent.transform.position, quaternion.identity);
+        GameObject prompt = Instantiate(interactionPromptAsset, parent.transform.position, quaternion.identity, parent.transform);
         prompt.GetComponent<InteractionPrompt>()?.OnInteractionStart(duration);
         interactionPrompt = prompt.GetComponent<InteractionPrompt>();
     }
