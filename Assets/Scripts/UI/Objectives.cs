@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -24,22 +25,20 @@ public class Objectives : MonoBehaviour
         _side_objectives = GameObject.FindGameObjectsWithTag("Safe");
         foreach (GameObject side_objective in _side_objectives) {
             Safe safe_obj = side_objective.GetComponent<Safe>();
-            side_objective.GetComponent<Lock>().whenUnlocked.AddListener(
-                () => OnUnlock(safe_obj));
-            Debug.Log("Objective Located");
+            side_objective.GetComponent<Lock>().whenUnlocked.AddListener(() => OnUnlock(safe_obj));
+
             switch (safe_obj.abilityBonus)
             {
-                case Safe.Ability.LockPicking:
-                    Debug.Log("LockPick Side Obj located");
+                case Safe.AbilityBonus.LockPicking: 
                     _lockpick_side_obj_ui.GetComponent<TextMeshPro>().text = "The Reporter's Juicy News";
                     break;
-                case Safe.Ability.KnockOut:
+                case Safe.AbilityBonus.KnockOut:
                     _knock_side_obj_ui.GetComponent<TextMeshPro>().text = "The Cleaner's Dirty Laundry";
                     break;
-                case Safe.Ability.Disguise:
+                case Safe.AbilityBonus.Disguise:
                     _disg_side_obj_ui.GetComponent<TextMeshPro>().text = "The Gentleman's Blackmail";
                     break;
-                case Safe.Ability.Hacking:
+                case Safe.AbilityBonus.Hacking:
                     _hack_side_obj_ui.GetComponent<TextMeshPro>().text = "The Hacker's Incriminating Data";
                     break;
             }
@@ -47,37 +46,29 @@ public class Objectives : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnUnlock(Safe unlockedSafe)
     {
-        
-    }
-
-    void OnUnlock(Safe unlockedSafe)
-    {
-
-
         switch (unlockedSafe.abilityBonus)
         {
-            case Safe.Ability.LockPicking:
+            case Safe.AbilityBonus.LockPicking:
                 // TEST TEST
                 _lockpick_side_obj_ui.GetComponent<TextMeshPro>().color = Color.green;
                 _lockpick_side_obj_ui.GetComponent<TextMeshPro>().text = "The Reporter's Juicy News - Reported!";
                 break;
-            case Safe.Ability.KnockOut:
+            case Safe.AbilityBonus.KnockOut:
                 _knock_side_obj_ui.GetComponent<TextMeshPro>().color = Color.green;
                 _knock_side_obj_ui.GetComponent<TextMeshPro>().text = "The Cleaner's Dirty Laundry - Aired Out!";
                 break;
-            case Safe.Ability.Disguise:
+            case Safe.AbilityBonus.Disguise:
                 _disg_side_obj_ui.GetComponent<TextMeshPro>().color = Color.green;
                 _disg_side_obj_ui.GetComponent<TextMeshPro>().text = "The Gentleman's Blackmail - Mailed!";
                 break;
-            case Safe.Ability.Hacking:
+            case Safe.AbilityBonus.Hacking:
                 _hack_side_obj_ui.GetComponent<TextMeshPro>().color = Color.green;
                 _disg_side_obj_ui.GetComponent<TextMeshPro>().text = "The Hacker's Incriminating Data - Cracked!";
                 break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
-
-
     }
 }

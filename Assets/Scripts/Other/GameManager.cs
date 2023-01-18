@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
 
         // Get all the AIControllers in this scene and store them for use.
         aiControllers = FindObjectsOfType<AIController>();
+        
+        
     }
     public Transform GetPlayerTransform() {return player.transform;}
 
