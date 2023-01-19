@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
     // Singleton instance of the GameManager.
     public static GameManager Instance;
 
+    public UnityEvent<float> timeChanged;
+
 
     private void Awake()
     {
@@ -37,6 +40,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         timeRemaining -= Time.deltaTime;
+        timeChanged?.Invoke(timeRemaining);
         if (timeRemaining <= 0) GameOver("Ran out of time");
     }
     public void GameOver(string gameOverReason = "Mission Failed")
