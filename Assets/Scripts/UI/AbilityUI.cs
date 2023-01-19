@@ -46,6 +46,11 @@ public class AbilityUI : MonoBehaviour
         _hack.onAbilityUsed.AddListener(() => UpdateAbilityCharges(_hack, _hackCount));
         _disguise.onAbilityUsed.AddListener(() => UpdateAbilityCharges(_disguise, _disgCount));
         
+        _lockpick.reputationValueAltered.AddListener(() => CheckForGameOver(_lockpick));
+        _knock.reputationValueAltered.AddListener(() => CheckForGameOver(_knock));
+        _hack.reputationValueAltered.AddListener(() => CheckForGameOver(_hack));
+        _disguise.reputationValueAltered.AddListener(() => CheckForGameOver(_disguise));
+        
         UpdateReputationBar(_lockpick, _pickSlider);
         UpdateReputationBar(_knock, _knockSlider);
         UpdateReputationBar(_hack, _hackSlider);
@@ -69,4 +74,9 @@ public class AbilityUI : MonoBehaviour
     private void UpdateReputationBar(Ability ability, Slider sliderToUpdate) => sliderToUpdate.value = ability.Reputation / 10;
 
     private void UpdateAbilityCharges(Ability ability, TextMeshProUGUI text) => text.text = ability.Charges.ToString();
+
+    private void CheckForGameOver(Ability ability)
+    {
+        if (ability.Reputation == 0)GameManager.Instance.GameOver(ability.gameOverReason);
+    }
 }
