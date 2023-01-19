@@ -68,6 +68,11 @@ public class AbilityUI : MonoBehaviour
         _hack.repValueChange.AddListener((value) => ReputationChangePrompt(_hack, _hackPrompt, _hackComment, value));
         _disguise.repValueChange.AddListener((value) => ReputationChangePrompt(_disguise, _disguisePrompt, _disguiseComment, value));
         
+        _lockpick.chargeCountUpdated.AddListener(() => UpdateAbilityCharges(_lockpick, _pickCount));
+        _knock.chargeCountUpdated.AddListener(() => UpdateAbilityCharges(_knock, _knockCount));
+        _hack.chargeCountUpdated.AddListener(() => UpdateAbilityCharges(_hack, _hackCount));
+        _disguise.chargeCountUpdated.AddListener(() => UpdateAbilityCharges(_disguise, _disgCount));
+        
         _lockpick.reputationValueAltered.AddListener(() => CheckForGameOver(_lockpick));
         _knock.reputationValueAltered.AddListener(() => CheckForGameOver(_knock));
         _hack.reputationValueAltered.AddListener(() => CheckForGameOver(_hack));
@@ -134,6 +139,7 @@ public class AbilityUI : MonoBehaviour
         }
         
     }
+
     IEnumerator ExecuteAfterTime(float time, GameObject prompt, TextMeshProUGUI comment)
     {
         yield return new WaitForSeconds(time);
@@ -141,7 +147,9 @@ public class AbilityUI : MonoBehaviour
         prompt.SetActive(false);
 
         // Code to execute after the delay
-        
+
+    }
+
     private void CheckForGameOver(Ability ability)
     {
         if (ability.Reputation == 0)GameManager.Instance.GameOver(ability.gameOverReason);

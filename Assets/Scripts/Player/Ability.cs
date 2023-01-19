@@ -29,7 +29,11 @@ public abstract class Ability : MonoBehaviour
     public float Charges
     {
         get => _charges;
-        set => _charges = Math.Clamp(value, 0, (int) AbilityLevel.Positive);
+        set
+        {
+            chargeCountUpdated?.Invoke(); 
+            _charges = Math.Clamp(value, 0, (int) AbilityLevel.Positive);
+        }
     }
     [SerializeField] private float _reputation;
     public float Reputation
