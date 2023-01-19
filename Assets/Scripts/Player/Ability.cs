@@ -40,7 +40,7 @@ public abstract class Ability : MonoBehaviour
             UpdateAbilityLevel();
         }
     }
-    protected AbilityLevel AbilityLevel { get; private set; }
+    public AbilityLevel AbilityLevel { get; private set; }
 
     [Header("Events")]
     public UnityEvent onAbilityUsed;
