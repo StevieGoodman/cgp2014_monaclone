@@ -11,9 +11,13 @@ PrefabInstance:
       propertyPath: itemType
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3515656266049118988, guid: 71f139521f169e4408293c66e97f3282, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8f9712a61a8d3924b871621fa6de6529, type: 3}
     - target: {fileID: 6821908253959106634, guid: 71f139521f169e4408293c66e97f3282, type: 3}
       propertyPath: m_Name
-      value: Item(Hack)
+      value: Item(Hack) Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7658333138913982789, guid: 71f139521f169e4408293c66e97f3282, type: 3}
       propertyPath: m_RootOrder

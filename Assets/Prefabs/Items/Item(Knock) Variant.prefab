@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1201209252341207819, guid: de74aea6bc3e4d849b8667fcf794591f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 640d511465f35bc4eb9f7b60dea850cc, type: 3}
     - target: {fileID: 4513266948965233383, guid: de74aea6bc3e4d849b8667fcf794591f, type: 3}
       propertyPath: itemType
       value: 2
@@ -57,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9137199623877132365, guid: de74aea6bc3e4d849b8667fcf794591f, type: 3}
       propertyPath: m_Name
-      value: Item(Knock)
+      value: Item(Knock) Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de74aea6bc3e4d849b8667fcf794591f, type: 3}

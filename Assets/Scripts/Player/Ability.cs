@@ -48,6 +48,8 @@ public abstract class Ability : MonoBehaviour
     public UnityEvent chargeCountUpdated;
     public UnityEvent reputationValueAltered;
     public UnityEvent<int> repValueChange;
+
+    public string gameOverReason = "Reputation got too low!";
     
     [Header("Configuration")]
     [SerializeField] protected InputActionReference useAction;
