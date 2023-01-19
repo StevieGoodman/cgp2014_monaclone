@@ -13182,7 +13182,11 @@ PrefabInstance:
     - target: {fileID: 1109644876, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
       propertyPath: m_NavMeshData
       value: 
-      objectReference: {fileID: 23800000, guid: 29d83856869e332489569fb253453f4a, type: 2}
+      objectReference: {fileID: 23800000, guid: 8e045dc92683c32458758a65dff18e9e, type: 2}
+    - target: {fileID: 1875393476675998779, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2357119501094998488, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -13229,6 +13233,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2357119501094998494, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257102580981675064, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6567398050106613955, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7951264691916972342, guid: c06bb6db00be2634caec21c3e222241d, type: 3}

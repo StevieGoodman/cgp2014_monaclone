@@ -60,6 +60,8 @@ public class DisguiseAbility : Ability
         // Gain rep for using this skill.
         AlterReputationValue(1);
         negativeAbility.AlterReputationValue(-1);
+        onAbilityUsed?.Invoke();
+        
         StartCoroutine(Disguise());
     }
 
