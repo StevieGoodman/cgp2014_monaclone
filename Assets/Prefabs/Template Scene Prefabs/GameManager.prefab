@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 2357119501094998467}
   - component: {fileID: 4025937778803947833}
   - component: {fileID: 4496035203660084509}
+  - component: {fileID: 679801980}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -137,6 +138,9 @@ MonoBehaviour:
   player: {fileID: 0}
   aiControllers: []
   darknessClearer: {fileID: 2357119501563425060}
+  timeChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2357119501094998493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +260,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alertLabel: {fileID: 2631525425471546003}
+--- !u!114 &679801980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357119501094998488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dace3e6aa5693c8448fd63aaf3cf2aea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeLabel: {fileID: 6344908073818507030}
 --- !u!1 &2357119501563425060
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,6 +614,17 @@ MonoBehaviour:
 --- !u!114 &2631525425471546003 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 302627227348624321, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
+  m_PrefabInstance: {fileID: 2357119501630832978}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6344908073818507030 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8699705385406154308, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
   m_PrefabInstance: {fileID: 2357119501630832978}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
