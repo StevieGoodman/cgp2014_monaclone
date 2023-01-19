@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Events;
+
 public class AlertSystem : MonoBehaviour
 {
     // Singleton Alert System Instance.
@@ -13,12 +15,13 @@ public class AlertSystem : MonoBehaviour
     
     // The alert level of this scene.
     [SerializeField] private AlertnessLevel _alertnessLevel = AlertnessLevel.low; // Always starts at low.
-
+    public UnityEvent onAlertLevelChange;
     public AlertnessLevel AlertLevel
     {
         get => _alertnessLevel;
         set{
             _alertnessLevel = value;
+            onAlertLevelChange?.Invoke();
             UpdateAIStats();
         }
     }
