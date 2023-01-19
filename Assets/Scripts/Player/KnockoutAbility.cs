@@ -9,7 +9,7 @@ public class KnockoutAbility : Ability
 
     public GameObject throwablePrefab;
 
-    public void Awake() => Reputation = PlayerPrefs.GetInt("KnockoutReputation");
+    public void Awake() => Reputation = PlayerPrefs.GetInt("KnockoutRep");
 
     public override void UseAbility(InputAction.CallbackContext context)
     {
