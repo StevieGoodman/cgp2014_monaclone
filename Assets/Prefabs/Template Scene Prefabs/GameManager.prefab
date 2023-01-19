@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 679801980}
   - component: {fileID: 948617735}
   - component: {fileID: 520461645980433195}
+  - component: {fileID: 3883802946940934846}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -311,6 +312,80 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   completionPanel: {fileID: 3283775174892233716}
+--- !u!114 &3883802946940934846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357119501094998488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 5ff38e1e4d3fd5a4ea64e3d895ebf097, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b5301b17-b758-45c4-b522-299d110fad71
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7fd50a96-d2b7-4824-889f-ab322cfc957f
+    m_ActionName: Player/Look[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 00b04ded-6105-4561-85df-448015f0a05d
+    m_ActionName: Player/Pick Lock[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f568e57d-5e79-4c72-8027-c8d90e595e8a
+    m_ActionName: Player/Throw Item[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c0949107-572a-4458-99e3-7c2b1310751f
+    m_ActionName: Player/Hack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dfed2d0a-f4b4-4566-b417-fe2b3a31768c
+    m_ActionName: Player/Tab[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2357119501094998492}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OnEscape
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0c54e63c-acd8-4eaa-b7ef-5930fc063e28
+    m_ActionName: Player/Escape[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 08bcc8c1-8d35-4bea-a354-9f75c3c647d2
+    m_ActionName: Player/Disguise[/Keyboard/space]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &2357119501563425060
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,6 +722,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2357119501094998494}
     m_Modifications:
+    - target: {fileID: 298856294546430438, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 413561697381637423, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -710,6 +789,10 @@ PrefabInstance:
     - target: {fileID: 1290278153734123535, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550010846909674045, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1642971454727460429, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -914,11 +997,19 @@ PrefabInstance:
     - target: {fileID: 5687688639431510032, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5687688640088128833, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
+      objectReference: {fileID: 2357119501094998492}
+    - target: {fileID: 5687688639431510032, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitButton
+      objectReference: {fileID: 0}
     - target: {fileID: 5687688639601766830, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5687688640088128833, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
+      objectReference: {fileID: 2357119501094998492}
+    - target: {fileID: 5687688639601766830, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResumeGame
+      objectReference: {fileID: 0}
     - target: {fileID: 5687688640088128891, guid: 02bd22ed37eebc34dbf30965daffc11a, type: 3}
       propertyPath: m_Name
       value: UserInterface
