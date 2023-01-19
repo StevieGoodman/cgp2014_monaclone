@@ -195,7 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainObjective:
     GUI: {fileID: 7951264693318065769}
-    objectiveDescription: Pancakes, Everyone loves pancakes!
+    objectiveDescription: Find the golden bar
     objectiveCompletion: Complete! Return to level start to escape!
   LockpickObjective:
     GUI: {fileID: 7951264692779065254}

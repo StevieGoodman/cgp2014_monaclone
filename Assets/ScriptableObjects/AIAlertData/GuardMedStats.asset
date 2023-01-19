@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058cbc1e7d456354cad56a63d4481433, type: 3}
   m_Name: GuardMedStats
   m_EditorClassIdentifier: 
-  investigationTime: 0.25
-  chaseTime: 0.5
+  investigationTime: 0.3
+  chaseTime: 0.6
   alertRadius: 9
   minimumChasePeriod: 4
   movementSpeed: 5
