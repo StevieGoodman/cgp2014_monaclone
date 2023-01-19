@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058cbc1e7d456354cad56a63d4481433, type: 3}
+  m_Name: GuardHighStats
+  m_EditorClassIdentifier: 
+  investigationTime: 0.2
+  chaseTime: 0.4
+  alertRadius: 10
+  minimumChasePeriod: 5
+  movementSpeed: 6
+  rotationSpeed: 720
+  fieldOfView: 125
+  rayCount: 100
+  viewDistance: 10
+  waitTime: 1
+  lookAroundTime: 4
