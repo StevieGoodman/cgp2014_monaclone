@@ -175,7 +175,7 @@ MonoBehaviour:
   _neutralComment: Rough up some of'em for me, a simple rock is all ya need
   _negativeComment: Those guards need more bruises than that, honestly mate.
   _textSpeed: 0.05
-  comment: The Reporter
+  comment: 'The Cleaner : '
   repType: 2
 --- !u!58 &41464966
 CircleCollider2D:
@@ -187,7 +187,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -3271,6 +3271,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7951264693318065769, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
+      propertyPath: m_text
+      value: Meet your Partners at the bar and leave when you are ready.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951264693465498483, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482357252735353087, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8502937175021646919, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3293,6 +3305,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8502937175021646919, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8564288812446071412, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8872165344024790685, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
@@ -3971,10 +3987,10 @@ MonoBehaviour:
   _dialogueText: {fileID: 1251082052}
   _positiveComment: You clean up quite nicely, I must say you've impressed this old
     timer
-  _neutralComment: You have a job to do it, make it a clean job.
+  _neutralComment: You have a job to do, make it a clean job.
   _negativeComment: Your craft is shameful and I'm rather disappointed.
   _textSpeed: 0.05
-  comment: The Reporter
+  comment: 'The Gentleman : '
   repType: 4
 --- !u!58 &1112211767
 CircleCollider2D:
@@ -3986,7 +4002,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -5656,7 +5672,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -5844,9 +5860,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 554259250}
     m_Modifications:
+    - target: {fileID: 2976708182852477392, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976708182852477392, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7482667652216324306, guid: 21e892fe3f05ef745a96c4c09bd7bafe, type: 3}
+    - target: {fileID: 3643037686572829506, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3643037686572829506, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_margin.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3643037686572829506, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_margin.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3643037686572829506, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3643037686572829506, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4464363329715745686, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
       propertyPath: m_Name
       value: DialogueBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 4464363329715745686, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4851602641522235499, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
       propertyPath: m_Pivot.x
@@ -5862,15 +5910,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4851602641522235499, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4851602641522235499, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4851602641522235499, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4851602641522235499, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
       propertyPath: m_AnchorMin.y
@@ -5878,11 +5926,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4851602641522235499, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -200
+      value: 1220
       objectReference: {fileID: 0}
     - target: {fileID: 4851602641522235499, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -850
+      value: 119.67981
       objectReference: {fileID: 0}
     - target: {fileID: 4851602641522235499, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5914,11 +5962,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4851602641522235499, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 12.899048
       objectReference: {fileID: 0}
     - target: {fileID: 4851602641522235499, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -275
+      value: 209.83984
       objectReference: {fileID: 0}
     - target: {fileID: 4851602641522235499, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5930,6 +5978,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4851602641522235499, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838791826749983328, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838791826749983328, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838791826749983328, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838791826749983328, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838791826749983328, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838791826749983328, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838791826749983328, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838791826749983328, guid: 0ce6782ab41dd72439e9a1625b6962bf, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -5998,8 +6078,7 @@ MonoBehaviour:
   _dialogueBox: {fileID: 1251082053}
   _dialogueText: {fileID: 1251082052}
   _positiveComment: You are doing good kid. One day you might even catch up to me.
-  _neutralComment: 'Use some hacks for the security, will make your life easier.
-    shoud be '
+  _neutralComment: 'Use some hacks for the security, will make your life way easier. '
   _negativeComment: Really? You could do a lot better if you took my advise kid.
   _textSpeed: 0.05
   comment: 'The Hacker : '
@@ -6014,7 +6093,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
