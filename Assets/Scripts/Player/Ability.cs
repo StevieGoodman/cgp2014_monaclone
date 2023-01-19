@@ -47,6 +47,7 @@ public abstract class Ability : MonoBehaviour
     public UnityEvent outOfCharges;
     public UnityEvent chargeCountUpdated;
     public UnityEvent reputationValueAltered;
+    public UnityEvent<int> repValueChange;
 
     public string gameOverReason = "Reputation got too low!";
     
@@ -75,6 +76,7 @@ public abstract class Ability : MonoBehaviour
     {
         Reputation += value;
         reputationValueAltered?.Invoke();
+        repValueChange?.Invoke(value);
         // TODO: Add failure condition when reputation drops below 1.
     }
 
