@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058cbc1e7d456354cad56a63d4481433, type: 3}
   m_Name: GuardHighStats
   m_EditorClassIdentifier: 
-  investigationTime: 0.2
-  chaseTime: 0.4
+  investigationTime: 0.3
+  chaseTime: 0.6
   alertRadius: 10
   minimumChasePeriod: 5
-  movementSpeed: 6
+  movementSpeed: 5.5
   rotationSpeed: 720
   fieldOfView: 125
   rayCount: 100

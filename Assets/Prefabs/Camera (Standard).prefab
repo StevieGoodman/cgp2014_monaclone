@@ -482,8 +482,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiState: 0
-  alertStartTime: 0.5
-  alertRadius: 25
+  alertStartTime: 0.75
+  alertRadius: 15
   guardLayer:
     serializedVersion: 2
     m_Bits: 128

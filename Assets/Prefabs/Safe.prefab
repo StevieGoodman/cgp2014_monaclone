@@ -155,4 +155,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityBonus: 0
-  bonusAmount: 2
+  bonusAmount: 3
