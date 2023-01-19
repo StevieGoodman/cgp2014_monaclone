@@ -7,16 +7,28 @@ public class LevelExit : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (!col.gameObject.CompareTag("Player")) return;
+
         saveRepValues();
         if(nextLevel != string.Empty)
             PlayerPrefs.SetString("CurrentLevel", nextLevel);
-        
+
+        if (returnToBar)
+        {
+            var completionUI = FindObjectOfType<CompletionUI>();
+            completionUI.DisplayCompletion();
+            Invoke(nameof(changeScene), 5f);
+        }
+        else
+            changeScene();
+    }
+
+    private void changeScene()
+    {
         if(returnToBar)
             LevelManager.ChangeScene("Bar Scene");
         else
             LevelManager.Instance.ChangeScene();
     }
-
     private void saveRepValues()
     {
 

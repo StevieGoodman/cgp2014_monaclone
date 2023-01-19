@@ -48,8 +48,6 @@ public class GameManager : MonoBehaviour
         //TODO: Add a proper game over, this is temporary for the playtest
         GetComponent<GameOverUI>().DisplayGameOver(gameOverReason);
         Invoke(nameof(changeScene), 5);
-        Time.timeScale = 0;
-
     }
 
     private void changeScene()
