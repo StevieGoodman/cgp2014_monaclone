@@ -46,6 +46,14 @@ public class GameManager : MonoBehaviour
     public void GameOver(string gameOverReason = "Mission Failed")
     {
         //TODO: Add a proper game over, this is temporary for the playtest
+        GetComponent<GameOverUI>().DisplayGameOver(gameOverReason);
+        Invoke(nameof(changeScene), 5);
+        Time.timeScale = 0;
+
+    }
+
+    private void changeScene()
+    {
         LevelManager.Instance.ChangeScene();
     }
     private void OnDrawGizmos()
@@ -54,4 +62,5 @@ public class GameManager : MonoBehaviour
         if (!Application.isPlaying && darknessClearer)
             darknessClearer.SetActive(true);
     }
+    
 }
