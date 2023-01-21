@@ -15985,7 +15985,7 @@ PrefabInstance:
     - target: {fileID: 1109644876, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
       propertyPath: m_NavMeshData
       value: 
-      objectReference: {fileID: 23800000, guid: 8be922f2039089a47948ac4c0dff67f5, type: 2}
+      objectReference: {fileID: 23800000, guid: 8bda4347f632fd54fb3f685af70537d3, type: 2}
     - target: {fileID: 1875393476675998779, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -16069,6 +16069,10 @@ PrefabInstance:
     - target: {fileID: 6567398050106613955, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107790211576312908, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 12.897949
       objectReference: {fileID: 0}
     - target: {fileID: 7641787604676431178, guid: c06bb6db00be2634caec21c3e222241d, type: 3}
       propertyPath: m_AnchorMax.y
