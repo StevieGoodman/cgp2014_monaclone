@@ -23,7 +23,13 @@ public class Main_Menu : MonoBehaviour
     /// <summary>
     /// Checks if the continue button should be active or not.
     /// </summary>
-    private void CheckIfContinuePossible() => continueButton.interactable = PlayerPrefs.GetString("CurrentLevel") != "Level 1";
+    private void CheckIfContinuePossible()
+    {
+        if(PlayerPrefs.GetString("CurrentLevel") == string.Empty)
+             PlayerPrefs.SetString("CurrentLevel", "Level 1");
+            
+        continueButton.interactable = PlayerPrefs.GetString("CurrentLevel") != "Level 1";
+    } 
 
     public void ContinueGame() =>  LevelManager.ChangeScene("Bar Scene");
 
