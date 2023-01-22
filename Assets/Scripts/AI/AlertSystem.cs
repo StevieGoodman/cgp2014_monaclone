@@ -41,7 +41,6 @@ public class AlertSystem : MonoBehaviour
             _tokens = value;
             if (value == mediumTokenRequirement) AlertLevel = AlertnessLevel.medium;
             if (value == highTokenRequirement) AlertLevel = AlertnessLevel.high;
-            
         }
     }
     
@@ -54,7 +53,6 @@ public class AlertSystem : MonoBehaviour
     // Updates the alertness of all AI.
     private void UpdateAIStats()
     {
-        Debug.Log("AI Alertness Changed to: " + _alertnessLevel);
         foreach (var ai in GameManager.Instance.aiControllers)
             ai.UpdateAIAlertness(_alertnessLevel);
     }

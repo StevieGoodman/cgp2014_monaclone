@@ -34,13 +34,16 @@ public class Sight : MonoBehaviour
     private Mesh _mesh;
     private Renderer _renderer;
     private float _startingAngle;
-    private Transform _entityBody;
+    [SerializeField]private Transform _entityBody;
     private Vector3 _origin;
 
     private void Awake()
     {
         // Get the entity body. used as an origin location for raycasts.
         _entityBody = GetComponentInChildren<Rigidbody2D>().transform;
+        
+        if(!_entityBody)
+            _entityBody = GetComponent<Rigidbody2D>().transform;
 
         // Add Mesh Components and configure them.
         _renderer = gameObject.AddComponent<MeshRenderer>();
@@ -59,7 +62,7 @@ public class Sight : MonoBehaviour
     private void LateUpdate()
     {
         List<string> tags = new List<string>();
-        Vector3 playerPos = transform.position;
+        Vector3 offsetPos = transform.position;
         float angle = _startingAngle;
         float angleIncrement = fieldOfView / rayCount;
         
@@ -67,7 +70,7 @@ public class Sight : MonoBehaviour
         Vector2[] uv = new Vector2[vertices.Length];
         int[] triangles = new int[rayCount * 3];
 
-        vertices[0] = _origin - playerPos;
+        vertices[0] = _origin - offsetPos;
         
         int vertexIndex = 1;
         int triIndex = 0;
@@ -81,11 +84,11 @@ public class Sight : MonoBehaviour
             if (!rcHit2D.collider) // If the raycast didnt hit anything:
             {
                 // set this vertex to be as far as our view distance is.
-                vertex = _origin - playerPos + GetVectorFromAngle(angle) * viewDistance;
+                vertex = _origin - offsetPos + GetVectorFromAngle(angle) * viewDistance;
             }
             else
             {   // We hit something! Set it as the point for this vertex.
-                vertex = rcHit2D.point - (Vector2)playerPos;
+                vertex = rcHit2D.point - (Vector2)offsetPos;
                 
                 if (!rcHit2D.collider.CompareTag("Untagged"))
                 {
@@ -113,21 +116,14 @@ public class Sight : MonoBehaviour
         _mesh.triangles = triangles;
         _mesh.RecalculateBounds();
 
-        foreach (var item in tags)
-        {
-            seenTag?.Invoke(item);
-        }
+        foreach (var item in tags) {seenTag?.Invoke(item);}
     }
     // Set the origin point for when we perform raycasts for the FOV mesh
-    private void SetOrigin(Vector3 ori)
-    {
-        _origin = ori;
-    }
+    private void SetOrigin(Vector3 ori) => _origin = ori;
+
     // Set the direction of the raycasts for the FOV mesh
-    private void SetDirection(Vector3 aimDirection)
-    {
-        _startingAngle = GetAngleFromVectorFloat(aimDirection, fieldOfView) - fieldOfView / 2f;
-    }
+    private void SetDirection(Vector3 aimDirection) => _startingAngle = GetAngleFromVectorFloat(aimDirection, fieldOfView) - fieldOfView / 2f;
+
     private Vector3 GetVectorFromAngle(float angle)
     {
         var angleRad = angle * (Mathf.PI / 180f);
@@ -140,8 +136,6 @@ public class Sight : MonoBehaviour
         if (n < 0) n += 360;
         return (n + fov);
     }
-    public void SetFieldOfViewColour(Color colour)
-    {
-        _renderer.material.SetColor("_BaseColor", new Color(colour.r, colour.g, colour.b, .3f));
-    }
+    public void SetFieldOfViewColour(Color colour) => _renderer.material.SetColor("_BaseColor", new Color(colour.r, colour.g, colour.b, .3f));
+
 }

@@ -4,7 +4,7 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
-public class InvestigateBehaviour : MonoBehaviour
+public class InvestigateBehaviour : EnemyBehaviour
 {
     // How long should the AI investigate a location for before going back to other tasks?
     public float lookAroundTime;
@@ -14,36 +14,25 @@ public class InvestigateBehaviour : MonoBehaviour
     public UnityEvent onInvestigationEnd;
     
     private AIController _aiController;
-    private NavMeshAgent _agent;
     private bool _lookAround;
     private Quaternion _randomRot;
-
-    private void Awake()
+    
+    protected override void GetComponents()
     {
-        // Get the required components to get this Script running.
+        base.GetComponents();
         _aiController = GetComponent<AIController>();
-        _agent = GetComponentInChildren<NavMeshAgent>();
-        
-        if(!_aiController)
-            Debug.LogError(gameObject + " cannot find a AIController! Make sure there is one on it.");
-        
-        if(!_agent)
-            Debug.LogError(gameObject + " cannot find a NavMeshAgent! Make sure there is one on it.");
     }
     
     private void Update()
     {
-        if(_lookAround) 
-            _agent.transform.rotation = Quaternion.RotateTowards(_agent.transform.rotation, _randomRot, Time.deltaTime * _agent.angularSpeed);
+        if(_lookAround)  Agent.transform.rotation = Quaternion.RotateTowards(Agent.transform.rotation, _randomRot, Time.deltaTime * Agent.angularSpeed);
     }
 
-    public void GoInvestigatePosition(Vector3 posToInvestigate) // This just allows you to call the coroutine from other scripts
-    {
-        StartCoroutine(nameof(InvestigatePosition), posToInvestigate);
-    }
+    public override void StartBehaviour(Vector3 posToInvestigate = default) => StartCoroutine(nameof(InvestigatePosition), posToInvestigate);
+    
     private IEnumerator InvestigatePosition(Vector3 posToInvestigate)
     {
-        UpdateAgentPosition(_agent.transform.position);
+        UpdateAgentPosition(Agent.transform.position);
         
         // Call investigation start event.
         onInvestigationStart?.Invoke();
@@ -57,7 +46,7 @@ public class InvestigateBehaviour : MonoBehaviour
         // Forcefully ends the investigation if the condition isn't met in 10 seconds.
         StartCoroutine(ForcefullyFailInvestigation());
         
-        yield return new WaitUntil(() => _agent.remainingDistance < 0.1f);
+        yield return new WaitUntil(() => Agent.remainingDistance < 0.1f);
         
         // Look around in random directions for a bit.
         _lookAround = true;
@@ -73,21 +62,17 @@ public class InvestigateBehaviour : MonoBehaviour
         onInvestigationEnd?.Invoke();
         StopAllCoroutines(); 
     }
-    private void UpdateAgentPosition(Vector3 pos) // Just checks for the NavMeshAgent component before setting a position to prevent errors.
-    {
-        if (_agent)
-            _agent.SetDestination(pos);
-    }
+    private void UpdateAgentPosition(Vector3 pos) => Agent.SetDestination(pos);
 
     private IEnumerator ForcefullyFailInvestigation()
     {
         yield return new WaitForSeconds(10);
-        if(_aiController)
-            _aiController.UpdateAIState(AIController.AIState.Patrolling);
+        if(_aiController) _aiController.UpdateAIState(AIController.AIState.Patrolling);
     }
-    public void StopBehaviour()
+
+    public override void StopBehaviour()
     {
+        base.StopBehaviour();
         _lookAround = false;
-        StopAllCoroutines();
     }
 }

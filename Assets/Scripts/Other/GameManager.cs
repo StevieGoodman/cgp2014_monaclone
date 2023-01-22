@@ -45,15 +45,12 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver(string gameOverReason = "Mission Failed")
     {
-        //TODO: Add a proper game over, this is temporary for the playtest
         GetComponent<GameOverUI>().DisplayGameOver(gameOverReason);
         Invoke(nameof(changeScene), 5);
     }
 
-    private void changeScene()
-    {
-        LevelManager.Instance.ChangeScene();
-    }
+    private void changeScene() => LevelManager.Instance.ChangeScene();
+    
     private void OnDrawGizmos()
     {
         // If we have a darkness clearer and we are not in playmode. activate the clearer.

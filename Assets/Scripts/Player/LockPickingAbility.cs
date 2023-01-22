@@ -45,7 +45,7 @@ public class LockPickingAbility : Ability
 
         var unlockSeconds = AbilityLevel switch
         {
-            AbilityLevel.Negative => toUnlock.unlockTime + positivePickTime,
+            AbilityLevel.Negative => toUnlock.unlockTime + negativePickTime,
             AbilityLevel.Neutral => toUnlock.unlockTime + neutralPickTime,
             AbilityLevel.Positive => toUnlock.unlockTime + positivePickTime
         };

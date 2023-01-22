@@ -1,26 +1,22 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class ObjectiveUI : MonoBehaviour
 {
-
     [System.Serializable]
     public struct Objective
     {
-        public TextMeshProUGUI GUI;
+        public TextMeshProUGUI gui;
         public string objectiveDescription;
         public string objectiveCompletion;
     }
 
-    public Objective MainObjective;
-    public Objective LockpickObjective;
-    public Objective HackingObjective;
-    public Objective KnockoutObjective;
-    public Objective DisguiseObjective;
+    public Objective mainObjective;
+    public Objective lockpickObjective;
+    public Objective hackingObjective;
+    public Objective knockoutObjective;
+    public Objective disguiseObjective;
     
     private void Start() => InitializeUIElements();
     
@@ -30,23 +26,15 @@ public class ObjectiveUI : MonoBehaviour
         foreach (var objective in sideObjectives) {
             objective.GetComponent<Lock>().whenUnlocked.AddListener(() => OnUnlock(objective));
 
-            switch (objective.abilityBonus)
+            var obj = objective.abilityBonus switch
             {
-                case Safe.AbilityBonus.LockPicking:
-                    LockpickObjective.GUI.text = LockpickObjective.objectiveDescription;
-                    break;
-                case Safe.AbilityBonus.KnockOut:
-                    KnockoutObjective.GUI.text = KnockoutObjective.objectiveDescription;
-                    break;
-                case Safe.AbilityBonus.Disguise:
-                    DisguiseObjective.GUI.text = DisguiseObjective.objectiveDescription;
-                    break;
-                case Safe.AbilityBonus.Hacking:
-                    HackingObjective.GUI.text = HackingObjective.objectiveDescription;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                Safe.AbilityBonus.LockPicking => lockpickObjective,
+                Safe.AbilityBonus.KnockOut => knockoutObjective,
+                Safe.AbilityBonus.Hacking => hackingObjective,
+                Safe.AbilityBonus.Disguise => disguiseObjective,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            obj.gui.text = obj.objectiveDescription;
         }
         
         //Main Objective
@@ -54,37 +42,26 @@ public class ObjectiveUI : MonoBehaviour
         if (!mainObjective) return;
         mainObjective.onCollected.AddListener(OnMainObjectiveUnlock);
 
-        MainObjective.GUI.text = MainObjective.objectiveDescription;
+        this.mainObjective.gui.text = this.mainObjective.objectiveDescription;
     }
 
     private void OnUnlock(Safe unlockedSafe)
     {
-        switch (unlockedSafe.abilityBonus)
+        var obj = unlockedSafe.abilityBonus switch
         {
-            case Safe.AbilityBonus.LockPicking:
-                LockpickObjective.GUI.text = LockpickObjective.objectiveCompletion;
-                LockpickObjective.GUI.color = Color.green;
-                break;
-            case Safe.AbilityBonus.KnockOut:
-                KnockoutObjective.GUI.text = KnockoutObjective.objectiveCompletion;
-                KnockoutObjective.GUI.color = Color.green;
-                break;
-            case Safe.AbilityBonus.Disguise:
-                DisguiseObjective.GUI.text = DisguiseObjective.objectiveCompletion;
-                DisguiseObjective.GUI.color = Color.green;
-                break;
-            case Safe.AbilityBonus.Hacking:
-                HackingObjective.GUI.text = HackingObjective.objectiveCompletion;
-                HackingObjective.GUI.color = Color.green;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+            Safe.AbilityBonus.LockPicking => lockpickObjective,
+            Safe.AbilityBonus.KnockOut => knockoutObjective,
+            Safe.AbilityBonus.Hacking => hackingObjective,
+            Safe.AbilityBonus.Disguise => disguiseObjective,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        obj.gui.text = obj.objectiveCompletion;
+        obj.gui.color = Color.green;
     }
 
     private void OnMainObjectiveUnlock()
     {
-        MainObjective.GUI.text = MainObjective.objectiveCompletion;
-        MainObjective.GUI.color = Color.green;
+        mainObjective.gui.text = mainObjective.objectiveCompletion;
+        mainObjective.gui.color = Color.green;
     }
 }

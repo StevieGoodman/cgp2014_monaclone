@@ -21,9 +21,6 @@ public class Dialogue : MonoBehaviour
     private HackAbility _hack;
     private DisguiseAbility _disguise;
     
-    
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -33,12 +30,6 @@ public class Dialogue : MonoBehaviour
         _hack = _player.GetComponent<HackAbility>();
         _disguise = _player.GetComponent<DisguiseAbility>();
         comment_intitial = comment;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -92,10 +83,7 @@ public class Dialogue : MonoBehaviour
         _dialogueText.text = "";
         comment = comment_intitial;
     }
-    void StartDialogue()
-    {
-        StartCoroutine(TypeLine());
-    }
+    void StartDialogue() => StartCoroutine(TypeLine());
 
     IEnumerator TypeLine()
     {

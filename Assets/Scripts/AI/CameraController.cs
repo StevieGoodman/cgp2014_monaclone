@@ -72,16 +72,16 @@ public class CameraController : MonoBehaviour, Hackable
     public void UpdateAIState(AIState stateToUpdateTo)
     {
         Debug.Log("AIState: " + stateToUpdateTo);
-        if (aiState == AIState.Unconscious) _unconsciousBehaviour.GainConsciousness();
+        if (aiState == AIState.Unconscious) _unconsciousBehaviour.StopBehaviour();
         aiState = stateToUpdateTo;
         StopAICoroutines();
         switch (aiState)
         {
             case AIState.Patrolling:
-                _patrolBehaviour.StartPatrolling();
+                _patrolBehaviour.StartBehaviour();
                 break;
             case AIState.Unconscious:
-                _unconsciousBehaviour.LoseConsciousness();
+                _unconsciousBehaviour.StartBehaviour();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

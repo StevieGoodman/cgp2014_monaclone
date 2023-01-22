@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
         else
             PauseGame();
     }
-    public void PauseGame ()
+    private void PauseGame()
     {
         _pauseMenuUI.SetActive(true);
         Time.timeScale = 0;
@@ -36,9 +36,5 @@ public class UIManager : MonoBehaviour
         _pauseMenuUI.SetActive(false);
         Time.timeScale = 1;
     }
-    public void ExitButton()
-    {
-        Application.Quit();
-    }
-
+    public void ExitButton() => Application.Quit();
 }

@@ -92,10 +92,12 @@ public class AIController : MonoBehaviour
     {
         _agent = GetComponentInChildren<NavMeshAgent>();
         _entityBody = _agent.transform;
+        
         _patrolBehaviour = GetComponent<PatrolBehaviour>();
         _investigateBehaviour = GetComponent<InvestigateBehaviour>();
         _chaseBehaviour = GetComponent<ChaseBehaviour>();
         _unconsciousBehaviour = GetComponent<UnconsciousBehaviour>();
+        
         _sight = GetComponent<Sight>();
         _sight.seenTag.AddListener(PlayerDetected);
         
@@ -103,17 +105,10 @@ public class AIController : MonoBehaviour
         UpdateAIAlertness(AlertSystem.AlertnessLevel.low);
         _detectionMeter = lowAlertStats.chaseTime;
     }
-    private void Start()
-    {
-        // Sets the AI to start patrolling.
-        UpdateAIState(AIState.Patrolling);
-    }
-    private void Update()
-    {
-        // Sets the player to be not detected. In the sight component.
-        // On late update it will alter this value if the player is within our view.
-        playerDetected = false;
-    }
+    private void Start() => UpdateAIState(AIState.Patrolling);
+
+    private void Update() => playerDetected = false;
+    
     private void FixedUpdate()
     {
         UpdateFieldOfViewColour();
@@ -122,28 +117,26 @@ public class AIController : MonoBehaviour
     // Updates the behaviour the AI is using.
     public void UpdateAIState(AIState stateToUpdateTo)
     {
-        Debug.Log("AIState: " + stateToUpdateTo);
         if (aiState == AIState.Unconscious) return;
         aiState = stateToUpdateTo;
         StopAICoroutines();
-        switch (aiState)
+        
+        EnemyBehaviour behaviour = aiState switch
         {
-            case AIState.Patrolling:
-                _patrolBehaviour.StartPatrolling();
-                break;
-            case AIState.Investigating:
-                _investigateBehaviour.GoInvestigatePosition(positionToInvestigate);
-                break;
-            case AIState.Chasing:
-                _detectionMeter = -_minimumChasePeriod;
-                _chaseBehaviour.StartChasing();
-                break;
-            case AIState.Unconscious:
-                _unconsciousBehaviour.LoseConsciousness();
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+            AIState.Patrolling => _patrolBehaviour,
+            AIState.Investigating => _investigateBehaviour,
+            AIState.Chasing => _chaseBehaviour,
+            AIState.Unconscious => _unconsciousBehaviour,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        //TODO: Improve this. Its garbage.
+        if(behaviour == _investigateBehaviour) 
+            behaviour.StartBehaviour(positionToInvestigate);
+        else
+            behaviour.StartBehaviour();
+        
+        if(behaviour == _chaseBehaviour) _detectionMeter = -_minimumChasePeriod;
     }
     // Updates the alertness of the AI.
     public void UpdateAIAlertness(AlertSystem.AlertnessLevel alertnessLevel)
@@ -182,16 +175,18 @@ public class AIController : MonoBehaviour
     // Updates the FOV cone colour depending on whats going on.
     private void UpdateFieldOfViewColour()
     {
-        if(playerDetected)
+        var color = aiState switch
+        {
+            AIState.Patrolling => Color.green,
+            AIState.Investigating => Color.yellow,
+            AIState.Chasing => Color.red,
+            AIState.Unconscious => Color.gray,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        _sight.SetFieldOfViewColour(color);
+        
+        if(playerDetected && !GameManager.Instance.player.transform.root.GetComponent<DisguiseAbility>().IsDisguised)
             _sight.SetFieldOfViewColour(Color.yellow);
-        else
-            _sight.SetFieldOfViewColour(Color.green);
-        if (aiState == AIState.Investigating)
-            _sight.SetFieldOfViewColour(Color.yellow);
-        if (aiState == AIState.Chasing)
-            _sight.SetFieldOfViewColour(Color.red);
-        if(aiState == AIState.Unconscious)
-            _sight.SetFieldOfViewColour(Color.gray);
     }
     
     // Checks if the tag they received is the player.
@@ -201,18 +196,18 @@ public class AIController : MonoBehaviour
     private void DetectionLogic()
     {
         if (aiState == AIState.Unconscious) return;
+        
         // If we detect the player, tick down the detection timer.
         if (playerDetected && !GameManager.Instance.player.transform.root.GetComponent<DisguiseAbility>().IsDisguised)
-        {
             _detectionMeter -= Time.fixedDeltaTime;
-        }
         // If we dont find them. bring it back up.
         else
         {
             _detectionMeter += Time.fixedDeltaTime;
-            if (_detectionMeter > _chaseStartTime)
-                _detectionMeter = _chaseStartTime;
+            if (_detectionMeter > _chaseStartTime) _detectionMeter = _chaseStartTime;
         }
+        
+        
         // If the player was in the AI's Field of view for long enough. The AI will decide to investigate whatever is going on.
         if (_chaseStartTime - _investigateStartTime > _detectionMeter && _detectionMeter > 0.1 && aiState != AIState.Investigating)
         {
@@ -256,15 +251,16 @@ public class AIController : MonoBehaviour
     {
         // Shows guards alert radius.
         Handles.color = Color.green;
-        Handles.DrawWireDisc(transform.position, Vector3.forward, lowAlertStats.alertRadius);
+        var position = transform.position;
+        Handles.DrawWireDisc(position, Vector3.forward, lowAlertStats.alertRadius);
         
         // Shows guards alert radius.
         Handles.color = Color.yellow;
-        Handles.DrawWireDisc(transform.position, Vector3.forward, medAlertStats.alertRadius);
+        Handles.DrawWireDisc(position, Vector3.forward, medAlertStats.alertRadius);
         
         // Shows guards alert radius.
         Handles.color = Color.red;
-        Handles.DrawWireDisc(transform.position, Vector3.forward, highAlertStats.alertRadius);
+        Handles.DrawWireDisc(position, Vector3.forward, highAlertStats.alertRadius);
     }
     #endif
 }

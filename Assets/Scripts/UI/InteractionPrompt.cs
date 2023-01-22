@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class InteractionPrompt : MonoBehaviour
 {
-    [Header("Component References")]
     [SerializeField] private Image progressIndicator;
 
     public void OnInteractionStart(float duration)
@@ -14,21 +13,14 @@ public class InteractionPrompt : MonoBehaviour
         IEnumerator FillIndicator()
         {
             while (progressIndicator.fillAmount < 1)
-            {
                 progressIndicator.fillAmount += Time.deltaTime / duration;
-                yield return null;
-            }
+            
             OnInteractionComplete();
+            yield return null;
         }
     }
 
-    public void OnInteractionInterrupt()
-    {
-        Destroy(gameObject);
-    }
+    public void OnInteractionInterrupt() => Destroy(gameObject);
 
-    private void OnInteractionComplete()
-    {
-        OnInteractionInterrupt();
-    }
+    private void OnInteractionComplete() => OnInteractionInterrupt();
 }

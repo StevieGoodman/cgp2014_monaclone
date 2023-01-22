@@ -11,15 +11,21 @@ public class DisguiseAbility : Ability
     [SerializeField] private float disguiseCountdown;
     public bool IsDisguised => disguiseCountdown > 0;
 
-    [SerializeField] private SpriteRenderer playerSpriteRenderer;
+    private SpriteRenderer _playerSpriteRenderer;
     [SerializeField] private Sprite disguisedSprite;
     [SerializeField] private Sprite undisguisedSprite;
 
-    public void Awake() => Reputation = PlayerPrefs.GetInt("DisguiseRep");
+    public void Awake()
+    {
+        _playerSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        
+        Reputation = PlayerPrefs.GetInt("DisguiseRep");
+    }
 
     private void Start()
     {
         _actionAsset = GetComponent<PlayerInput>().actions["Player/Disguise"];
+
         OnReputationChange();
         reputationValueAltered.AddListener(OnReputationChange);
     }
@@ -67,12 +73,12 @@ public class DisguiseAbility : Ability
 
     private IEnumerator Disguise()
     {
-        playerSpriteRenderer.sprite = disguisedSprite;
+        _playerSpriteRenderer.sprite = disguisedSprite;
         while (disguiseCountdown > 0)
         {
             yield return null;
             disguiseCountdown -= Time.deltaTime;
         }
-        playerSpriteRenderer.sprite = undisguisedSprite;
+        _playerSpriteRenderer.sprite = undisguisedSprite;
     }
 }
