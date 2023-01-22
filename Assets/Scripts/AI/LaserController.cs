@@ -59,7 +59,7 @@ public class LaserController : MonoBehaviour, Hackable
             // Have each guard investigate where the player was upon this function being called.
             var aiController = guard.collider.GetComponentInParent<AIController>();
             if (!aiController) continue;
-            aiController.UpdateAIState(AIController.AIState.Chasing);
+            aiController.UpdateAIState(AIState.State.Chasing);
         }
         if(_playerDetected)
             StartCoroutine(nameof(AlertCooldownCoroutine), _detectionCooldown);

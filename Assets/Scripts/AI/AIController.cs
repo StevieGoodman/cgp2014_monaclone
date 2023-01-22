@@ -2,46 +2,39 @@ using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using static AIState.State;
+
+public static class AIState
+{
+    public enum State
+    {
+        Patrolling,
+        Investigating,
+        Chasing,
+        Unconscious
+    }
+    
+    public static Color GetColour(this State state)
+    {
+        return state switch
+        {
+            Patrolling => Color.green,
+            Investigating => Color.yellow,
+            Chasing => Color.red,
+            Unconscious => Color.grey,
+            _ => Color.white
+        };
+    }
+}
 
 [RequireComponent(typeof(PatrolBehaviour))] [RequireComponent(typeof(InvestigateBehaviour))] [RequireComponent(typeof(ChaseBehaviour))] [RequireComponent(typeof(UnconsciousBehaviour))]
 [RequireComponent(typeof(Sight))] 
-
-// ABOUT //
-/*
- *  The AI Controller drives and determines what behaviour the entity should be in.
- *  There are four states:
- *  - Patrolling
- *  - Investigating
- *  - Chasing
- *  - Unconscious
- *
- *  Each state is driven by its own component, which works independently from the AIController.
- *
- *  Patrolling - This behaviour takes input nodes, and follows them one by one.
- *  pretty simple stuff.
- * 
- *  Investigating - If this behaviour is called, it will take whatever is in the positionToInvestigate
- *  value and will then investigate it, they first go to the position, then choose two random rotations
- *  to look in, if they do not change state in that time, they fail the investigation and return to patrolling.
- *
- *  Chasing - When chasing, the entity will constantly follow the player.
- *
- *  Unconscious - The entity is still, not doing anything.
- *
- *  In this controller, a timer called the detection meter, starts at a certain value, if the timer ticks down
- *  below a certain threshold set by the investigateStartTime value, it will switch to the investigate behaviour.
- *  other things such as a throwable can force a switch to investigation from Patrolling. If the player is within
- *  the entity's view for long enough, Chase mode activates. at that point, the player will have to stay out of the
- *  entity's view so the detection timer ticks back up back to investigation, if an investigation fails, they will
- *  return to patrolling again.
- * 
-*/
 
 public class AIController : MonoBehaviour
 {
     [Header("Runtime Values")]
     // The state that the AI is currently in.
-    public AIState aiState;
+    public AIState.State state;
     // Has a player been detected at all?
     public bool playerDetected;
     
@@ -80,13 +73,6 @@ public class AIController : MonoBehaviour
 
     // This time ticks up and down depending on player detection.
     private float _detectionMeter;
-    public enum AIState
-    {
-        Patrolling,
-        Investigating,
-        Chasing,
-        Unconscious
-    }
 
     private void Awake()
     {
@@ -105,7 +91,7 @@ public class AIController : MonoBehaviour
         UpdateAIAlertness(AlertSystem.AlertnessLevel.low);
         _detectionMeter = lowAlertStats.chaseTime;
     }
-    private void Start() => UpdateAIState(AIState.Patrolling);
+    private void Start() => UpdateAIState(Patrolling);
 
     private void Update() => playerDetected = false;
     
@@ -114,19 +100,23 @@ public class AIController : MonoBehaviour
         UpdateFieldOfViewColour();
         DetectionLogic();
     }
-    // Updates the behaviour the AI is using.
-    public void UpdateAIState(AIState stateToUpdateTo)
+    
+    /// <summary>
+    /// Updates the state the AI is currently using.
+    /// </summary>
+    /// <param name="stateToUpdateTo">What state should the AI become?</param>
+    public void UpdateAIState(AIState.State stateToUpdateTo)
     {
-        if (aiState == AIState.Unconscious) return;
-        aiState = stateToUpdateTo;
+        if (state == Unconscious) return;
+        state = stateToUpdateTo;
         StopAICoroutines();
         
-        EnemyBehaviour behaviour = aiState switch
+        EnemyBehaviour behaviour = state switch
         {
-            AIState.Patrolling => _patrolBehaviour,
-            AIState.Investigating => _investigateBehaviour,
-            AIState.Chasing => _chaseBehaviour,
-            AIState.Unconscious => _unconsciousBehaviour,
+            Patrolling => _patrolBehaviour,
+            Investigating => _investigateBehaviour,
+            Chasing => _chaseBehaviour,
+            Unconscious => _unconsciousBehaviour,
             _ => throw new ArgumentOutOfRangeException()
         };
         
@@ -175,27 +165,19 @@ public class AIController : MonoBehaviour
     // Updates the FOV cone colour depending on whats going on.
     private void UpdateFieldOfViewColour()
     {
-        var color = aiState switch
-        {
-            AIState.Patrolling => Color.green,
-            AIState.Investigating => Color.yellow,
-            AIState.Chasing => Color.red,
-            AIState.Unconscious => Color.gray,
-            _ => throw new ArgumentOutOfRangeException()
-        };
-        _sight.SetFieldOfViewColour(color);
+        _sight.SetFieldOfViewColour(state.GetColour());
         
         if(playerDetected && !GameManager.Instance.player.transform.root.GetComponent<DisguiseAbility>().IsDisguised)
             _sight.SetFieldOfViewColour(Color.yellow);
     }
-    
+
     // Checks if the tag they received is the player.
     private void PlayerDetected(string tag){ playerDetected = tag == "Player";}
 
     // Check for player presence and if so. Tick our countdown down.
     private void DetectionLogic()
     {
-        if (aiState == AIState.Unconscious) return;
+        if (state == Unconscious) return;
         
         // If we detect the player, tick down the detection timer.
         if (playerDetected && !GameManager.Instance.player.transform.root.GetComponent<DisguiseAbility>().IsDisguised)
@@ -209,17 +191,17 @@ public class AIController : MonoBehaviour
         
         
         // If the player was in the AI's Field of view for long enough. The AI will decide to investigate whatever is going on.
-        if (_chaseStartTime - _investigateStartTime > _detectionMeter && _detectionMeter > 0.1 && aiState != AIState.Investigating)
+        if (_chaseStartTime - _investigateStartTime > _detectionMeter && _detectionMeter > 0.1 && state != Investigating)
         {
             _canSendAlerts = true;
             positionToInvestigate = GameManager.Instance.GetPlayerTransform().position;
-            UpdateAIState(AIState.Investigating);
+            UpdateAIState(Investigating);
         }
         // The player has been found! Chase State Should alert people around them and have them chase too!
-        if (_detectionMeter <= 0 && aiState != AIState.Chasing)
+        if (_detectionMeter <= 0 && state != Chasing)
         {
             if(_canSendAlerts) AlertNearbyGuards();
-            UpdateAIState(AIState.Chasing);
+            UpdateAIState(Chasing);
             _canSendAlerts = false;
 
             AlertSystem.Instance.Tokens++;
@@ -236,7 +218,7 @@ public class AIController : MonoBehaviour
             var aiController = guard.collider.GetComponentInParent<AIController>();
             if (!aiController) continue;
             
-            aiController.UpdateAIState(AIState.Chasing);
+            aiController.UpdateAIState(Chasing);
         }
     }
     // Stops all AI behaviour.

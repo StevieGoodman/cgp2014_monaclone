@@ -24,7 +24,7 @@ public class Throwable : MonoBehaviour
         
         // If we find an AI Controller on the thing we collided with, knock them out.
         var AI = col.GetComponentInParent<AIController>();
-        if (AI) AI.UpdateAIState(AIController.AIState.Unconscious);
+        if (AI) AI.UpdateAIState(AIState.State.Unconscious);
 
         // Destroy this object.
         KillMe();
@@ -59,7 +59,7 @@ public class Throwable : MonoBehaviour
             // If we did find an AI controller. Set its investigation position to this object.
             // And tell the AI to go investigate it.
             AI.positionToInvestigate = transform.position;
-            AI.UpdateAIState(AIController.AIState.Investigating);
+            AI.UpdateAIState(AIState.State.Investigating);
         }
     }
 

@@ -194,26 +194,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed81e2f59de95a42a35ff47f23fe49b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainObjective:
-    GUI: {fileID: 7951264693318065769}
-    objectiveDescription: Find the golden bar
-    objectiveCompletion: Complete! Return to level start to escape!
-  LockpickObjective:
-    GUI: {fileID: 7951264692779065254}
-    objectiveDescription: The Reporter's Juicy News
-    objectiveCompletion: Complete
-  HackingObjective:
-    GUI: {fileID: 7951264692286556461}
-    objectiveDescription: The Cleaner's Dirty Laundry
-    objectiveCompletion: Complete
-  KnockoutObjective:
-    GUI: {fileID: 2217661689462502114}
-    objectiveDescription: The Gentleman's Blackmail
-    objectiveCompletion: Complete
-  DisguiseObjective:
-    GUI: {fileID: 1181338066736610068}
-    objectiveDescription: The Hacker's Incriminating Data
-    objectiveCompletion: Complete
+  mainObjective:
+    gui: {fileID: 7951264693318065769}
+    objectiveDescription: Find and collect the gold bar
+    objectiveCompletion: Complete! Get to an exit!
+  lockpickObjective:
+    gui: {fileID: 7951264692779065254}
+    objectiveDescription: The Reporter
+    objectiveCompletion: Complete! Bonus Rep Given
+  hackingObjective:
+    gui: {fileID: 7951264692286556461}
+    objectiveDescription: The Cleaner
+    objectiveCompletion: Complete! Bonus Rep Given
+  knockoutObjective:
+    gui: {fileID: 2217661689462502114}
+    objectiveDescription: The Hacker
+    objectiveCompletion: Complete! Bonus Rep Given
+  disguiseObjective:
+    gui: {fileID: 1181338066736610068}
+    objectiveDescription: The Gentleman
+    objectiveCompletion: Complete! Bonus Rep Given
 --- !u!114 &2357119501094998467
 MonoBehaviour:
   m_ObjectHideFlags: 0

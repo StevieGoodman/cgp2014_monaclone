@@ -57,7 +57,7 @@ public class InvestigateBehaviour : EnemyBehaviour
         _lookAround = false;
         
         if(_aiController)
-            _aiController.UpdateAIState(AIController.AIState.Patrolling);
+            _aiController.UpdateAIState(AIState.State.Patrolling);
         
         onInvestigationEnd?.Invoke();
         StopAllCoroutines(); 
@@ -67,7 +67,7 @@ public class InvestigateBehaviour : EnemyBehaviour
     private IEnumerator ForcefullyFailInvestigation()
     {
         yield return new WaitForSeconds(10);
-        if(_aiController) _aiController.UpdateAIState(AIController.AIState.Patrolling);
+        if(_aiController) _aiController.UpdateAIState(AIState.State.Patrolling);
     }
 
     public override void StopBehaviour()

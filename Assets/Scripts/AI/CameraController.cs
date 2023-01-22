@@ -133,7 +133,7 @@ public class CameraController : MonoBehaviour, Hackable
             var aiController = guard.collider.GetComponentInParent<AIController>();
             if (!aiController) continue;
 
-            aiController.UpdateAIState(AIController.AIState.Chasing);
+            aiController.UpdateAIState(global::AIState.State.Chasing);
         }
     }
     // Checks if the tag they received is the player.

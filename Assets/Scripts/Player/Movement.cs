@@ -1,14 +1,12 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
     // How fast can the player move?
-    public float movementSpeed;
+    public float movementSpeed = 25f;
     
     // PRIVATE VARIABLES
-    private PlayerInput _playerInput;
     private Vector2 _movementInput;
     private Vector2 _mousePosition;
     private Rigidbody2D _rb2d;
@@ -16,21 +14,14 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
-        _playerInput = GetComponent<PlayerInput>();
         _rb2d = GetComponentInChildren<Rigidbody2D>();
         _entityTransform = _rb2d.transform;
     }
 
-    public void UpdateMousePosition(InputAction.CallbackContext context)
-    {
-        _mousePosition = context.ReadValue<Vector2>();
-    }
-    
-    public void UpdateMovementInput(InputAction.CallbackContext context)
-    {
-        _movementInput = context.ReadValue<Vector2>();
-    }
-    
+    public void UpdateMousePosition(InputAction.CallbackContext context) => _mousePosition = context.ReadValue<Vector2>();
+
+    public void UpdateMovementInput(InputAction.CallbackContext context) => _movementInput = context.ReadValue<Vector2>();
+
     // Since we are using a rigidbody to move the player. We want to make sure that movements are done consistently via FixedUpdate
     private void FixedUpdate()
     {

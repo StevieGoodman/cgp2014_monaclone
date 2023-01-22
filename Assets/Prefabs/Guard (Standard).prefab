@@ -218,7 +218,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!1 &3685222798986465158
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a1b47c5645b850478030bddf3ff9227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerCatchDistance: 0.75
 --- !u!114 &3685222798986465155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +349,7 @@ MonoBehaviour:
   seenTag:
     m_PersistentCalls:
       m_Calls: []
+  _entityBody: {fileID: 0}
 --- !u!114 &8192851772097129381
 MonoBehaviour:
   m_ObjectHideFlags: 0
