@@ -12,6 +12,7 @@ public class Interaction : MonoBehaviour
     
     public void Begin(Vector3 position, float duration)
     {
+        Debug.Log("HellO!");
         GameObject prompt = Instantiate(interactionPromptAsset, position, quaternion.identity);
         prompt.GetComponent<InteractionPrompt>()?.OnInteractionStart(duration);
         interactionPrompt = prompt.GetComponent<InteractionPrompt>();
@@ -19,8 +20,10 @@ public class Interaction : MonoBehaviour
 
     public void Begin(GameObject parent, float duration)
     {
+
         GameObject prompt = Instantiate(interactionPromptAsset, parent.transform.position, quaternion.identity, parent.transform);
         prompt.GetComponent<InteractionPrompt>()?.OnInteractionStart(duration);
+        Debug.Log(prompt);
         interactionPrompt = prompt.GetComponent<InteractionPrompt>();
     }
 }

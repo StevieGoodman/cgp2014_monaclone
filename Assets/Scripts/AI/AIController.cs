@@ -2,11 +2,12 @@ using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
-using static AIState.State;
+using UnityEngine.Serialization;
+using static EnemyState.BehaviourState;
 
-public static class AIState
+public static class EnemyState
 {
-    public enum State
+    public enum BehaviourState
     {
         Patrolling,
         Investigating,
@@ -14,9 +15,9 @@ public static class AIState
         Unconscious
     }
     
-    public static Color GetColour(this State state)
+    public static Color GetColour(this BehaviourState behaviourState)
     {
-        return state switch
+        return behaviourState switch
         {
             Patrolling => Color.green,
             Investigating => Color.yellow,
@@ -32,12 +33,12 @@ public static class AIState
 
 public class AIController : MonoBehaviour
 {
-    [Header("Runtime Values")]
+    [FormerlySerializedAs("state")] [Header("Runtime Values")]
     // The state that the AI is currently in.
-    public AIState.State state;
+    public EnemyState.BehaviourState behaviourState;
     // Has a player been detected at all?
-    public bool playerDetected;
-    
+    [FormerlySerializedAs("playerDetected")] public bool targetDetected;
+
     // The layer that guards are on. Should be BehindDarkness.
     public LayerMask guardLayer;
     
@@ -65,14 +66,23 @@ public class AIController : MonoBehaviour
     //How long does the player have to be within this AI's view to make them chase.
     private float _chaseStartTime;
 
-    // The radius at which guards can alert eachother.
+    // The radius at which guards can alert each other.
     private float _alertRadius;
 
     // How long should the ai be forced to chase for?
     private float _minimumChasePeriod;
 
     // This time ticks up and down depending on player detection.
-    private float _detectionMeter;
+    [SerializeField]private float _detectionMeter;
+
+    private float DetectionMeter
+    {
+        get => _detectionMeter;
+
+        set => _detectionMeter = Mathf.Clamp(value, 0, _chaseStartTime + _minimumChasePeriod);
+    }
+
+    private const string TargetTag = "Player";
 
     private void Awake()
     {
@@ -85,33 +95,31 @@ public class AIController : MonoBehaviour
         _unconsciousBehaviour = GetComponent<UnconsciousBehaviour>();
         
         _sight = GetComponent<Sight>();
-        _sight.seenTag.AddListener(PlayerDetected);
+        _sight.seenObject.AddListener(CheckForTarget);
         
         // Forces AI into low alert state.
         UpdateAIAlertness(AlertSystem.AlertnessLevel.low);
-        _detectionMeter = lowAlertStats.chaseTime;
     }
     private void Start() => UpdateAIState(Patrolling);
 
-    private void Update() => playerDetected = false;
+    private void Update() => targetDetected = false;
     
-    private void FixedUpdate()
-    {
-        UpdateFieldOfViewColour();
-        DetectionLogic();
-    }
-    
+    private void FixedUpdate() =>DetectionLogic();
+
+    private void LateUpdate(){ if(!targetDetected) ReduceDetectionMeter();}
+
     /// <summary>
     /// Updates the state the AI is currently using.
     /// </summary>
-    /// <param name="stateToUpdateTo">What state should the AI become?</param>
-    public void UpdateAIState(AIState.State stateToUpdateTo)
+    /// <param name="behaviourStateToUpdateTo">What state should the AI become?</param>
+    public void UpdateAIState(EnemyState.BehaviourState behaviourStateToUpdateTo)
     {
-        if (state == Unconscious) return;
-        state = stateToUpdateTo;
+        if (behaviourState == Unconscious) return;
+        behaviourState = behaviourStateToUpdateTo;
+        UpdateFieldOfViewColour();
         StopAICoroutines();
         
-        EnemyBehaviour behaviour = state switch
+        EnemyBehaviour behaviour = behaviourState switch
         {
             Patrolling => _patrolBehaviour,
             Investigating => _investigateBehaviour,
@@ -119,14 +127,13 @@ public class AIController : MonoBehaviour
             Unconscious => _unconsciousBehaviour,
             _ => throw new ArgumentOutOfRangeException()
         };
-        
-        //TODO: Improve this. Its garbage.
+
         if(behaviour == _investigateBehaviour) 
             behaviour.StartBehaviour(positionToInvestigate);
         else
             behaviour.StartBehaviour();
         
-        if(behaviour == _chaseBehaviour) _detectionMeter = -_minimumChasePeriod;
+        if(behaviour == _chaseBehaviour) DetectionMeter = _chaseStartTime + _minimumChasePeriod;
     }
     // Updates the alertness of the AI.
     public void UpdateAIAlertness(AlertSystem.AlertnessLevel alertnessLevel)
@@ -165,40 +172,49 @@ public class AIController : MonoBehaviour
     // Updates the FOV cone colour depending on whats going on.
     private void UpdateFieldOfViewColour()
     {
-        _sight.SetFieldOfViewColour(state.GetColour());
+        _sight.SetFieldOfViewColour(behaviourState.GetColour());
         
-        if(playerDetected && !GameManager.Instance.player.transform.root.GetComponent<DisguiseAbility>().IsDisguised && state != Unconscious)
+        if(targetDetected && !GameManager.Instance.player.transform.root.GetComponent<DisguiseAbility>().IsDisguised && behaviourState != Unconscious && behaviourState != Chasing)
             _sight.SetFieldOfViewColour(Color.yellow);
     }
 
     // Checks if the tag they received is the player.
-    private void PlayerDetected(string tag){ playerDetected = tag == "Player";}
+    private void CheckForTarget(GameObject obj)
+    {
+        targetDetected = obj.CompareTag(TargetTag);
+        
+        if (!targetDetected) return;
+        if (behaviourState == Unconscious) return;
+        IncreaseDetectionMeter(obj);
+        UpdateFieldOfViewColour();
+    }
+
+    private void IncreaseDetectionMeter(GameObject obj)
+    {
+        if (obj.transform.root.TryGetComponent<DisguiseAbility>(out var disguiseAbility))
+        {
+            if(!disguiseAbility.IsDisguised)
+                DetectionMeter += Time.deltaTime;
+        }
+        else
+            DetectionMeter += Time.deltaTime;
+    }
+
+    private void ReduceDetectionMeter() => DetectionMeter -= Time.deltaTime;
 
     // Check for player presence and if so. Tick our countdown down.
     private void DetectionLogic()
     {
-        if (state == Unconscious) return;
-        
-        // If we detect the player, tick down the detection timer.
-        if (playerDetected && !GameManager.Instance.player.transform.root.GetComponent<DisguiseAbility>().IsDisguised)
-            _detectionMeter -= Time.fixedDeltaTime;
-        // If we dont find them. bring it back up.
-        else
-        {
-            _detectionMeter += Time.fixedDeltaTime;
-            if (_detectionMeter > _chaseStartTime) _detectionMeter = _chaseStartTime;
-        }
-        
-        
+        if (behaviourState == Unconscious) return;
         // If the player was in the AI's Field of view for long enough. The AI will decide to investigate whatever is going on.
-        if (_chaseStartTime - _investigateStartTime > _detectionMeter && _detectionMeter > 0.1 && state != Investigating)
+        if (_investigateStartTime < DetectionMeter && DetectionMeter < _chaseStartTime - 0.1 && behaviourState != Investigating)
         {
             _canSendAlerts = true;
             positionToInvestigate = GameManager.Instance.GetPlayerTransform().position;
             UpdateAIState(Investigating);
         }
         // The player has been found! Chase State Should alert people around them and have them chase too!
-        if (_detectionMeter <= 0 && state != Chasing)
+        if (DetectionMeter >= _chaseStartTime && behaviourState != Chasing)
         {
             if(_canSendAlerts) AlertNearbyGuards();
             UpdateAIState(Chasing);
@@ -211,7 +227,8 @@ public class AIController : MonoBehaviour
     private void AlertNearbyGuards()
     {
         _canSendAlerts = false;
-        RaycastHit2D[] guards = Physics2D.CircleCastAll(_entityBody.position, _alertRadius, Vector2.up, _alertRadius, guardLayer);
+        
+        var guards = Physics2D.CircleCastAll(_entityBody.position, _alertRadius, Vector2.up, _alertRadius, guardLayer);
         foreach (var guard in guards)
         {
             // Have each guard investigate where the player was upon this function being called.
@@ -228,6 +245,7 @@ public class AIController : MonoBehaviour
         _investigateBehaviour.StopBehaviour();
         _chaseBehaviour.StopBehaviour();
     }
+    
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {

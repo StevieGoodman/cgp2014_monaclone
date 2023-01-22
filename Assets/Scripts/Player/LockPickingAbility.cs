@@ -47,7 +47,8 @@ public class LockPickingAbility : Ability
         {
             AbilityLevel.Negative => toUnlock.unlockTime + negativePickTime,
             AbilityLevel.Neutral => toUnlock.unlockTime + neutralPickTime,
-            AbilityLevel.Positive => toUnlock.unlockTime + positivePickTime
+            AbilityLevel.Positive => toUnlock.unlockTime + positivePickTime,
+            _ => throw new ArgumentOutOfRangeException()
         };
         StartCoroutine(Unlock(toUnlock, unlockSeconds));
         GetComponent<Interaction>().Begin(

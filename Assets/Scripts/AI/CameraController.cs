@@ -47,7 +47,7 @@ public class CameraController : MonoBehaviour, Hackable
         _entityBody = GetComponentInChildren<Rigidbody2D>();
         _unconsciousBehaviour = GetComponent<UnconsciousBehaviour>();
         _sight = GetComponent<Sight>();
-        _sight.seenTag.AddListener(PlayerDetected);
+        _sight.seenObject.AddListener(PlayerDetected);
     }
     private void Start()
     {
@@ -133,16 +133,13 @@ public class CameraController : MonoBehaviour, Hackable
             var aiController = guard.collider.GetComponentInParent<AIController>();
             if (!aiController) continue;
 
-            aiController.UpdateAIState(global::AIState.State.Chasing);
+            aiController.UpdateAIState(global::EnemyState.BehaviourState.Chasing);
         }
     }
     // Checks if the tag they received is the player.
-    private void PlayerDetected(string tag){ _playerDetected = tag == "Player";}
+    private void PlayerDetected(GameObject obj){ _playerDetected = obj.CompareTag("Player");}
     
-    private void StopAICoroutines()
-    {
-        _patrolBehaviour.StopAllCoroutines();
-    }
+    private void StopAICoroutines() => _patrolBehaviour.StopAllCoroutines();
 
     public void Hack(float timeInSeconds)
     {

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class Sight : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class Sight : MonoBehaviour
     public Material sightMaterial;
     
     // Event that tells other components if this sight component saw something thats tagged.
-    public UnityEvent<string> seenTag;
+    public UnityEvent<GameObject> seenObject;
 
     
     // Private Variables.
@@ -61,7 +62,7 @@ public class Sight : MonoBehaviour
 
     private void LateUpdate()
     {
-        List<string> tags = new List<string>();
+        List<GameObject> objects = new List<GameObject>();
         Vector3 offsetPos = transform.position;
         float angle = _startingAngle;
         float angleIncrement = fieldOfView / rayCount;
@@ -92,11 +93,11 @@ public class Sight : MonoBehaviour
                 
                 if (!rcHit2D.collider.CompareTag("Untagged"))
                 {
-                    if(tags.Count == 0)
-                        tags.Add(rcHit2D.collider.tag);
+                    if(objects.Count == 0)
+                        objects.Add(rcHit2D.collider.gameObject);
                     // If we saw an object with a tag of interest. 
-                    foreach (var item in tags.Where(item => !tags.Contains(rcHit2D.collider.tag)))
-                        tags.Add(item);
+                    foreach (var item in objects.Where(item => !objects.Contains(rcHit2D.collider.gameObject)))
+                        objects.Add(item);
                 }
             }
             vertices[vertexIndex] = vertex;
@@ -116,7 +117,7 @@ public class Sight : MonoBehaviour
         _mesh.triangles = triangles;
         _mesh.RecalculateBounds();
 
-        foreach (var item in tags) {seenTag?.Invoke(item);}
+        foreach (var item in objects) {seenObject?.Invoke(item);}
     }
     // Set the origin point for when we perform raycasts for the FOV mesh
     private void SetOrigin(Vector3 ori) => _origin = ori;
