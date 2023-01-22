@@ -167,7 +167,7 @@ public class AIController : MonoBehaviour
     {
         _sight.SetFieldOfViewColour(state.GetColour());
         
-        if(playerDetected && !GameManager.Instance.player.transform.root.GetComponent<DisguiseAbility>().IsDisguised)
+        if(playerDetected && !GameManager.Instance.player.transform.root.GetComponent<DisguiseAbility>().IsDisguised && state != Unconscious)
             _sight.SetFieldOfViewColour(Color.yellow);
     }
 
