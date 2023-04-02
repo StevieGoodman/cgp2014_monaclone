@@ -9,12 +9,13 @@ public class InteractionPrompt : MonoBehaviour
     public void OnInteractionStart(float duration)
     {
         StartCoroutine(FillIndicator());
-
         IEnumerator FillIndicator()
         {
             while (progressIndicator.fillAmount < 1)
+            {
                 progressIndicator.fillAmount += Time.deltaTime / duration;
-            
+                yield return new WaitForEndOfFrame();
+            }
             OnInteractionComplete();
             yield return null;
         }
